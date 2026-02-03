@@ -1,0 +1,536 @@
+[
+  {
+    "id": "势太史慈",
+    "name": "势太史慈",
+    "hpMax": 4,
+    "hp": 4,
+    "skills": [
+      "酣战",
+      "战烈",
+      "振锋"
+    ],
+    "portrait": "https://patchwiki.biligame.com/images/msgs/9/93/fvf5tctjeasnvia4vk6xvo9nv03q3ws.png"
+  },
+  {
+    "id": "界沮授",
+    "name": "界沮授",
+    "hpMax": 2,
+    "hp": 2,
+    "skills": [
+      "渐营",
+      "矢北"
+    ],
+    "portrait": "https://patchwiki.biligame.com/images/msgs/e/e2/qczu6lg53qzdilwgz6xjxip035gyias.jpg"
+  },
+  {
+    "id": "友诸葛亮",
+    "name": "友诸葛亮",
+    "hpMax": 3,
+    "hp": 3,
+    "skills": [
+      "演策",
+      "方遒",
+      "共砺"
+    ],
+    "portrait": "https://patchwiki.biligame.com/images/msgs/7/75/aw8s9in7ap79ekxt9xlvac828hgdo0e.jpg"
+  },
+  {
+    "id": "友徐庶",
+    "name": "友徐庶",
+    "hpMax": 3,
+    "hp": 3,
+    "skills": [
+      "侠行",
+      "启诲",
+      "共砺"
+    ],
+    "portrait": "https://patchwiki.biligame.com/images/msgs/c/ca/nd4xs2s807mjabl027piif19m358vud.jpg"
+  },
+  {
+    "id": "势魏延",
+    "name": "势魏延",
+    "hpMax": 4,
+    "hp": 4,
+    "skills": [
+      "壮誓",
+      "饮战",
+      "忠傲"
+    ],
+    "portrait": "https://patchwiki.biligame.com/images/msgs/9/95/pktmnfywnwm0d1j38k4dahryj31zxuu.jpg"
+  },
+  {
+    "id": "神鲁肃",
+    "name": "神鲁肃",
+    "hpMax": 3,
+    "hp": 3,
+    "skills": [
+      "榻谟",
+      "定州",
+      "智盟"
+    ],
+    "portrait": "https://patchwiki.biligame.com/images/msgs/5/5d/6sgunbux1peb3l22mqfmjjg0iehel1b.png"
+  },
+  {
+    "id": "谋曹操",
+    "name": "谋曹操",
+    "hpMax": 4,
+    "hp": 4,
+    "skills": [
+      "奸雄",
+      "清正",
+      "护驾"
+    ],
+    "portrait": "https://patchwiki.biligame.com/images/msgs/7/7c/jv8515eiy996rvj5lizgx3mdbd5k4fg.jpg"
+  },
+  {
+    "id": "张让",
+    "name": "张让",
+    "hpMax": 3,
+    "hp": 3,
+    "skills": [
+      "滔乱"
+    ],
+    "portrait": "https://patchwiki.biligame.com/images/msgs/f/f3/ahdv2n590w6j6uf0yc3gsrfyczwcvox.jpg"
+  },
+  {
+    "id": "祢衡",
+    "name": "祢衡",
+    "hpMax": 3,
+    "hp": 3,
+    "skills": [
+      "狂才",
+      "舌剑"
+    ],
+    "portrait": "https://patchwiki.biligame.com/images/msgs/b/bd/nke800b7ck66ycr9kyv7aq0qu1vy54i.jpg"
+  },
+  {
+    "id": "马钧",
+    "name": "马钧",
+    "hpMax": 3,
+    "hp": 3,
+    "skills": [
+      "精械",
+      "巧思"
+    ],
+    "portrait": "https://patchwiki.biligame.com/images/msgs/1/13/ct69vwoqrqz98fu2ge9ng0ui3504wat.jpg"
+  },
+  {
+    "id": "神甘宁",
+    "name": "神甘宁",
+    "hpMax": 3,
+    "hp": 3,
+    "skills": [
+      "魄袭",
+      "劫营"
+    ],
+    "portrait": "https://patchwiki.biligame.com/images/msgs/9/93/2cgxytq6nj5o88c8qvoa1kkx2ihp1sj.jpg"
+  },
+  {
+    "id": "神陆逊",
+    "name": "神陆逊",
+    "hpMax": 4,
+    "hp": 4,
+    "skills": [
+      "军略",
+      "摧克",
+      "绽火"
+    ],
+    "portrait": "https://patchwiki.biligame.com/images/msgs/0/0e/2b7tdgyhvgwujxd23e1qutl94pzufxh.jpg"
+  },
+  {
+    "id": "徐荣",
+    "name": "徐荣",
+    "hpMax": 4,
+    "hp": 4,
+    "skills": [
+      "凶镬",
+      "杀绝"
+    ],
+    "portrait": "https://patchwiki.biligame.com/images/msgs/5/5f/rpn9oc1ez90xefp3145pqki338r4q0u.jpg"
+  },
+  {
+    "id": "界钟会",
+    "name": "界钟会",
+    "hpMax": 4,
+    "hp": 4,
+    "skills": [
+      "权计",
+      "自立",
+      "排异"
+    ],
+    "portrait": "https://patchwiki.biligame.com/images/msgs/d/d1/0jaylgolfqrx1luvv8ktva3lygeq0qo.jpg"
+  },
+  {
+    "id": "杨彪",
+    "name": "杨彪",
+    "hpMax": 3,
+    "hp": 3,
+    "skills": [
+      "昭汉",
+      "让节",
+      "义争"
+    ],
+    "portrait": "https://patchwiki.biligame.com/images/msgs/8/80/s3mzrk4ue5sghpvegxg4y7agya58zcm.jpg"
+  },
+  {
+    "id": "界徐盛",
+    "name": "界徐盛",
+    "hpMax": 4,
+    "hp": 4,
+    "skills": [
+      "破军"
+    ],
+    "portrait": "https://patchwiki.biligame.com/images/msgs/1/12/m8k60xfu2uhhwdo3rcw1zag4t8la5sr.jpg"
+  },
+  {
+    "id": "文鸯",
+    "name": "文鸯",
+    "hpMax": 4,
+    "hp": 4,
+    "skills": [
+      "却敌",
+      "仇决",
+      "椎锋",
+      "冲坚"
+    ],
+    "portrait": "https://patchwiki.biligame.com/images/msgs/e/e8/qw0tay85anr4jw9llkjhv25k84k8idn.jpg"
+  },
+  {
+    "id": "曹髦",
+    "name": "曹髦",
+    "hpMax": 3,
+    "hp": 3,
+    "skills": [
+      "潜龙",
+      "卫统"
+    ],
+    "portrait": "https://patchwiki.biligame.com/images/msgs/e/e6/rtc56kqhijqtez5sd0jkyxle3yayvtf.png"
+  },
+  {
+    "id": "十常侍",
+    "name": "十常侍",
+    "hpMax": 1,
+    "hp": 1,
+    "skills": [
+      "党锢",
+      "殁亡"
+    ],
+    "portrait": "https://patchwiki.biligame.com/images/msgs/d/d2/l14t4ux5pmuu7ziwqj8oweujrxkpfgi.jpg"
+  },
+  {
+    "id": "谋黄盖",
+    "name": "谋黄盖",
+    "hpMax": 4,
+    "hp": 4,
+    "skills": [
+      "苦肉",
+      "诈降"
+    ],
+    "portrait": "https://patchwiki.biligame.com/images/msgs/4/41/6l1bb1gkz9djyriz9i3fhidk6f7zp4x.jpg"
+  },
+  {
+    "id": "神郭嘉",
+    "name": "神郭嘉",
+    "hpMax": 3,
+    "hp": 3,
+    "skills": [
+      "慧识",
+      "辉逝",
+      "天翊"
+    ],
+    "portrait": "https://patchwiki.biligame.com/images/msgs/2/2b/5kcux1rjdq5qtr5r8n9ehkl9gaxn2zc.jpg"
+  },
+  {
+    "id": "界虞翻",
+    "name": "界虞翻",
+    "hpMax": 3,
+    "hp": 3,
+    "skills": [
+      "纵玄",
+      "直言"
+    ],
+    "portrait": "https://patchwiki.biligame.com/images/msgs/1/15/04k6pji85rh63ir8rrbxglma753awy3.jpg"
+  },
+  {
+    "id": "势夏侯尚",
+    "name": "势夏侯尚",
+    "hpMax": 4,
+    "hp": 4,
+    "skills": [
+      "探锋"
+    ],
+    "portrait": "https://patchwiki.biligame.com/images/msgs/9/9e/2x55t52h7yg64kqj5hn01y6z0dci05e.png"
+  },
+  {
+    "id": "势陆郁生",
+    "name": "势陆郁生",
+    "hpMax": 3,
+    "hp": 3,
+    "skills": [
+      "润微",
+      "霜怀"
+    ],
+    "portrait": "https://patchwiki.biligame.com/images/msgs/b/b1/7nzgn75xep5m31o8ehy5v5csuz0k7d3.jpg"
+  },
+  {
+    "id": "傅佥",
+    "name": "傅佥",
+    "hpMax": 4,
+    "hp": 4,
+    "skills": [
+      "破降",
+      "绝勇"
+    ],
+    "portrait": "https://patchwiki.biligame.com/images/msgs/d/d4/dci8smjslevbbi0ulto8ee5lvq9bhc4.jpg"
+  },
+  {
+    "id": "势董昭",
+    "name": "势董昭",
+    "hpMax": 3,
+    "hp": 3,
+    "skills": [
+      "妙略",
+      "迎驾"
+    ],
+    "portrait": "https://patchwiki.biligame.com/images/msgs/e/e0/3fso05yf3rhw7jaeo71v6b1bvs3sqco.jpg"
+  },
+  {
+    "id": "谋诸葛亮",
+    "name": "谋诸葛亮",
+    "hpMax": 3,
+    "hp": 3,
+    "skills": [
+      "火计",
+      "看破"
+    ],
+    "portrait": "https://patchwiki.biligame.com/images/msgs/8/88/1ctc7hyuts1ujur4qqqzwmgfnbv6qc9.png"
+  },
+  {
+    "id": "秦宓",
+    "name": "秦宓",
+    "hpMax": 3,
+    "hp": 3,
+    "skills": [
+      "天辩",
+      "谏征",
+      "专对"
+    ],
+    "portrait": "https://patchwiki.biligame.com/images/msgs/b/b5/0nsungczqrpbhdlvjzeclj280b8d2uk.jpg"
+  },
+  {
+    "id": "严白虎",
+    "name": "严白虎",
+    "hpMax": 4,
+    "hp": 4,
+    "skills": [
+      "雉盗",
+      "寄篱"
+    ],
+    "portrait": "https://patchwiki.biligame.com/images/msgs/c/c2/itcua755fyyl52yrrsxn3gv3ojtqa3y.jpg"
+  },
+  {
+    "id": "张济",
+    "name": "张济",
+    "hpMax": 4,
+    "hp": 4,
+    "skills": [
+      "掠命",
+      "屯军"
+    ],
+    "portrait": "https://patchwiki.biligame.com/images/msgs/f/f6/f6tj2c96qo0kr1hpax7vr2ztmeo72ax.jpg"
+  },
+  {
+    "id": "界祝融",
+    "name": "界祝融",
+    "hpMax": 4,
+    "hp": 4,
+    "skills": [
+      "巨象",
+      "烈刃",
+      "蛮裔"
+    ],
+    "portrait": "https://patchwiki.biligame.com/images/msgs/6/6a/9xc63f63mca2xxi26955vzsq172xn0c.jpg"
+  },
+  {
+    "id": "孙寒华",
+    "name": "孙寒华",
+    "hpMax": 3,
+    "hp": 3,
+    "skills": [
+      "冲虚",
+      "妙剑",
+      "莲华"
+    ],
+    "portrait": "https://patchwiki.biligame.com/images/msgs/b/b6/e9u6beaohmphef098wz3ey5q0ybwdh9.jpg"
+  },
+  {
+    "id": "马良",
+    "name": "马良",
+    "hpMax": 3,
+    "hp": 3,
+    "skills": [
+      "协穆",
+      "纳蛮",
+      "自书",
+      "应援"
+    ],
+    "portrait": "https://patchwiki.biligame.com/images/msgs/8/8a/1pmauycb9hsyd6q15h3o0m8xadsadxf.jpg"
+  },
+  {
+    "id": "曹昂",
+    "name": "曹昂",
+    "hpMax": 4,
+    "hp": 4,
+    "skills": [
+      "慷忾"
+    ],
+    "portrait": "https://patchwiki.biligame.com/images/msgs/f/fd/s31lr88kr89iu5oeora8xg869edwzjn.jpg"
+  },
+  {
+    "id": "界关羽",
+    "name": "界关羽",
+    "hpMax": 4,
+    "hp": 4,
+    "skills": [
+      "武圣",
+      "义绝"
+    ],
+    "portrait": "https://patchwiki.biligame.com/images/msgs/a/aa/9mrvq482lzn81b4w1u4rfz8mdl8w88n.jpg"
+  },
+  {
+    "id": "界吕布",
+    "name": "界吕布",
+    "hpMax": 5,
+    "hp": 5,
+    "skills": [
+      "无双",
+      "利驭"
+    ],
+    "portrait": "https://patchwiki.biligame.com/images/msgs/d/d2/i9j8or08pj8bz26w4lhgnceledwcks0.jpg"
+  },
+  {
+    "id": "界孙权",
+    "name": "界孙权",
+    "hpMax": 4,
+    "hp": 4,
+    "skills": [
+      "制衡",
+      "救援"
+    ],
+    "portrait": "https://patchwiki.biligame.com/images/msgs/b/b1/mx0ximvynj3hhf6mkv5kqaniy2i5o0b.jpg"
+  },
+  {
+    "id": "界于禁",
+    "name": "界于禁",
+    "hpMax": 4,
+    "hp": 4,
+    "skills": [
+      "节钺"
+    ],
+    "portrait": "https://patchwiki.biligame.com/images/msgs/d/d3/d4ldzsw79glkl9jkz5c8upqk0wlm65v.jpg"
+  },
+  {
+    "id": "戏志才",
+    "name": "戏志才",
+    "hpMax": 3,
+    "hp": 3,
+    "skills": [
+      "天妒",
+      "先辅",
+      "筹策"
+    ],
+    "portrait": "https://patchwiki.biligame.com/images/msgs/7/77/5966d1d67jopju0jnum939u0sfit36x.jpg"
+  },
+  {
+    "id": "蔡文姬",
+    "name": "蔡文姬",
+    "hpMax": 3,
+    "hp": 3,
+    "skills": [
+      "悲歌",
+      "断肠"
+    ],
+    "portrait": "https://patchwiki.biligame.com/images/msgs/7/73/symi3c4gp8rg9lkgausm0wrp3b31wtb.jpg"
+  },
+  {
+    "id": "神太史慈",
+    "name": "神太史慈",
+    "hpMax": 4,
+    "hp": 4,
+    "skills": [
+      "荡魔",
+      "笃烈",
+      "破围"
+    ],
+    "portrait": "https://patchwiki.biligame.com/images/msgs/9/92/kgistp98bhxaup4x7dembsi0bl0v8uz.jpg"
+  },
+  {
+    "id": "神华佗",
+    "name": "神华佗",
+    "hpMax": 3,
+    "hp": 3,
+    "skills": [
+      "五灵",
+      "游医"
+    ],
+    "portrait": "https://patchwiki.biligame.com/images/msgs/2/27/7c6x1te2mg9hbzusuxf8dwcn1mk8fgh.png"
+  },
+  {
+    "id": "神诸葛亮",
+    "name": "神诸葛亮",
+    "hpMax": 3,
+    "hp": 3,
+    "skills": [
+      "七星",
+      "狂风",
+      "大雾"
+    ],
+    "portrait": "https://patchwiki.biligame.com/images/msgs/a/ac/t4ysy3zhqmapu9bmybtc3s8yjqsaqmo.jpg"
+  },
+  {
+    "id": "神曹操",
+    "name": "神曹操",
+    "hpMax": 3,
+    "hp": 3,
+    "skills": [
+      "归心",
+      "飞影"
+    ],
+    "portrait": "https://patchwiki.biligame.com/images/msgs/d/de/570k6hqw9b6c41ua1r3m0652c8krt6z.jpg"
+  },
+  {
+    "id": "神赵云",
+    "name": "神赵云",
+    "hpMax": 2,
+    "hp": 2,
+    "skills": [
+      "绝境",
+      "龙魂"
+    ],
+    "portrait": "https://patchwiki.biligame.com/images/msgs/4/41/7b5nb45x5lajnzsuxp42ykkmg1w47oy.jpg"
+  },
+  {
+    "id": "神吕布",
+    "name": "神吕布",
+    "hpMax": 5,
+    "hp": 5,
+    "skills": [
+      "狂暴",
+      "无谋",
+      "无前",
+      "神愤"
+    ],
+    "portrait": "https://patchwiki.biligame.com/images/msgs/7/7a/kr1dk7zu0s5evig9ctdg7gkmn5px9fm.jpg"
+  },
+  {
+    "id": "神张辽",
+    "name": "神张辽",
+    "hpMax": 4,
+    "hp": 4,
+    "skills": [
+      "夺锐",
+      "止啼"
+    ],
+    "portrait": "https://patchwiki.biligame.com/images/msgs/f/f6/g09alk99hpu3q5v7g1ejxxfdeagkcp6.jpg"
+  }
+]

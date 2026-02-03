@@ -1,0 +1,198 @@
+import { Card } from './card'
+
+const basic = (name: string, suit: Card['suit'], rank: number) =>
+  new Card({ name, suit, rank, type: 'basic' })
+
+const trick = (name: string, suit: Card['suit'], rank: number) =>
+  new Card({ name, suit, rank, type: 'trick' })
+
+const equipment = (name: string, suit: Card['suit'], rank: number) =>
+  new Card({ name, suit, rank, type: 'equipment' })
+
+export const INITIAL_DECK: ReadonlyArray<Card> = Object.freeze([
+  // A
+  trick('【决斗】', 'spade', 1),
+  trick('【闪电】', 'spade', 1),
+  equipment('【古锭刀】', 'spade', 1),
+  trick('【万箭齐发】', 'heart', 1),
+  trick('【桃园结义】', 'heart', 1),
+  trick('普【无懈可击】', 'heart', 1),
+  trick('【决斗】', 'club', 1),
+  equipment('【诸葛连弩】', 'club', 1),
+  equipment('【白银狮子】', 'club', 1),
+  trick('【决斗】', 'diamond', 1),
+  equipment('【诸葛连弩】', 'diamond', 1),
+  equipment('【朱雀羽扇】', 'diamond', 1),
+
+  // 2
+  equipment('【雌雄双股剑】', 'spade', 2),
+  equipment('【八卦阵】', 'spade', 2),
+  equipment('【藤甲】', 'spade', 2),
+  equipment('【寒冰剑】（改）', 'spade', 2),
+  basic('【闪】', 'heart', 2),
+  basic('【闪】', 'heart', 2),
+  trick('【火攻】', 'heart', 2),
+  basic('普【杀】', 'club', 2),
+  equipment('【八卦阵】', 'club', 2),
+  equipment('【藤甲】', 'club', 2),
+  equipment('【仁王盾】', 'club', 2),
+  basic('【闪】', 'diamond', 2),
+  basic('【闪】', 'diamond', 2),
+  basic('【桃】', 'diamond', 2),
+
+  // 3
+  basic('【酒】', 'spade', 3),
+  trick('【过河拆桥】', 'spade', 3),
+  trick('【顺手牵羊】', 'spade', 3),
+  basic('【桃】', 'heart', 3),
+  trick('【五谷丰登】', 'heart', 3),
+  basic('火【杀】（改）', 'heart', 3),
+  basic('普【杀】', 'club', 3),
+  basic('【酒】', 'club', 3),
+  trick('【过河拆桥】', 'club', 3),
+  basic('【闪】', 'diamond', 3),
+  basic('【桃】', 'diamond', 3),
+  trick('【顺手牵羊】', 'diamond', 3),
+
+  // 4
+  basic('雷【杀】', 'spade', 4),
+  trick('【过河拆桥】', 'spade', 4),
+  trick('【顺手牵羊】', 'spade', 4),
+  basic('火【杀】', 'heart', 4),
+  basic('【桃】', 'heart', 4),
+  trick('【五谷丰登】', 'heart', 4),
+  basic('普【杀】', 'club', 4),
+  trick('【过河拆桥】', 'club', 4),
+  trick('【兵粮寸断】', 'club', 4),
+  basic('火【杀】', 'diamond', 4),
+  basic('【闪】', 'diamond', 4),
+  trick('【顺手牵羊】', 'diamond', 4),
+
+  // 5
+  basic('雷【杀】', 'spade', 5),
+  equipment('【青龙偃月刀】', 'spade', 5),
+  equipment('【绝影】', 'spade', 5),
+  basic('【桃】', 'heart', 5),
+  equipment('【麒麟弓】', 'heart', 5),
+  equipment('【赤兔】', 'heart', 5),
+  basic('普【杀】', 'club', 5),
+  basic('雷【杀】', 'club', 5),
+  equipment('【的卢】', 'club', 5),
+  basic('火【杀】', 'diamond', 5),
+  basic('【闪】', 'diamond', 5),
+  equipment('【贯石斧】', 'diamond', 5),
+
+  // 6
+  basic('雷【杀】', 'spade', 6),
+  trick('【乐不思蜀】', 'spade', 6),
+  equipment('【青釭剑】', 'spade', 6),
+  basic('【桃】', 'heart', 6),
+  basic('【桃】', 'heart', 6),
+  trick('【乐不思蜀】', 'heart', 6),
+  basic('普【杀】', 'club', 6),
+  basic('雷【杀】', 'club', 6),
+  trick('【乐不思蜀】', 'club', 6),
+  basic('普【杀】', 'diamond', 6),
+  basic('【闪】', 'diamond', 6),
+  basic('【闪】', 'diamond', 6),
+
+  // 7
+  basic('普【杀】', 'spade', 7),
+  basic('雷【杀】', 'spade', 7),
+  trick('【南蛮入侵】', 'spade', 7),
+  basic('火【杀】', 'heart', 7),
+  basic('【桃】', 'heart', 7),
+  trick('【无中生有】', 'heart', 7),
+  basic('普【杀】', 'club', 7),
+  basic('雷【杀】', 'club', 7),
+  trick('【南蛮入侵】', 'club', 7),
+  basic('普【杀】', 'diamond', 7),
+  basic('【闪】', 'diamond', 7),
+  basic('【闪】', 'diamond', 7),
+
+  // 8
+  basic('普【杀】', 'spade', 8),
+  basic('普【杀】', 'spade', 8),
+  basic('雷【杀】', 'spade', 8),
+  basic('【闪】', 'heart', 8),
+  basic('【桃】', 'heart', 8),
+  trick('【无中生有】', 'heart', 8),
+  basic('普【杀】', 'club', 8),
+  basic('普【杀】', 'club', 8),
+  basic('雷【杀】', 'club', 8),
+  basic('普【杀】', 'diamond', 8),
+  basic('【闪】', 'diamond', 8),
+  basic('【闪】', 'diamond', 8),
+
+  // 9
+  basic('普【杀】', 'spade', 9),
+  basic('普【杀】', 'spade', 9),
+  basic('【酒】', 'spade', 9),
+  basic('【闪】', 'heart', 9),
+  basic('【桃】', 'heart', 9),
+  trick('【无中生有】', 'heart', 9),
+  basic('普【杀】', 'club', 9),
+  basic('普【杀】', 'club', 9),
+  basic('【酒】', 'club', 9),
+  basic('普【杀】', 'diamond', 9),
+  basic('【闪】', 'diamond', 9),
+  basic('【酒】', 'diamond', 9),
+
+  // 10
+  basic('普【杀】', 'spade', 10),
+  basic('普【杀】', 'spade', 10),
+  trick('【兵粮寸断】', 'spade', 10),
+  basic('普【杀】', 'heart', 10),
+  basic('普【杀】', 'heart', 10),
+  basic('火【杀】', 'heart', 10),
+  basic('普【杀】', 'club', 10),
+  basic('普【杀】', 'club', 10),
+  trick('【铁索连环】', 'club', 10),
+  basic('普【杀】', 'diamond', 10),
+  basic('【闪】', 'diamond', 10),
+  basic('【闪】', 'diamond', 10),
+
+  // J
+  trick('【顺手牵羊】', 'spade', 11),
+  trick('普【无懈可击】', 'spade', 11),
+  trick('【铁索连环】', 'spade', 11),
+  basic('普【杀】', 'heart', 11),
+  basic('【闪】', 'heart', 11),
+  trick('【无中生有】', 'heart', 11),
+  basic('普【杀】', 'club', 11),
+  basic('普【杀】', 'club', 11),
+  trick('【铁索连环】', 'club', 11),
+  basic('【闪】', 'diamond', 11),
+  basic('【闪】', 'diamond', 11),
+  basic('【闪】', 'diamond', 11),
+
+  // Q
+  trick('【过河拆桥】', 'spade', 12),
+  trick('【铁索连环】', 'spade', 12),
+  equipment('【丈八蛇矛】', 'spade', 12),
+  basic('【闪】', 'heart', 12),
+  basic('【桃】', 'heart', 12),
+  trick('【过河拆桥】', 'heart', 12),
+  trick('【闪电】', 'heart', 12),
+  trick('【借刀杀人】', 'club', 12),
+  trick('普【无懈可击】', 'club', 12),
+  trick('【铁索连环】', 'club', 12),
+  basic('【桃】', 'diamond', 12),
+  trick('【火攻】', 'diamond', 12),
+  equipment('【方天画戟】', 'diamond', 12),
+  trick('普【无懈可击】', 'diamond', 12),
+
+  // K
+  trick('普【无懈可击】', 'spade', 13),
+  trick('【南蛮入侵】', 'spade', 13),
+  equipment('【大宛】', 'spade', 13),
+  basic('【闪】', 'heart', 13),
+  equipment('【爪黄飞电】', 'heart', 13),
+  trick('普【无懈可击】', 'heart', 13),
+  trick('【借刀杀人】', 'club', 13),
+  trick('普【无懈可击】', 'club', 13),
+  trick('【铁索连环】', 'club', 13),
+  basic('普【杀】', 'diamond', 13),
+  equipment('【紫骍】', 'diamond', 13),
+  equipment('【骅骝】', 'diamond', 13),
+])

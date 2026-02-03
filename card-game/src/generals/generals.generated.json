@@ -1,0 +1,553 @@
+{
+  "results": [
+    {
+      "id": "势太史慈",
+      "name": "势太史慈",
+      "hpMax": 4,
+      "hp": 4,
+      "skills": [
+        "酣战",
+        "战烈",
+        "振锋"
+      ],
+      "portrait": ""
+    },
+    {
+      "id": "界沮授",
+      "name": "界沮授",
+      "hpMax": 2,
+      "hp": 2,
+      "skills": [
+        "渐营",
+        "矢北"
+      ],
+      "portrait": ""
+    },
+    {
+      "id": "友诸葛亮",
+      "name": "友诸葛亮",
+      "hpMax": 3,
+      "hp": 3,
+      "skills": [
+        "演策",
+        "方遒",
+        "共砺"
+      ],
+      "portrait": ""
+    },
+    {
+      "id": "友徐庶",
+      "name": "友徐庶",
+      "hpMax": 3,
+      "hp": 3,
+      "skills": [
+        "侠行",
+        "启诲",
+        "共砺"
+      ],
+      "portrait": ""
+    },
+    {
+      "id": "势魏延",
+      "name": "势魏延",
+      "hpMax": 4,
+      "hp": 4,
+      "skills": [
+        "壮誓",
+        "饮战",
+        "忠傲"
+      ],
+      "portrait": ""
+    },
+    {
+      "id": "神鲁肃",
+      "name": "神鲁肃",
+      "hpMax": 3,
+      "hp": 3,
+      "skills": [
+        "榻谟",
+        "定州",
+        "智盟"
+      ],
+      "portrait": ""
+    },
+    {
+      "id": "谋曹操",
+      "name": "谋曹操",
+      "hpMax": 4,
+      "hp": 4,
+      "skills": [
+        "奸雄",
+        "清正",
+        "护驾"
+      ],
+      "portrait": ""
+    },
+    {
+      "id": "张让",
+      "name": "张让",
+      "hpMax": 3,
+      "hp": 3,
+      "skills": [
+        "滔乱"
+      ],
+      "portrait": ""
+    },
+    {
+      "id": "祢衡",
+      "name": "祢衡",
+      "hpMax": 3,
+      "hp": 3,
+      "skills": [
+        "狂才",
+        "舌剑"
+      ],
+      "portrait": ""
+    },
+    {
+      "id": "马钧",
+      "name": "马钧",
+      "hpMax": 3,
+      "hp": 3,
+      "skills": [
+        "精械",
+        "巧思"
+      ],
+      "portrait": ""
+    },
+    {
+      "id": "神甘宁",
+      "name": "神甘宁",
+      "hpMax": 3,
+      "hp": 3,
+      "skills": [
+        "魄袭",
+        "劫营"
+      ],
+      "portrait": ""
+    },
+    {
+      "id": "神陆逊",
+      "name": "神陆逊",
+      "hpMax": 4,
+      "hp": 4,
+      "skills": [
+        "军略",
+        "摧克",
+        "绽火"
+      ],
+      "portrait": ""
+    },
+    {
+      "id": "徐荣",
+      "name": "徐荣",
+      "hpMax": 4,
+      "hp": 4,
+      "skills": [
+        "凶镬",
+        "杀绝"
+      ],
+      "portrait": ""
+    },
+    {
+      "id": "界钟会",
+      "name": "界钟会",
+      "hpMax": 4,
+      "hp": 4,
+      "skills": [
+        "权计",
+        "自立",
+        "排异"
+      ],
+      "portrait": ""
+    },
+    {
+      "id": "杨彪",
+      "name": "杨彪",
+      "hpMax": 3,
+      "hp": 3,
+      "skills": [
+        "昭汉",
+        "让节",
+        "义争"
+      ],
+      "portrait": ""
+    },
+    {
+      "id": "界徐盛",
+      "name": "界徐盛",
+      "hpMax": 4,
+      "hp": 4,
+      "skills": [
+        "破军"
+      ],
+      "portrait": ""
+    },
+    {
+      "id": "文鸯",
+      "name": "文鸯",
+      "hpMax": 4,
+      "hp": 4,
+      "skills": [
+        "却敌",
+        "仇决",
+        "椎锋",
+        "冲坚"
+      ],
+      "portrait": ""
+    },
+    {
+      "id": "曹髦",
+      "name": "曹髦",
+      "hpMax": 3,
+      "hp": 3,
+      "skills": [
+        "潜龙",
+        "卫统"
+      ],
+      "portrait": ""
+    },
+    {
+      "id": "十常侍",
+      "name": "十常侍",
+      "hpMax": 1,
+      "hp": 1,
+      "skills": [
+        "党锢",
+        "殁亡"
+      ],
+      "portrait": ""
+    },
+    {
+      "id": "谋黄盖",
+      "name": "谋黄盖",
+      "hpMax": 4,
+      "hp": 4,
+      "skills": [
+        "苦肉",
+        "诈降"
+      ],
+      "portrait": ""
+    },
+    {
+      "id": "神郭嘉",
+      "name": "神郭嘉",
+      "hpMax": 3,
+      "hp": 3,
+      "skills": [
+        "慧识",
+        "辉逝",
+        "天翊"
+      ],
+      "portrait": ""
+    },
+    {
+      "id": "界虞翻",
+      "name": "界虞翻",
+      "hpMax": 3,
+      "hp": 3,
+      "skills": [
+        "纵玄",
+        "直言"
+      ],
+      "portrait": ""
+    },
+    {
+      "id": "势夏侯尚",
+      "name": "势夏侯尚",
+      "hpMax": 4,
+      "hp": 4,
+      "skills": [
+        "探锋"
+      ],
+      "portrait": ""
+    },
+    {
+      "id": "势陆郁生",
+      "name": "势陆郁生",
+      "hpMax": 3,
+      "hp": 3,
+      "skills": [
+        "润微",
+        "霜怀"
+      ],
+      "portrait": ""
+    },
+    {
+      "id": "傅佥",
+      "name": "傅佥",
+      "hpMax": 4,
+      "hp": 4,
+      "skills": [
+        "破降",
+        "绝勇"
+      ],
+      "portrait": ""
+    },
+    {
+      "id": "势董昭",
+      "name": "势董昭",
+      "hpMax": 3,
+      "hp": 3,
+      "skills": [
+        "妙略",
+        "迎驾"
+      ],
+      "portrait": ""
+    },
+    {
+      "id": "谋诸葛亮",
+      "name": "谋诸葛亮",
+      "hpMax": 3,
+      "hp": 3,
+      "skills": [
+        "火计",
+        "看破"
+      ],
+      "portrait": ""
+    },
+    {
+      "id": "秦宓",
+      "name": "秦宓",
+      "hpMax": 3,
+      "hp": 3,
+      "skills": [
+        "天辩",
+        "谏征",
+        "专对"
+      ],
+      "portrait": ""
+    },
+    {
+      "id": "严白虎",
+      "name": "严白虎",
+      "hpMax": 4,
+      "hp": 4,
+      "skills": [
+        "雉盗",
+        "寄篱"
+      ],
+      "portrait": ""
+    },
+    {
+      "id": "张济",
+      "name": "张济",
+      "hpMax": 4,
+      "hp": 4,
+      "skills": [
+        "掠命",
+        "屯军"
+      ],
+      "portrait": ""
+    },
+    {
+      "id": "界祝融",
+      "name": "界祝融",
+      "hpMax": 4,
+      "hp": 4,
+      "skills": [
+        "巨象",
+        "烈刃",
+        "蛮裔"
+      ],
+      "portrait": ""
+    },
+    {
+      "id": "孙寒华",
+      "name": "孙寒华",
+      "hpMax": 3,
+      "hp": 3,
+      "skills": [
+        "冲虚",
+        "妙剑",
+        "莲华"
+      ],
+      "portrait": ""
+    },
+    {
+      "id": "马良",
+      "name": "马良",
+      "hpMax": 3,
+      "hp": 3,
+      "skills": [
+        "协穆（页面不存在）",
+        "纳蛮（页面不存在）",
+        "自书",
+        "应援"
+      ],
+      "portrait": ""
+    },
+    {
+      "id": "曹昂",
+      "name": "曹昂",
+      "hpMax": 4,
+      "hp": 4,
+      "skills": [
+        "慷忾"
+      ],
+      "portrait": ""
+    },
+    {
+      "id": "界关羽",
+      "name": "界关羽",
+      "hpMax": 4,
+      "hp": 4,
+      "skills": [
+        "武圣",
+        "义绝"
+      ],
+      "portrait": ""
+    },
+    {
+      "id": "界吕布",
+      "name": "界吕布",
+      "hpMax": 5,
+      "hp": 5,
+      "skills": [
+        "无���",
+        "利驭",
+        "无双"
+      ],
+      "portrait": ""
+    },
+    {
+      "id": "界孙权",
+      "name": "界孙权",
+      "hpMax": 4,
+      "hp": 4,
+      "skills": [
+        "制衡",
+        "救援"
+      ],
+      "portrait": ""
+    },
+    {
+      "id": "界于禁",
+      "name": "界于禁",
+      "hpMax": 4,
+      "hp": 4,
+      "skills": [
+        "节钺"
+      ],
+      "portrait": ""
+    },
+    {
+      "id": "戏志才",
+      "name": "戏志才",
+      "hpMax": 3,
+      "hp": 3,
+      "skills": [
+        "天妒",
+        "先辅",
+        "筹策"
+      ],
+      "portrait": ""
+    },
+    {
+      "id": "蔡文姬",
+      "name": "蔡文姬",
+      "hpMax": 3,
+      "hp": 3,
+      "skills": [
+        "悲歌",
+        "断肠"
+      ],
+      "portrait": ""
+    },
+    {
+      "id": "神太史慈",
+      "name": "神太史慈",
+      "hpMax": 4,
+      "hp": 4,
+      "skills": [
+        "荡魔",
+        "笃烈",
+        "破围"
+      ],
+      "portrait": ""
+    },
+    {
+      "id": "神华佗",
+      "name": "神华佗",
+      "hpMax": 3,
+      "hp": 3,
+      "skills": [
+        "五灵",
+        "游医"
+      ],
+      "portrait": ""
+    },
+    {
+      "id": "神诸葛亮",
+      "name": "神诸葛亮",
+      "hpMax": 3,
+      "hp": 3,
+      "skills": [
+        "七星",
+        "狂风",
+        "大雾"
+      ],
+      "portrait": ""
+    },
+    {
+      "id": "神曹操",
+      "name": "神曹操",
+      "hpMax": 3,
+      "hp": 3,
+      "skills": [
+        "归心",
+        "飞影"
+      ],
+      "portrait": ""
+    },
+    {
+      "id": "神赵云",
+      "name": "神赵云",
+      "hpMax": 2,
+      "hp": 2,
+      "skills": [
+        "绝境",
+        "龙魂"
+      ],
+      "portrait": ""
+    },
+    {
+      "id": "神吕布",
+      "name": "神吕布",
+      "hpMax": 5,
+      "hp": 5,
+      "skills": [
+        "狂暴",
+        "无谋",
+        "无前",
+        "神愤"
+      ],
+      "portrait": ""
+    },
+    {
+      "id": "神张辽",
+      "name": "神张辽",
+      "hpMax": 4,
+      "hp": 4,
+      "skills": [
+        "夺锐",
+        "止啼"
+      ],
+      "portrait": ""
+    }
+  ],
+  "missing": [
+    {
+      "name": "国渊",
+      "reason": "no wikitext"
+    },
+    {
+      "name": "势国源",
+      "reason": "no wikitext"
+    },
+    {
+      "name": "鞠义",
+      "reason": "no wikitext"
+    }
+  ]
+}
