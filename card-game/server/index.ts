@@ -1,3 +1,7 @@
+import { createReadStream, existsSync } from 'node:fs'
+import { createServer } from 'node:http'
+import { dirname, extname, join } from 'node:path'
+import { fileURLToPath } from 'node:url'
 import { WebSocketServer, WebSocket } from 'ws'
 import { applyMove, buildSnapshot, callLord, chooseGeneral, createRoom, ensurePlayer, initHands, resetRoom, takeSeat, type MovePayload, type Room } from './room'
 
@@ -41,7 +45,53 @@ const sendSnapshot = (roomId: string) => {
   broadcast(roomId, { type: 'room:snapshot', payload: buildSnapshot(room) })
 }
 
-const server = new WebSocketServer({ port: 5174 })
+const port = Number(process.env.PORT ?? 5174)
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
+const distDir = join(__dirname, '../dist')
+const indexFile = join(distDir, 'index.html')
+
+const contentTypes: Record<string, string> = {
+  '.html': 'text/html; charset=utf-8',
+  '.js': 'application/javascript; charset=utf-8',
+  '.css': 'text/css; charset=utf-8',
+  '.svg': 'image/svg+xml',
+  '.png': 'image/png',
+  '.jpg': 'image/jpeg',
+  '.jpeg': 'image/jpeg',
+  '.webp': 'image/webp',
+  '.json': 'application/json; charset=utf-8'
+}
+
+const httpServer = createServer((req, res) => {
+  if (!req.url) {
+    res.writeHead(400)
+    res.end('Bad Request')
+    return
+  }
+
+  const url = new URL(req.url, `http://${req.headers.host ?? 'localhost'}`)
+  const normalizedPath = url.pathname === '/' ? indexFile : join(distDir, url.pathname)
+  const filePath = existsSync(normalizedPath) ? normalizedPath : indexFile
+
+  if (!existsSync(filePath)) {
+    res.writeHead(404)
+    res.end('Not Found')
+    return
+  }
+
+  const ext = extname(filePath)
+  res.writeHead(200, { 'Content-Type': contentTypes[ext] ?? 'application/octet-stream' })
+  createReadStream(filePath).pipe(res)
+})
+
+const server = new WebSocketServer({ noServer: true })
+
+httpServer.on('upgrade', (request, socket, head) => {
+  server.handleUpgrade(request, socket, head, (client) => {
+    server.emit('connection', client, request)
+  })
+})
 
 server.on('connection', (socket) => {
   socket.on('message', (raw) => {
@@ -125,4 +175,6 @@ server.on('connection', (socket) => {
   })
 })
 
-console.log('Server listening on ws://localhost:5174')
+httpServer.listen(port, () => {
+  console.log(`Server listening on http://localhost:${port}`)
+})

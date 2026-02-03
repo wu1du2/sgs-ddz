@@ -556,7 +556,11 @@ const connectToRoom = () => {
   if (ws) {
     ws.close()
   }
-  ws = new WebSocket('ws://localhost:5174')
+  const wsUrl =
+    import.meta.env.DEV
+      ? import.meta.env.VITE_WS_URL ?? 'ws://localhost:5174'
+      : `${window.location.protocol === 'https:' ? 'wss' : 'ws'}://${window.location.host}`
+  ws = new WebSocket(wsUrl)
   connectionStatus.textContent = '连接中...'
 
   ws.addEventListener('open', () => {
