@@ -15,11 +15,11 @@
   "devDependencies": {
     "@types/ws": "^8.5.10",
     "typescript": "~5.9.3",
-    "vite": "^7.2.4",
     "vitest": "^2.1.9"
   },
   "dependencies": {
     "ws": "^8.18.0",
-    "tsx": "^4.19.2"
+    "tsx": "^4.19.2",
+    "vite": "^7.2.4"
   }
 }

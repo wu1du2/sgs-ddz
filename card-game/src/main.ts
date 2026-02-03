@@ -190,7 +190,6 @@ let playerGenerals: (General | null)[] = [null, null, null]
 let activeSeat: number | null = null
 
 let ws: WebSocket | null = null
-let connectedRoomId: string | null = null
 
 const sendMessage = (type: string, payload?: Record<string, unknown>) => {
   if (!ws || ws.readyState !== WebSocket.OPEN) {
@@ -211,7 +210,6 @@ const applySnapshot = (snapshot: {
   activeSeat: number | null
   gameState: GameState
 }) => {
-  connectedRoomId = snapshot.roomId
   phase = snapshot.phase
   landlordSeat = snapshot.landlordSeat
   roles = snapshot.roles
