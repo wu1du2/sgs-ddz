@@ -1,4 +1,4 @@
-import { createGameState, drawFromDeck, moveToDeckBottom, moveToDeckTop, moveToDiscard, moveToReveal, takeCardFromHand, takeRandomFromHand, takeTopFromDeck, takeTopFromDiscard, takeTopFromReveal, shuffleDeck, type GameState, type CardInstance } from '../src/game-logic'
+import { createGameState, drawFromDeck, moveToDeckBottom, moveToDeckTop, moveToDiscard, moveToEquipmentArea, moveToJudgeArea, moveToPlayArea, moveToReveal, takeCardFromHand, takeRandomFromHand, takeTopFromDeck, takeTopFromDiscard, takeTopFromReveal, shuffleDeck, type GameState, type CardInstance } from '../src/game-logic'
 import { GeneralDeck } from '../src/general-deck'
 import { mockGenerals } from '../src/generals'
 import { INITIAL_DECK } from '../src/initial-deck'
@@ -24,12 +24,15 @@ export type Room = {
   generalOffers: General[][]
   playerGenerals: Array<General | null>
   activeSeat: number | null
+  publicNotes: string[]
+  privateNotes: string[]
+  privateVisible: boolean[]
   gameState: GameState
 }
 
 export type MovePayload = {
-  source: 'deck-top' | 'hand' | 'hand-random' | 'discard' | 'reveal'
-  targetZone: 'hand' | 'discard' | 'reveal' | 'deck-top' | 'deck-bottom'
+  source: 'deck-top' | 'hand' | 'hand-random' | 'discard' | 'reveal' | 'play-area' | 'equipment' | 'judge'
+  targetZone: 'hand' | 'discard' | 'reveal' | 'deck-top' | 'deck-bottom' | 'play-area' | 'equipment' | 'judge'
   sourceSeat?: number
   targetSeat?: number
   cardId?: string
@@ -38,6 +41,8 @@ export type MovePayload = {
 export const createRoom = (roomId: string): Room => {
   const gameState = createGameState(INITIAL_DECK)
   shuffleDeck(gameState)
+  const generalDeck = new GeneralDeck(mockGenerals)
+  generalDeck.shuffle()
   return {
     roomId,
     phase: 'call_lord',
@@ -45,10 +50,13 @@ export const createRoom = (roomId: string): Room => {
     roles: [null, null, null],
     seats: [null, null, null],
     players: new Map(),
-    generalDeck: new GeneralDeck(mockGenerals),
-    generalOffers: [[], [], []],
+    generalDeck,
+    generalOffers: [generalDeck.deal(3), generalDeck.deal(3), generalDeck.deal(3)],
     playerGenerals: [null, null, null],
     activeSeat: null,
+    publicNotes: ['', '', ''],
+    privateNotes: ['', '', ''],
+    privateVisible: [false, false, false],
     gameState,
   }
 }
@@ -62,6 +70,9 @@ export const resetRoom = (room: Room) => {
   room.generalOffers = [room.generalDeck.deal(3), room.generalDeck.deal(3), room.generalDeck.deal(3)]
   room.playerGenerals = [null, null, null]
   room.activeSeat = null
+  room.publicNotes = ['', '', '']
+  room.privateNotes = ['', '', '']
+  room.privateVisible = [false, false, false]
   room.gameState = createGameState(INITIAL_DECK)
   shuffleDeck(room.gameState)
 }
@@ -109,9 +120,11 @@ export const callLord = (room: Room, userId: string): boolean => {
   room.landlordSeat = seatIndex
   room.roles = [0, 1, 2].map((index) => (index === seatIndex ? 'landlord' : 'farmer'))
   room.phase = 'choose_generals'
-  room.generalDeck = new GeneralDeck(mockGenerals)
-  room.generalDeck.shuffle()
-  room.generalOffers = [room.generalDeck.deal(3), room.generalDeck.deal(3), room.generalDeck.deal(3)]
+  if (room.generalOffers.every((offers) => offers.length === 0)) {
+    room.generalDeck = new GeneralDeck(mockGenerals)
+    room.generalDeck.shuffle()
+    room.generalOffers = [room.generalDeck.deal(3), room.generalDeck.deal(3), room.generalDeck.deal(3)]
+  }
   const extra = room.generalDeck.deal(2)
   room.generalOffers[seatIndex].push(...extra)
   return true
@@ -136,7 +149,11 @@ export const chooseGeneral = (room: Room, userId: string, generalId: string): bo
   }
   room.playerGenerals[seatIndex] = offers.splice(index, 1)[0]
   if (room.playerGenerals.every((general) => general)) {
-    room.phase = 'init_hands'
+    for (let index = 0; index < 3; index += 1) {
+      drawFromDeck(room.gameState, index, 4)
+    }
+    room.activeSeat = room.landlordSeat ?? 0
+    room.phase = 'in_game'
   }
   return true
 }
@@ -150,6 +167,71 @@ export const initHands = (room: Room): boolean => {
   }
   room.activeSeat = room.landlordSeat ?? 0
   room.phase = 'in_game'
+  return true
+}
+
+export const clearPlayArea = (room: Room, userId: string): boolean => {
+  const player = room.players.get(userId)
+  if (!player || player.seatIndex === null) {
+    return false
+  }
+  const seatIndex = player.seatIndex
+  const area = room.gameState.playAreas[seatIndex]
+  while (area.length > 0) {
+    const card = area.shift()
+    if (card) {
+      moveToDiscard(room.gameState, card)
+    }
+  }
+  return true
+}
+
+export const updateNotes = (room: Room, userId: string, scope: 'public' | 'private', value: string): boolean => {
+  const player = room.players.get(userId)
+  if (!player || player.seatIndex === null) {
+    return false
+  }
+  const seatIndex = player.seatIndex
+  if (scope === 'public') {
+    room.publicNotes[seatIndex] = value
+    return true
+  }
+  room.privateNotes[seatIndex] = value
+  return true
+}
+
+export const togglePrivateNote = (room: Room, userId: string): boolean => {
+  const player = room.players.get(userId)
+  if (!player || player.seatIndex === null) {
+    return false
+  }
+  const seatIndex = player.seatIndex
+  room.privateVisible[seatIndex] = !room.privateVisible[seatIndex]
+  return true
+}
+
+export const nextTurn = (room: Room): boolean => {
+  if (room.phase !== 'in_game') {
+    return false
+  }
+  if (room.activeSeat === null) {
+    room.activeSeat = room.landlordSeat ?? 0
+  } else {
+    room.activeSeat = (room.activeSeat + 1) % 3
+  }
+  return true
+}
+
+export const resetDeck = (room: Room): boolean => {
+  if (room.gameState.discard.length > 0) {
+    room.gameState.deck.push(...room.gameState.discard.splice(0))
+  }
+  shuffleDeck(room.gameState)
+  return true
+}
+
+export const shuffleDeckOnly = (room: Room): boolean => {
+  shuffleDeck(room.gameState)
   return true
 }
 
@@ -169,6 +251,33 @@ const removeFromDiscardById = (room: Room, cardId: string): CardInstance | null 
   return room.gameState.discard.splice(index, 1)[0]
 }
 
+const removeFromPlayAreaById = (room: Room, playerIndex: number, cardId: string): CardInstance | null => {
+  const area = room.gameState.playAreas[playerIndex]
+  const index = area.findIndex((card) => card.id === cardId)
+  if (index === -1) {
+    return null
+  }
+  return area.splice(index, 1)[0]
+}
+
+const removeFromEquipmentById = (room: Room, playerIndex: number, cardId: string): CardInstance | null => {
+  const area = room.gameState.equipmentAreas[playerIndex]
+  const index = area.findIndex((card) => card.id === cardId)
+  if (index === -1) {
+    return null
+  }
+  return area.splice(index, 1)[0]
+}
+
+const removeFromJudgeById = (room: Room, playerIndex: number, cardId: string): CardInstance | null => {
+  const area = room.gameState.judgeAreas[playerIndex]
+  const index = area.findIndex((card) => card.id === cardId)
+  if (index === -1) {
+    return null
+  }
+  return area.splice(index, 1)[0]
+}
+
 const placeCard = (room: Room, card: CardInstance, targetZone: MovePayload['targetZone'], targetSeat?: number) => {
   if (targetZone === 'hand' && targetSeat !== undefined) {
     card.faceUp = false
@@ -181,6 +290,18 @@ const placeCard = (room: Room, card: CardInstance, targetZone: MovePayload['targ
   }
   if (targetZone === 'reveal') {
     moveToReveal(room.gameState, card)
+    return
+  }
+  if (targetZone === 'play-area' && targetSeat !== undefined) {
+    moveToPlayArea(room.gameState, card, targetSeat)
+    return
+  }
+  if (targetZone === 'equipment' && targetSeat !== undefined) {
+    moveToEquipmentArea(room.gameState, card, targetSeat)
+    return
+  }
+  if (targetZone === 'judge' && targetSeat !== undefined) {
+    moveToJudgeArea(room.gameState, card, targetSeat)
     return
   }
   if (targetZone === 'deck-top') {
@@ -215,6 +336,18 @@ export const applyMove = (room: Room, payload: MovePayload): boolean => {
     card = removeFromReveal(room, payload.cardId) ?? takeTopFromReveal(room.gameState)
   }
 
+  if (payload.source === 'play-area' && payload.sourceSeat !== undefined && payload.cardId) {
+    card = removeFromPlayAreaById(room, payload.sourceSeat, payload.cardId)
+  }
+
+  if (payload.source === 'equipment' && payload.sourceSeat !== undefined && payload.cardId) {
+    card = removeFromEquipmentById(room, payload.sourceSeat, payload.cardId)
+  }
+
+  if (payload.source === 'judge' && payload.sourceSeat !== undefined && payload.cardId) {
+    card = removeFromJudgeById(room, payload.sourceSeat, payload.cardId)
+  }
+
   if (!card) {
     return false
   }
@@ -232,5 +365,8 @@ export const buildSnapshot = (room: Room) => ({
   generalOffers: room.generalOffers,
   playerGenerals: room.playerGenerals,
   activeSeat: room.activeSeat,
+  publicNotes: room.publicNotes,
+  privateNotes: room.privateNotes,
+  privateVisible: room.privateVisible,
   gameState: room.gameState,
 })

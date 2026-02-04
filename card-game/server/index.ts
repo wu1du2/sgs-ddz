@@ -3,7 +3,7 @@ import { createServer } from 'node:http'
 import { dirname, extname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { WebSocketServer, WebSocket } from 'ws'
-import { applyMove, buildSnapshot, callLord, chooseGeneral, createRoom, ensurePlayer, initHands, resetRoom, takeSeat, type MovePayload, type Room } from './room'
+import { applyMove, buildSnapshot, callLord, chooseGeneral, clearPlayArea, createRoom, ensurePlayer, initHands, nextTurn, resetDeck, resetRoom, shuffleDeckOnly, takeSeat, togglePrivateNote, updateNotes, type MovePayload, type Room } from './room'
 
 type ClientContext = {
   roomId: string
@@ -45,7 +45,7 @@ const sendSnapshot = (roomId: string) => {
   broadcast(roomId, { type: 'room:snapshot', payload: buildSnapshot(room) })
 }
 
-const port = Number(process.env.PORT ?? 5174)
+const port = Number(process.env.PORT ?? 5175)
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 const distDir = join(__dirname, '../dist')
@@ -149,6 +149,46 @@ server.on('connection', (socket) => {
 
     if (type === 'cards:initHands') {
       initHands(room)
+      sendSnapshot(room.roomId)
+      return
+    }
+
+    if (type === 'play:clear') {
+      clearPlayArea(room, context.userId)
+      sendSnapshot(room.roomId)
+      return
+    }
+
+    if (type === 'notes:update') {
+      const scope = String(payload?.scope ?? '') as 'public' | 'private'
+      const value = String(payload?.value ?? '')
+      if (scope === 'public' || scope === 'private') {
+        updateNotes(room, context.userId, scope, value)
+        sendSnapshot(room.roomId)
+      }
+      return
+    }
+
+    if (type === 'notes:toggle') {
+      togglePrivateNote(room, context.userId)
+      sendSnapshot(room.roomId)
+      return
+    }
+
+    if (type === 'turn:next') {
+      nextTurn(room)
+      sendSnapshot(room.roomId)
+      return
+    }
+
+    if (type === 'deck:reset') {
+      resetDeck(room)
+      sendSnapshot(room.roomId)
+      return
+    }
+
+    if (type === 'deck:shuffle') {
+      shuffleDeckOnly(room)
       sendSnapshot(room.roomId)
       return
     }

@@ -1,21 +1,9 @@
 import './style.css'
 import { INITIAL_DECK } from './initial-deck'
-import { GeneralDeck } from './general-deck.ts'
-import { mockGenerals } from './generals'
 import type { General } from './general-types.ts'
 import {
   createGameState,
   shuffleDeck,
-  drawFromDeck,
-  takeTopFromDeck,
-  takeRandomFromHand,
-  takeCardFromHand,
-  moveToDiscard,
-  moveToReveal,
-  moveToDeckTop,
-  moveToDeckBottom,
-  takeTopFromDiscard,
-  takeTopFromReveal,
   type CardInstance,
   type GameState,
 } from './game-logic'
@@ -65,10 +53,6 @@ app.innerHTML = `
         <button data-seat="1">座位 2</button>
         <button data-seat="2">座位 3</button>
       </div>
-      <div class="controls">
-        <button id="deal-btn">发牌</button>
-        <button id="next-turn-btn">下一回合</button>
-      </div>
     </header>
 
     <main class="table">
@@ -77,21 +61,51 @@ app.innerHTML = `
           <div class="seat-name">座位 1</div>
           <div class="role-tag" data-role="0"></div>
         </div>
-        <details class="accordion" open>
-          <summary class="accordion-title">手牌：<span class="hand-count" data-hand="0">0</span></summary>
-          <div class="hand-zone" data-hand-zone="0"></div>
-        </details>
-        <div class="general" data-general="0">
-          <div class="general-portrait" data-portrait="0">未选择</div>
-          <div class="general-name">未选将</div>
-          <div class="general-meta">
-            <span class="hp" data-hp="0">HP 0/0</span>
+        <div class="seat-body">
+          <div class="general" data-general="0">
+            <div class="general-portrait" data-portrait="0">未选择</div>
+            <div class="general-name">未选将</div>
+            <div class="general-meta">
+              <span class="hp" data-hp="0">HP 0/0</span>
+              <div class="hp-controls" data-hp-controls="0">
+                <button class="hp-btn" data-hp-action="hp-inc" data-seat="0">+血</button>
+                <button class="hp-btn" data-hp-action="hp-dec" data-seat="0">-血</button>
+                <button class="hp-btn" data-hp-action="max-inc" data-seat="0">+上限</button>
+                <button class="hp-btn" data-hp-action="max-dec" data-seat="0">-上限</button>
+              </div>
+            </div>
           </div>
-          <details class="accordion" open>
-            <summary class="accordion-title">技能</summary>
-            <div class="skills" data-skills="0"></div>
-          </details>
-          <div class="statuses" data-statuses="0"></div>
+          <div class="equipment-zone" data-equipment-zone="0">
+            <div class="equipment-slot card-slot" data-equipment-slot="0" data-seat="0" data-slot-label="武器">武器</div>
+            <div class="equipment-slot card-slot" data-equipment-slot="1" data-seat="0" data-slot-label="防具">防具</div>
+            <div class="equipment-slot card-slot" data-equipment-slot="2" data-seat="0" data-slot-label="+马">+马</div>
+            <div class="equipment-slot card-slot" data-equipment-slot="3" data-seat="0" data-slot-label="-马">-马</div>
+          </div>
+          <div class="skill-status-zone">
+            <details class="accordion" open>
+              <summary class="accordion-title">技能</summary>
+              <div class="skills" data-skills="0"></div>
+            </details>
+            <div class="statuses" data-statuses="0"></div>
+          </div>
+          <div class="hand-area">
+            <div class="hand-summary" data-hand-summary="0"></div>
+            <details class="accordion" open>
+              <summary class="accordion-title">手牌：<span class="hand-count" data-hand="0">0</span></summary>
+              <div class="hand-zone" data-hand-zone="0"></div>
+            </details>
+          </div>
+          <div class="judge-zone" data-judge-zone="0">
+            <div class="judge-title">判定</div>
+            <div class="zone-cards judge-cards" data-judge-cards="0"></div>
+          </div>
+          <div class="notes" data-notes="0">
+            <textarea class="note public" data-note-public="0" placeholder="公开备注"></textarea>
+            <div class="note-private">
+              <textarea class="note private" data-note-private="0" placeholder="私密备注"></textarea>
+              <button class="note-toggle" data-note-toggle="0">show</button>
+            </div>
+          </div>
         </div>
         <div class="actions">
           <button class="call-btn" data-call="0">叫地主</button>
@@ -103,21 +117,51 @@ app.innerHTML = `
           <div class="seat-name">座位 2</div>
           <div class="role-tag" data-role="1"></div>
         </div>
-        <details class="accordion" open>
-          <summary class="accordion-title">手牌：<span class="hand-count" data-hand="1">0</span></summary>
-          <div class="hand-zone" data-hand-zone="1"></div>
-        </details>
-        <div class="general" data-general="1">
-          <div class="general-portrait" data-portrait="1">未选择</div>
-          <div class="general-name">未选将</div>
-          <div class="general-meta">
-            <span class="hp" data-hp="1">HP 0/0</span>
+        <div class="seat-body">
+          <div class="general" data-general="1">
+            <div class="general-portrait" data-portrait="1">未选择</div>
+            <div class="general-name">未选将</div>
+            <div class="general-meta">
+              <span class="hp" data-hp="1">HP 0/0</span>
+              <div class="hp-controls" data-hp-controls="1">
+                <button class="hp-btn" data-hp-action="hp-inc" data-seat="1">+血</button>
+                <button class="hp-btn" data-hp-action="hp-dec" data-seat="1">-血</button>
+                <button class="hp-btn" data-hp-action="max-inc" data-seat="1">+上限</button>
+                <button class="hp-btn" data-hp-action="max-dec" data-seat="1">-上限</button>
+              </div>
+            </div>
           </div>
-          <details class="accordion" open>
-            <summary class="accordion-title">技能</summary>
-            <div class="skills" data-skills="1"></div>
-          </details>
-          <div class="statuses" data-statuses="1"></div>
+          <div class="equipment-zone" data-equipment-zone="1">
+            <div class="equipment-slot card-slot" data-equipment-slot="0" data-seat="1" data-slot-label="武器">武器</div>
+            <div class="equipment-slot card-slot" data-equipment-slot="1" data-seat="1" data-slot-label="防具">防具</div>
+            <div class="equipment-slot card-slot" data-equipment-slot="2" data-seat="1" data-slot-label="+马">+马</div>
+            <div class="equipment-slot card-slot" data-equipment-slot="3" data-seat="1" data-slot-label="-马">-马</div>
+          </div>
+          <div class="skill-status-zone">
+            <details class="accordion" open>
+              <summary class="accordion-title">技能</summary>
+              <div class="skills" data-skills="1"></div>
+            </details>
+            <div class="statuses" data-statuses="1"></div>
+          </div>
+          <div class="hand-area">
+            <div class="hand-summary" data-hand-summary="1"></div>
+            <details class="accordion" open>
+              <summary class="accordion-title">手牌：<span class="hand-count" data-hand="1">0</span></summary>
+              <div class="hand-zone" data-hand-zone="1"></div>
+            </details>
+          </div>
+          <div class="judge-zone" data-judge-zone="1">
+            <div class="judge-title">判定</div>
+            <div class="zone-cards judge-cards" data-judge-cards="1"></div>
+          </div>
+          <div class="notes" data-notes="1">
+            <textarea class="note public" data-note-public="1" placeholder="公开备注"></textarea>
+            <div class="note-private">
+              <textarea class="note private" data-note-private="1" placeholder="私密备注"></textarea>
+              <button class="note-toggle" data-note-toggle="1">show</button>
+            </div>
+          </div>
         </div>
         <div class="actions">
           <button class="call-btn" data-call="1">叫地主</button>
@@ -129,21 +173,51 @@ app.innerHTML = `
           <div class="seat-name">座位 3</div>
           <div class="role-tag" data-role="2"></div>
         </div>
-        <details class="accordion" open>
-          <summary class="accordion-title">手牌：<span class="hand-count" data-hand="2">0</span></summary>
-          <div class="hand-zone" data-hand-zone="2"></div>
-        </details>
-        <div class="general" data-general="2">
-          <div class="general-portrait" data-portrait="2">未选择</div>
-          <div class="general-name">未选将</div>
-          <div class="general-meta">
-            <span class="hp" data-hp="2">HP 0/0</span>
+        <div class="seat-body">
+          <div class="general" data-general="2">
+            <div class="general-portrait" data-portrait="2">未选择</div>
+            <div class="general-name">未选将</div>
+            <div class="general-meta">
+              <span class="hp" data-hp="2">HP 0/0</span>
+              <div class="hp-controls" data-hp-controls="2">
+                <button class="hp-btn" data-hp-action="hp-inc" data-seat="2">+血</button>
+                <button class="hp-btn" data-hp-action="hp-dec" data-seat="2">-血</button>
+                <button class="hp-btn" data-hp-action="max-inc" data-seat="2">+上限</button>
+                <button class="hp-btn" data-hp-action="max-dec" data-seat="2">-上限</button>
+              </div>
+            </div>
           </div>
-          <details class="accordion" open>
-            <summary class="accordion-title">技能</summary>
-            <div class="skills" data-skills="2"></div>
-          </details>
-          <div class="statuses" data-statuses="2"></div>
+          <div class="equipment-zone" data-equipment-zone="2">
+            <div class="equipment-slot card-slot" data-equipment-slot="0" data-seat="2" data-slot-label="武器">武器</div>
+            <div class="equipment-slot card-slot" data-equipment-slot="1" data-seat="2" data-slot-label="防具">防具</div>
+            <div class="equipment-slot card-slot" data-equipment-slot="2" data-seat="2" data-slot-label="+马">+马</div>
+            <div class="equipment-slot card-slot" data-equipment-slot="3" data-seat="2" data-slot-label="-马">-马</div>
+          </div>
+          <div class="skill-status-zone">
+            <details class="accordion" open>
+              <summary class="accordion-title">技能</summary>
+              <div class="skills" data-skills="2"></div>
+            </details>
+            <div class="statuses" data-statuses="2"></div>
+          </div>
+          <div class="hand-area">
+            <div class="hand-summary" data-hand-summary="2"></div>
+            <details class="accordion" open>
+              <summary class="accordion-title">手牌：<span class="hand-count" data-hand="2">0</span></summary>
+              <div class="hand-zone" data-hand-zone="2"></div>
+            </details>
+          </div>
+          <div class="judge-zone" data-judge-zone="2">
+            <div class="judge-title">判定</div>
+            <div class="zone-cards judge-cards" data-judge-cards="2"></div>
+          </div>
+          <div class="notes" data-notes="2">
+            <textarea class="note public" data-note-public="2" placeholder="公开备注"></textarea>
+            <div class="note-private">
+              <textarea class="note private" data-note-private="2" placeholder="私密备注"></textarea>
+              <button class="note-toggle" data-note-toggle="2">show</button>
+            </div>
+          </div>
         </div>
         <div class="actions">
           <button class="call-btn" data-call="2">叫地主</button>
@@ -152,26 +226,50 @@ app.innerHTML = `
       </div>
 
       <div class="center-area">
-        <div class="deck-area">
-          <div class="zone-title">摸牌区</div>
-          <div id="deck-top" class="card-tile back" draggable="true">牌堆顶</div>
-          <div class="count" id="deck-count">0</div>
-          <div class="deck-returns">
-            <div class="card-slot" data-zone="deck-top">放回顶</div>
-            <div class="card-slot" data-zone="deck-bottom">放回底</div>
+        <div class="center-board">
+          <div class="center-core">
+            <div class="zone-title">公共区域</div>
+            <div class="deck-row">
+              <div class="deck-actions">
+                <button id="reset-deck-btn" class="secondary">重置牌堆</button>
+                <button id="shuffle-deck-btn" class="secondary">洗牌</button>
+              </div>
+              <div id="deck-top" class="card-tile back" draggable="true">牌堆顶</div>
+              <button id="draw-btn" class="primary draw-btn">摸牌</button>
+              <div class="card-slot" data-zone="deck-top">放回顶</div>
+              <div class="card-slot" data-zone="deck-bottom">放回底</div>
+            </div>
+            <div class="count">牌堆：<span id="deck-count">0</span></div>
+            <details class="accordion discard-zone" data-zone="discard">
+              <summary class="accordion-title">弃牌区（<span id="discard-count">0</span>）</summary>
+              <ol id="discard-cards" class="discard-list"></ol>
+            </details>
+          </div>
+          <div class="play-zone center-play" data-play-zone="0">
+            <div class="play-zone-title">
+              <span>出牌区</span>
+              <button class="play-clear" data-play-clear="0">垃圾桶</button>
+            </div>
+            <div class="zone-cards play-cards" data-play-cards="0"></div>
+          </div>
+          <div class="play-zone center-play" data-play-zone="1">
+            <div class="play-zone-title">
+              <span>出牌区</span>
+              <button class="play-clear" data-play-clear="1">垃圾桶</button>
+            </div>
+            <div class="zone-cards play-cards" data-play-cards="1"></div>
+          </div>
+          <div class="play-zone center-play" data-play-zone="2">
+            <div class="play-zone-title">
+              <span>出牌区</span>
+              <button class="play-clear" data-play-clear="2">垃圾桶</button>
+            </div>
+            <div class="zone-cards play-cards" data-play-cards="2"></div>
           </div>
         </div>
-        <div class="reveal-zone" data-zone="reveal">
-          <div class="zone-title">明牌区</div>
-          <div id="reveal-cards" class="zone-cards"></div>
+        <div class="center-controls">
+          <div id="card-display" class="card-display">等待操作</div>
         </div>
-        <details class="accordion discard-zone" data-zone="discard" open>
-          <summary class="accordion-title">弃牌区（<span id="discard-count">0</span>）</summary>
-          <div id="discard-cards" class="zone-cards"></div>
-        </details>
-        <div class="phase" id="phase-display">阶段：未开始</div>
-        <div id="card-display" class="card-display">等待操作</div>
-        <button id="init-hands-btn" class="secondary">发 4 张初始手牌</button>
       </div>
     </main>
   </div>
@@ -184,10 +282,12 @@ let phase: Phase = 'call_lord'
 let landlordSeat: number | null = null
 let roles: Role[] = [null, null, null]
 
-let generalDeck = new GeneralDeck(mockGenerals)
 let generalOffers: General[][] = [[], [], []]
 let playerGenerals: (General | null)[] = [null, null, null]
 let activeSeat: number | null = null
+let publicNoteValues: string[] = ['', '', '']
+let privateNoteValues: string[] = ['', '', '']
+let privateVisible: boolean[] = [false, false, false]
 
 let ws: WebSocket | null = null
 
@@ -208,6 +308,9 @@ const applySnapshot = (snapshot: {
   generalOffers: General[][]
   playerGenerals: Array<General | null>
   activeSeat: number | null
+  publicNotes: string[]
+  privateNotes: string[]
+  privateVisible: boolean[]
   gameState: GameState
 }) => {
   phase = snapshot.phase
@@ -216,6 +319,9 @@ const applySnapshot = (snapshot: {
   generalOffers = snapshot.generalOffers
   playerGenerals = snapshot.playerGenerals
   activeSeat = snapshot.activeSeat
+  publicNoteValues = snapshot.publicNotes
+  privateNoteValues = snapshot.privateNotes
+  privateVisible = snapshot.privateVisible
   gameState = snapshot.gameState
 
   const seatIndex = snapshot.seats.findIndex((userId) => userId === identity.userId)
@@ -226,7 +332,10 @@ const applySnapshot = (snapshot: {
   playerGenerals.forEach((general, index) => updateGeneralUI(index, general))
   renderGeneralOffers()
   setPhase(phase)
+  updateCallButtons()
   renderAll()
+  updateNotesUI()
+  applyLocalCardDisplay()
 }
 
 let currentSeat: number | null = null
@@ -234,39 +343,56 @@ const seatPositions: SeatPosition[] = ['bottom', 'left', 'right']
 
 const updateSeatPositions = () => {
   const seats = Array.from(document.querySelectorAll<HTMLDivElement>('.seat'))
+  const centerPlayZones = Array.from(document.querySelectorAll<HTMLDivElement>('.center-play'))
+  const focusSeat = currentSeat ?? 0
   seats.forEach((seat) => {
     const seatIndex = Number(seat.dataset.seat)
-    const relativeIndex = currentSeat === null ? seatIndex : (seatIndex - currentSeat + 3) % 3
+    const relativeIndex = (seatIndex - focusSeat + 3) % 3
     const position = seatPositions[relativeIndex]
 
-    seat.classList.remove('bottom', 'left', 'right', 'active')
+    seat.classList.remove('bottom', 'left', 'right', 'active', 'current-seat')
     seat.classList.add(position)
+    if (focusSeat === seatIndex) {
+      seat.classList.add('current-seat')
+    }
     if (currentSeat === seatIndex) {
       seat.classList.add('active')
     }
   })
+  centerPlayZones.forEach((zone) => {
+    const seatIndex = Number(zone.dataset.playZone)
+    const relativeIndex = (seatIndex - focusSeat + 3) % 3
+    const position = seatPositions[relativeIndex]
+    zone.classList.remove('bottom', 'left', 'right')
+    zone.classList.add(position)
+  })
 }
 
 const cardDisplay = document.querySelector<HTMLDivElement>('#card-display')
-const dealButton = document.querySelector<HTMLButtonElement>('#deal-btn')
 const deckCount = document.querySelector<HTMLDivElement>('#deck-count')
 const discardCount = document.querySelector<HTMLDivElement>('#discard-count')
-const phaseDisplay = document.querySelector<HTMLDivElement>('#phase-display')
-const initHandsButton = document.querySelector<HTMLButtonElement>('#init-hands-btn')
-const nextTurnButton = document.querySelector<HTMLButtonElement>('#next-turn-btn')
+const resetDeckButton = document.querySelector<HTMLButtonElement>('#reset-deck-btn')
+const shuffleDeckButton = document.querySelector<HTMLButtonElement>('#shuffle-deck-btn')
+const drawButton = document.querySelector<HTMLButtonElement>('#draw-btn')
 const newGameButton = document.querySelector<HTMLButtonElement>('#new-game-btn')
 const nicknameInput = document.querySelector<HTMLInputElement>('#nickname-input')
 const roomInput = document.querySelector<HTMLInputElement>('#room-input')
 const connectButton = document.querySelector<HTMLButtonElement>('#connect-btn')
 const connectionStatus = document.querySelector<HTMLSpanElement>('#connection-status')
 const deckTop = document.querySelector<HTMLDivElement>('#deck-top')
-const revealCards = document.querySelector<HTMLDivElement>('#reveal-cards')
-const discardCards = document.querySelector<HTMLDivElement>('#discard-cards')
-const revealZone = document.querySelector<HTMLDivElement>('[data-zone="reveal"]')
+const discardCards = document.querySelector<HTMLOListElement>('#discard-cards')
 const discardZone = document.querySelector<HTMLDivElement>('[data-zone="discard"]')
 const deckTopSlot = document.querySelector<HTMLDivElement>('[data-zone="deck-top"]')
 const deckBottomSlot = document.querySelector<HTMLDivElement>('[data-zone="deck-bottom"]')
 const handZones = Array.from(document.querySelectorAll<HTMLDivElement>('.hand-zone'))
+const handSummaries = Array.from(document.querySelectorAll<HTMLDivElement>('[data-hand-summary]'))
+const playZones = Array.from(document.querySelectorAll<HTMLDivElement>('[data-play-zone]'))
+const equipmentZones = Array.from(document.querySelectorAll<HTMLDivElement>('[data-equipment-zone]'))
+const equipmentSlots = Array.from(document.querySelectorAll<HTMLDivElement>('[data-equipment-slot]'))
+const judgeZones = Array.from(document.querySelectorAll<HTMLDivElement>('[data-judge-zone]'))
+const judgeCards = Array.from(document.querySelectorAll<HTMLDivElement>('[data-judge-cards]'))
+const playCards = Array.from(document.querySelectorAll<HTMLDivElement>('[data-play-cards]'))
+const playClearButtons = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-play-clear]'))
 const handCounts = Array.from(document.querySelectorAll<HTMLSpanElement>('.hand-count'))
 const roleTags = Array.from(document.querySelectorAll<HTMLDivElement>('.role-tag'))
 const callButtons = Array.from(document.querySelectorAll<HTMLButtonElement>('.call-btn'))
@@ -274,9 +400,14 @@ const generalOfferAreas = Array.from(document.querySelectorAll<HTMLDivElement>('
 const generalAreas = Array.from(document.querySelectorAll<HTMLDivElement>('.general'))
 const skillAreas = Array.from(document.querySelectorAll<HTMLDivElement>('.skills'))
 const statusAreas = Array.from(document.querySelectorAll<HTMLDivElement>('.statuses'))
+const hpButtons = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-hp-action]'))
 const hpAreas = Array.from(document.querySelectorAll<HTMLSpanElement>('[data-hp]'))
+const hpControls = Array.from(document.querySelectorAll<HTMLDivElement>('[data-hp-controls]'))
+const publicNotes = Array.from(document.querySelectorAll<HTMLTextAreaElement>('[data-note-public]'))
+const privateNotes = Array.from(document.querySelectorAll<HTMLTextAreaElement>('[data-note-private]'))
+const noteToggles = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-note-toggle]'))
 
-if (!cardDisplay || !dealButton || !deckCount || !discardCount || !phaseDisplay || !initHandsButton || !nextTurnButton || !newGameButton || !nicknameInput || !roomInput || !connectButton || !connectionStatus || !deckTop || !revealCards || !discardCards || !revealZone || !discardZone || !deckTopSlot || !deckBottomSlot) {
+if (!cardDisplay || !deckCount || !discardCount || !resetDeckButton || !shuffleDeckButton || !drawButton || !newGameButton || !nicknameInput || !roomInput || !connectButton || !connectionStatus || !deckTop || !discardCards || !discardZone || !deckTopSlot || !deckBottomSlot) {
   throw new Error('UI elements missing')
 }
 
@@ -303,7 +434,7 @@ const suitSymbol = (suit: CardInstance['card']['suit']) => {
 }
 
 type DragPayload = {
-  source: 'deck-top' | 'hand' | 'hand-random' | 'discard' | 'reveal'
+  source: 'deck-top' | 'hand' | 'hand-random' | 'discard' | 'reveal' | 'play-area' | 'equipment' | 'judge'
   owner?: number
   cardId?: string
 }
@@ -315,7 +446,8 @@ const createCardElement = (options: {
   label?: string
 }): HTMLDivElement => {
   const element = document.createElement('div')
-  element.className = `card-tile ${options.faceUp ? 'front' : 'back'}`
+  const suitClass = options.card?.card.suit ? ` ${options.card.card.suit}` : ''
+  element.className = `card-tile ${options.faceUp ? 'front' : 'back'}${options.faceUp ? suitClass : ''}`
   element.draggable = true
   if (options.faceUp && options.card) {
     const { card } = options.card
@@ -358,36 +490,90 @@ const renderHands = () => {
       })
     }
   })
+
+  handSummaries.forEach((summary) => {
+    const index = Number(summary.dataset.handSummary)
+    const handCount = gameState.hands[index]?.length ?? 0
+    const playCount = gameState.playAreas[index]?.length ?? 0
+    summary.textContent = `手牌 ${handCount} | 出牌 ${playCount}`
+  })
 }
 
-const renderReveal = () => {
-  revealCards.innerHTML = ''
-  gameState.reveal.forEach((card) => {
-    const element = createCardElement({
-      card,
-      faceUp: true,
-      payload: { source: 'reveal', cardId: card.id },
+const renderPlayAreas = () => {
+  playCards.forEach((area) => {
+    const index = Number(area.dataset.playCards)
+    area.innerHTML = ''
+    const cards = gameState.playAreas[index] ?? []
+    cards.forEach((card) => {
+      const element = createCardElement({
+        card,
+        faceUp: true,
+        payload: { source: 'play-area', owner: index, cardId: card.id },
+      })
+      area.appendChild(element)
     })
-    revealCards.appendChild(element)
+  })
+}
+
+const renderEquipmentAreas = () => {
+  const groupedSlots = new Map<number, HTMLDivElement[]>()
+  equipmentSlots.forEach((slot) => {
+    const seat = Number(slot.dataset.seat)
+    if (!groupedSlots.has(seat)) {
+      groupedSlots.set(seat, [])
+    }
+    groupedSlots.get(seat)?.push(slot)
+  })
+  groupedSlots.forEach((slots, seatIndex) => {
+    slots.forEach((slot) => {
+      const label = slot.dataset.slotLabel ?? ''
+      slot.innerHTML = label
+    })
+    const cards = gameState.equipmentAreas[seatIndex] ?? []
+    cards.slice(0, slots.length).forEach((card, slotIndex) => {
+      const slot = slots[slotIndex]
+      slot.innerHTML = ''
+      const element = createCardElement({
+        card,
+        faceUp: true,
+        payload: { source: 'equipment', owner: seatIndex, cardId: card.id },
+      })
+      slot.appendChild(element)
+    })
+  })
+}
+
+const renderJudgeAreas = () => {
+  judgeCards.forEach((area) => {
+    const index = Number(area.dataset.judgeCards)
+    area.innerHTML = ''
+    const cards = gameState.judgeAreas[index] ?? []
+    cards.forEach((card) => {
+      const element = createCardElement({
+        card,
+        faceUp: true,
+        payload: { source: 'judge', owner: index, cardId: card.id },
+      })
+      area.appendChild(element)
+    })
   })
 }
 
 const renderDiscard = () => {
   discardCards.innerHTML = ''
-  const topCard = gameState.discard[0]
-  if (topCard) {
-    const element = createCardElement({
-      card: topCard,
-      faceUp: true,
-      payload: { source: 'discard', cardId: topCard.id },
-    })
-    discardCards.appendChild(element)
-  } else {
-    const placeholder = document.createElement('div')
-    placeholder.className = 'card-slot empty'
+  const cards = [...gameState.discard].reverse()
+  if (cards.length === 0) {
+    const placeholder = document.createElement('li')
+    placeholder.className = 'discard-empty'
     placeholder.textContent = '无牌'
     discardCards.appendChild(placeholder)
+    return
   }
+  cards.forEach((card, index) => {
+    const item = document.createElement('li')
+    item.textContent = `${index + 1}. ${card.card.name} ${suitSymbol(card.card.suit)} ${card.card.rank}`
+    discardCards.appendChild(item)
+  })
 }
 
 const renderDeckTop = () => {
@@ -399,111 +585,26 @@ const renderDeckTop = () => {
 const renderAll = () => {
   updateCounts()
   renderHands()
-  renderReveal()
+  renderPlayAreas()
+  renderEquipmentAreas()
+  renderJudgeAreas()
   renderDiscard()
   renderDeckTop()
 }
 
-const removeFromReveal = (cardId: string): CardInstance | null => {
-  const index = gameState.reveal.findIndex((card) => card.id === cardId)
-  if (index === -1) {
-    return null
-  }
-  return gameState.reveal.splice(index, 1)[0]
-}
-
-const removeFromDiscardById = (cardId: string): CardInstance | null => {
-  const index = gameState.discard.findIndex((card) => card.id === cardId)
-  if (index === -1) {
-    return null
-  }
-  return gameState.discard.splice(index, 1)[0]
-}
-
-type DropZone = 'hand' | 'discard' | 'reveal' | 'deck-top' | 'deck-bottom'
-
-const placeCardToZone = (card: CardInstance, zone: DropZone, targetPlayer?: number) => {
-  if (zone === 'hand' && targetPlayer !== undefined) {
-    card.faceUp = targetPlayer === currentSeat
-    gameState.hands[targetPlayer].push(card)
-    return
-  }
-  if (zone === 'discard') {
-    moveToDiscard(gameState, card)
-    return
-  }
-  if (zone === 'reveal') {
-    moveToReveal(gameState, card)
-    return
-  }
-  if (zone === 'deck-top') {
-    moveToDeckTop(gameState, card)
-    return
-  }
-  if (zone === 'deck-bottom') {
-    moveToDeckBottom(gameState, card)
-  }
-}
+type DropZone = 'hand' | 'discard' | 'reveal' | 'deck-top' | 'deck-bottom' | 'play-area' | 'equipment' | 'judge'
 
 const handleDrop = (payload: DragPayload, zone: DropZone, targetPlayer?: number) => {
-  let card: CardInstance | null = null
-
-  if (ws && ws.readyState === WebSocket.OPEN) {
-    sendMessage('action:move', {
-      source: payload.source,
-      sourceSeat: payload.owner,
-      cardId: payload.cardId,
-      targetZone: zone,
-      targetSeat: targetPlayer,
-    })
+  if (!ensureConnected()) {
     return
   }
-
-  if (payload.source === 'deck-top') {
-    card = takeTopFromDeck(gameState)
-    if (!card) {
-      cardDisplay.textContent = '牌堆为空'
-      return
-    }
-    placeCardToZone(card, zone, targetPlayer)
-    renderAll()
-    return
-  }
-
-  if (payload.source === 'hand') {
-    if (payload.owner === undefined || !payload.cardId) {
-      return
-    }
-    card = takeCardFromHand(gameState, payload.owner, payload.cardId)
-  }
-
-  if (payload.source === 'hand-random') {
-    if (payload.owner === undefined) {
-      return
-    }
-    card = takeRandomFromHand(gameState, payload.owner)
-  }
-
-  if (payload.source === 'discard') {
-    if (!payload.cardId) {
-      return
-    }
-    card = removeFromDiscardById(payload.cardId) ?? takeTopFromDiscard(gameState)
-  }
-
-  if (payload.source === 'reveal') {
-    if (!payload.cardId) {
-      return
-    }
-    card = removeFromReveal(payload.cardId) ?? takeTopFromReveal(gameState)
-  }
-
-  if (!card) {
-    return
-  }
-
-  placeCardToZone(card, zone, targetPlayer)
-  renderAll()
+  sendMessage('action:move', {
+    source: payload.source,
+    sourceSeat: payload.owner,
+    cardId: payload.cardId,
+    targetZone: zone,
+    targetSeat: targetPlayer,
+  })
 }
 
 const attachDropZone = (element: HTMLElement, zone: DropZone, playerIndex?: number) => {
@@ -528,21 +629,10 @@ const attachDropZone = (element: HTMLElement, zone: DropZone, playerIndex?: numb
 
 const setPhase = (next: Phase) => {
   phase = next
-  const label =
-    phase === 'call_lord'
-      ? '叫地主'
-      : phase === 'choose_generals'
-        ? '选将'
-        : phase === 'init_hands'
-          ? '初始手牌'
-          : '游戏中'
-  phaseDisplay.textContent = `阶段：${label}`
-  initHandsButton.disabled = phase !== 'init_hands'
-  dealButton.disabled = phase !== 'in_game'
-  nextTurnButton.disabled = phase !== 'in_game'
   callButtons.forEach((button) => {
     button.disabled = phase !== 'call_lord'
   })
+  updateCallButtons()
 }
 
 const connectToRoom = () => {
@@ -556,7 +646,7 @@ const connectToRoom = () => {
   }
   const wsUrl =
     import.meta.env.DEV
-      ? import.meta.env.VITE_WS_URL ?? 'ws://localhost:5174'
+      ? import.meta.env.VITE_WS_URL ?? 'ws://localhost:5175'
       : `${window.location.protocol === 'https:' ? 'wss' : 'ws'}://${window.location.host}`
   ws = new WebSocket(wsUrl)
   connectionStatus.textContent = '连接中...'
@@ -592,14 +682,29 @@ const updateRoles = () => {
   })
 }
 
+const updateCallButtons = () => {
+  callButtons.forEach((button) => {
+    const seatIndex = Number(button.dataset.call)
+    const shouldShow = phase === 'call_lord' && landlordSeat === null && currentSeat === seatIndex
+    button.style.display = shouldShow ? '' : 'none'
+  })
+}
+
 const updateGeneralUI = (seatIndex: number, general: General | null) => {
   const area = generalAreas[seatIndex]
   if (!area) {
     return
   }
+  const revealAll = playerGenerals.every((item) => item)
+  const isSelf = currentSeat !== null && seatIndex === currentSeat
+  const shouldHide = general && !revealAll && !isSelf
   const portrait = area.querySelector<HTMLDivElement>('.general-portrait')
   if (portrait) {
-    if (general?.portrait) {
+    if (shouldHide) {
+      portrait.style.backgroundImage = ''
+      portrait.textContent = '已选将'
+      portrait.classList.add('empty')
+    } else if (general?.portrait) {
       portrait.style.backgroundImage = `url(${general.portrait})`
       portrait.textContent = ''
       portrait.classList.remove('empty')
@@ -611,7 +716,11 @@ const updateGeneralUI = (seatIndex: number, general: General | null) => {
   }
   const name = area.querySelector<HTMLDivElement>('.general-name')
   if (name) {
-    name.textContent = general ? general.name : '未选将'
+    if (shouldHide) {
+      name.textContent = '已选将'
+    } else {
+      name.textContent = general ? general.name : '未选将'
+    }
   }
   const hp = hpAreas.find((item) => Number(item.dataset.hp) === seatIndex)
   if (hp) {
@@ -619,10 +728,29 @@ const updateGeneralUI = (seatIndex: number, general: General | null) => {
     const current = general ? general.hp : 0
     hp.textContent = `HP ${current}/${max}`
   }
+  const controls = hpControls.find((item) => Number(item.dataset.hpControls) === seatIndex)
+  if (controls) {
+    controls.querySelectorAll<HTMLButtonElement>('.hp-btn').forEach((btn) => {
+      btn.disabled = !general
+    })
+  }
   const skills = skillAreas[seatIndex]
   if (skills) {
     skills.innerHTML = ''
-    if (general) {
+    if (general && !shouldHide) {
+      const viewBtn = document.createElement('button')
+      viewBtn.className = 'skill-btn secondary'
+      viewBtn.textContent = '[查看]'
+      viewBtn.addEventListener('click', () => {
+        const lines = (general.skills_description ?? []).filter(Boolean)
+        if (lines.length === 0) {
+          cardDisplay.textContent = `${general.name}：暂无技能描述`
+          return
+        }
+        cardDisplay.textContent = lines.join('\n\n')
+      })
+      skills.appendChild(viewBtn)
+
       general.skills.forEach((skill: string) => {
         const btn = document.createElement('button')
         btn.className = 'skill-btn'
@@ -637,7 +765,7 @@ const updateGeneralUI = (seatIndex: number, general: General | null) => {
   const statuses = statusAreas[seatIndex]
   if (statuses) {
     statuses.innerHTML = ''
-    if (general) {
+    if (general && !shouldHide) {
       const statusList = [
         { key: '翻面', value: general.status.turnedOver },
         { key: '连环', value: general.status.chained },
@@ -658,10 +786,24 @@ const updateGeneralUI = (seatIndex: number, general: General | null) => {
   }
 }
 
+const adjustHp = (general: General, delta: number) => {
+  general.hp = Math.max(0, Math.min(general.hpMax, general.hp + delta))
+}
+
+const adjustHpMax = (general: General, delta: number) => {
+  general.hpMax = Math.max(0, general.hpMax + delta)
+  if (general.hp > general.hpMax) {
+    general.hp = general.hpMax
+  }
+}
+
 const renderGeneralOffers = () => {
   generalOfferAreas.forEach((area, index) => {
     area.innerHTML = ''
-    if (phase !== 'choose_generals') {
+    if (phase !== 'choose_generals' && phase !== 'call_lord') {
+      return
+    }
+    if (currentSeat === null || index !== currentSeat) {
       return
     }
     generalOffers[index].forEach((general) => {
@@ -672,74 +814,155 @@ const renderGeneralOffers = () => {
         <div class="offer-name">${general.name}</div>
       `
       btn.addEventListener('click', () => {
+        if (phase !== 'choose_generals') {
+          return
+        }
         if (playerGenerals[index]) {
           return
         }
-        if (ws && ws.readyState === WebSocket.OPEN) {
-          sendMessage('general:choose', { generalId: general.id })
+        if (!ws || ws.readyState !== WebSocket.OPEN) {
+          cardDisplay.textContent = '请先连接房间'
           return
         }
-        playerGenerals[index] = general
-        updateGeneralUI(index, general)
-        area.innerHTML = ''
-        if (playerGenerals.every((item) => item)) {
-          setPhase('init_hands')
-        }
+        sendMessage('general:choose', { generalId: general.id })
       })
       area.appendChild(btn)
     })
   })
 }
 
-const startNewGame = () => {
-  gameState = createGameState(INITIAL_DECK)
-  shuffleDeck(gameState)
-
-  landlordSeat = null
-  roles = [null, null, null]
-  updateRoles()
-
-  generalDeck = new GeneralDeck(mockGenerals)
-  generalDeck.shuffle()
-  generalOffers = [generalDeck.deal(3), generalDeck.deal(3), generalDeck.deal(3)]
-  playerGenerals = [null, null, null]
-  activeSeat = null
-
-  generalAreas.forEach((_, index) => updateGeneralUI(index, null))
-  renderGeneralOffers()
-
-  cardDisplay.textContent = '等待操作'
-  renderAll()
-  setPhase('call_lord')
+const ensureConnected = () => {
+  if (!ws || ws.readyState !== WebSocket.OPEN) {
+    cardDisplay.textContent = '请先连接房间'
+    return false
+  }
+  return true
 }
 
-dealButton.addEventListener('click', () => {
-  if (phase !== 'in_game') {
-    return
+const applyLocalCardDisplay = () => {
+  if (phase === 'in_game' && activeSeat !== null) {
+    cardDisplay.textContent = `轮到座位 ${activeSeat + 1}`
   }
-  const card = takeTopFromDeck(gameState)
-  if (!card) {
-    cardDisplay.textContent = '牌堆为空'
-    return
-  }
-  moveToReveal(gameState, card)
-  cardDisplay.textContent = `明牌：${card.card.name} ${suitSymbol(card.card.suit)} ${card.card.rank}`
-  renderAll()
-})
+}
+
+const updateNotesUI = () => {
+  publicNotes.forEach((note, index) => {
+    note.value = publicNoteValues[index] ?? ''
+    note.readOnly = currentSeat === null || currentSeat !== index
+  })
+  privateNotes.forEach((note, index) => {
+    const isOwner = currentSeat !== null && currentSeat === index
+    const isVisible = privateVisible[index]
+    note.readOnly = !isOwner
+    if (isOwner || isVisible) {
+      note.value = privateNoteValues[index] ?? ''
+    } else {
+      note.value = ''
+      note.placeholder = '私密内容（未公开）'
+    }
+  })
+  noteToggles.forEach((button, index) => {
+    const isOwner = currentSeat !== null && currentSeat === index
+    button.disabled = !isOwner
+    button.textContent = privateVisible[index] ? 'hide' : 'show'
+  })
+}
 
 const seatButtons = Array.from(document.querySelectorAll<HTMLButtonElement>('.seat-picker button'))
 seatButtons.forEach((button) => {
   button.addEventListener('click', () => {
     const seatIndex = Number(button.dataset.seat)
-    if (ws && ws.readyState === WebSocket.OPEN) {
-      sendMessage('seat:take', { seatIndex })
+    if (!ensureConnected()) {
       return
     }
-    currentSeat = seatIndex
-    seatButtons.forEach((item) => item.setAttribute('disabled', 'true'))
-    button.classList.add('selected')
-    updateSeatPositions()
-    renderAll()
+    sendMessage('seat:take', { seatIndex })
+  })
+})
+
+drawButton.addEventListener('click', () => {
+  if (!ensureConnected()) {
+    return
+  }
+  if (currentSeat === null) {
+    cardDisplay.textContent = '请先选择座位'
+    return
+  }
+  sendMessage('action:move', { source: 'deck-top', targetZone: 'hand', targetSeat: currentSeat })
+})
+
+playClearButtons.forEach((button) => {
+  button.addEventListener('click', () => {
+    if (!ensureConnected()) {
+      return
+    }
+    const seatIndex = Number(button.dataset.playClear)
+    if (currentSeat === null || currentSeat !== seatIndex) {
+      return
+    }
+    sendMessage('play:clear')
+  })
+})
+
+publicNotes.forEach((note) => {
+  note.addEventListener('input', () => {
+    if (!ensureConnected()) {
+      return
+    }
+    const seatIndex = Number(note.dataset.notePublic)
+    if (currentSeat === null || currentSeat !== seatIndex) {
+      return
+    }
+    sendMessage('notes:update', { scope: 'public', value: note.value })
+  })
+})
+
+privateNotes.forEach((note) => {
+  note.addEventListener('input', () => {
+    if (!ensureConnected()) {
+      return
+    }
+    const seatIndex = Number(note.dataset.notePrivate)
+    if (currentSeat === null || currentSeat !== seatIndex) {
+      return
+    }
+    sendMessage('notes:update', { scope: 'private', value: note.value })
+  })
+})
+
+noteToggles.forEach((button) => {
+  button.addEventListener('click', () => {
+    if (!ensureConnected()) {
+      return
+    }
+    const seatIndex = Number(button.dataset.noteToggle)
+    if (currentSeat === null || currentSeat !== seatIndex) {
+      return
+    }
+    sendMessage('notes:toggle')
+  })
+})
+
+hpButtons.forEach((button) => {
+  const action = button.dataset.hpAction
+  const seatIndex = Number(button.dataset.seat)
+  button.addEventListener('click', () => {
+    const general = playerGenerals[seatIndex]
+    if (!general) {
+      return
+    }
+    if (action === 'hp-inc') {
+      adjustHp(general, 1)
+    }
+    if (action === 'hp-dec') {
+      adjustHp(general, -1)
+    }
+    if (action === 'max-inc') {
+      adjustHpMax(general, 1)
+    }
+    if (action === 'max-dec') {
+      adjustHpMax(general, -1)
+    }
+    updateGeneralUI(seatIndex, general)
   })
 })
 
@@ -751,7 +974,22 @@ handZones.forEach((zone) => {
   const playerIndex = Number(zone.dataset.handZone)
   attachDropZone(zone, 'hand', playerIndex)
 })
-attachDropZone(revealZone, 'reveal')
+playZones.forEach((zone) => {
+  const playerIndex = Number(zone.dataset.playZone)
+  attachDropZone(zone, 'play-area', playerIndex)
+})
+equipmentZones.forEach((zone) => {
+  const playerIndex = Number(zone.dataset.equipmentZone)
+  attachDropZone(zone, 'equipment', playerIndex)
+})
+equipmentSlots.forEach((slot) => {
+  const playerIndex = Number(slot.dataset.seat)
+  attachDropZone(slot, 'equipment', playerIndex)
+})
+judgeZones.forEach((zone) => {
+  const playerIndex = Number(zone.dataset.judgeZone)
+  attachDropZone(zone, 'judge', playerIndex)
+})
 attachDropZone(discardZone, 'discard')
 attachDropZone(deckTopSlot, 'deck-top')
 attachDropZone(deckBottomSlot, 'deck-bottom')
@@ -765,63 +1003,32 @@ callButtons.forEach((button) => {
     if (phase !== 'call_lord') {
       return
     }
-    if (ws && ws.readyState === WebSocket.OPEN) {
-      sendMessage('role:callLord')
+    if (!ensureConnected()) {
       return
     }
-    if (landlordSeat !== null) {
-      return
-    }
-    const seatIndex = Number(button.dataset.call)
-    landlordSeat = seatIndex
-    roles = [0, 1, 2].map((index) => (index === seatIndex ? 'landlord' : 'farmer'))
-    updateRoles()
-
-    if (landlordSeat !== null) {
-      const extra = generalDeck.deal(2)
-      generalOffers[landlordSeat].push(...extra)
-    }
-    setPhase('choose_generals')
-    renderGeneralOffers()
-    cardDisplay.textContent = `座位 ${seatIndex + 1} 成为地主，进入选将阶段`
+    sendMessage('role:callLord')
   })
 })
 
-initHandsButton.addEventListener('click', () => {
-  if (phase !== 'init_hands') {
+resetDeckButton.addEventListener('click', () => {
+  if (!ensureConnected()) {
     return
   }
-  if (ws && ws.readyState === WebSocket.OPEN) {
-    sendMessage('cards:initHands')
-    return
-  }
-  for (let index = 0; index < 3; index += 1) {
-    drawFromDeck(gameState, index, 4)
-  }
-  activeSeat = landlordSeat ?? 0
-  setPhase('in_game')
-  renderAll()
+  sendMessage('deck:reset')
 })
 
-nextTurnButton.addEventListener('click', () => {
-  if (phase !== 'in_game') {
+shuffleDeckButton.addEventListener('click', () => {
+  if (!ensureConnected()) {
     return
   }
-  if (activeSeat === null) {
-    activeSeat = landlordSeat ?? 0
-  } else {
-    activeSeat = (activeSeat + 1) % 3
-  }
-  cardDisplay.textContent = `轮到座位 ${activeSeat + 1}`
+  sendMessage('deck:shuffle')
 })
 
 newGameButton.addEventListener('click', () => {
-  if (ws && ws.readyState === WebSocket.OPEN) {
-    sendMessage('room:reset')
+  if (!ensureConnected()) {
     return
   }
-  startNewGame()
+  sendMessage('room:reset')
 })
 
-startNewGame()
 connectButton.addEventListener('click', connectToRoom)

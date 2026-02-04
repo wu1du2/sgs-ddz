@@ -10,6 +10,8 @@ export type General = {
   hpMax: number
   hp: number
   skills: string[]
+  skills_description?: string[]
   portrait: string
+  enable?: boolean
   status: GeneralStatus
 }

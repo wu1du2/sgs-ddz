@@ -11,6 +11,9 @@ export type GameState = {
   discard: CardInstance[]
   reveal: CardInstance[]
   hands: CardInstance[][]
+  playAreas: CardInstance[][]
+  equipmentAreas: CardInstance[][]
+  judgeAreas: CardInstance[][]
 }
 
 const createCardInstances = (cards: ReadonlyArray<Card>): CardInstance[] =>
@@ -25,6 +28,9 @@ export const createGameState = (cards: ReadonlyArray<Card>, playerCount = 3): Ga
   discard: [],
   reveal: [],
   hands: Array.from({ length: playerCount }, () => [] as CardInstance[]),
+  playAreas: Array.from({ length: playerCount }, () => [] as CardInstance[]),
+  equipmentAreas: Array.from({ length: playerCount }, () => [] as CardInstance[]),
+  judgeAreas: Array.from({ length: playerCount }, () => [] as CardInstance[]),
 })
 
 export const shuffleDeck = (state: GameState): void => {
@@ -82,6 +88,21 @@ export const moveToDiscard = (state: GameState, card: CardInstance): void => {
 export const moveToReveal = (state: GameState, card: CardInstance): void => {
   card.faceUp = true
   state.reveal.unshift(card)
+}
+
+export const moveToPlayArea = (state: GameState, card: CardInstance, playerIndex: number): void => {
+  card.faceUp = true
+  state.playAreas[playerIndex].unshift(card)
+}
+
+export const moveToEquipmentArea = (state: GameState, card: CardInstance, playerIndex: number): void => {
+  card.faceUp = true
+  state.equipmentAreas[playerIndex].unshift(card)
+}
+
+export const moveToJudgeArea = (state: GameState, card: CardInstance, playerIndex: number): void => {
+  card.faceUp = true
+  state.judgeAreas[playerIndex].unshift(card)
 }
 
 export const moveToDeckTop = (state: GameState, card: CardInstance): void => {

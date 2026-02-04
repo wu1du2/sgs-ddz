@@ -7,6 +7,7 @@ export class GeneralDeck {
     this.generals = initialGenerals.map((general) => ({
       ...general,
       skills: [...general.skills],
+      skills_description: general.skills_description ? [...general.skills_description] : undefined,
       status: { ...general.status },
     }))
   }

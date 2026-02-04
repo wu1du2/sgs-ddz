@@ -9,7 +9,13 @@
       "战烈",
       "振锋"
     ],
-    "portrait": "https://patchwiki.biligame.com/images/msgs/9/93/fvf5tctjeasnvia4vk6xvo9nv03q3ws.png"
+    "portrait": "https://patchwiki.biligame.com/images/msgs/9/93/fvf5tctjeasnvia4vk6xvo9nv03q3ws.png",
+    "skills_description": [
+      "酣战:出牌阶段限一次，你可以选择一名其他角色，你与其依次将手牌数摸至X张（X为各自的体力上限，每次至多摸3张），然后你视为对其使用一张【决斗】。",
+      "战烈:①每名角色的回合开始时，你记录X（X为你此时的攻击范围）。",
+      "振锋:出牌阶段，你可以选择一项：1.回复2点体力；2.将“酣战”和“战烈”中的X分别固定为其中一个选项的数值（当前体力值/已损失体力值/存活角色数）。"
+    ],
+    "enable": true
   },
   {
     "id": "界沮授",
@@ -20,7 +26,12 @@
       "渐营",
       "矢北"
     ],
-    "portrait": "https://patchwiki.biligame.com/images/msgs/e/e2/qczu6lg53qzdilwgz6xjxip035gyias.jpg"
+    "portrait": "https://patchwiki.biligame.com/images/msgs/e/e2/qczu6lg53qzdilwgz6xjxip035gyias.jpg",
+    "skills_description": [
+      "渐营:①当你于你的出牌阶段内使用牌时，若此牌与你本阶段使用的上一张牌点数或花色相同，你可以摸一张牌；",
+      "矢北:当你受到伤害后，若此次伤害是你本回合受到的第一次伤害，则你回复1点体力，否则你失去1点体力。"
+    ],
+    "enable": true
   },
   {
     "id": "友诸葛亮",
@@ -32,7 +43,13 @@
       "方遒",
       "共砺"
     ],
-    "portrait": "https://patchwiki.biligame.com/images/msgs/7/75/aw8s9in7ap79ekxt9xlvac828hgdo0e.jpg"
+    "portrait": "https://patchwiki.biligame.com/images/msgs/7/75/aw8s9in7ap79ekxt9xlvac828hgdo0e.jpg",
+    "skills_description": [
+      "演策:①每轮限一次，首轮开始时，或准备阶段，你可以选择一项: 1.从牌堆中随机获得一张锦囊牌； 2.执行“卧龙演策”。",
+      "方遒:当你执行“卧龙演策”后，你可以展示你的“卧龙演策”预测，若如此做，本次”卧龙演策”的预测全部验证后，执行效果的值均+1，然后若卧龙演策预测的牌数大于3且预测全部正确，该技能可以再次发动。",
+      "共砺:若武将友庞统在场且与你阵营一致，你执行“卧龙演策”可预测的牌数+1;\n若武将友徐庶在场且与你阵营一致，你“卧龙演策”预测的第一张牌的结果视为正确。"
+    ],
+    "enable": true
   },
   {
     "id": "友徐庶",
@@ -44,7 +61,13 @@
       "启诲",
       "共砺"
     ],
-    "portrait": "https://patchwiki.biligame.com/images/msgs/c/ca/nd4xs2s807mjabl027piif19m358vud.jpg"
+    "portrait": "https://patchwiki.biligame.com/images/msgs/c/ca/nd4xs2s807mjabl027piif19m358vud.jpg",
+    "skills_description": [
+      "侠行:游戏开始时，你获得并使用“玄剑”；当“玄剑”进入弃牌堆时，你可以移除2个“启诲”标记并获得之。",
+      "启诲:当你使用牌时，若你没有此牌对应类别的标记，你获得1个对应类别的“启诲”标记；然后若你拥有3个“启诲”标记，你移除2个“启诲”标记并选择一项：1.你回复1点体力并重铸一张牌；2.你摸两张牌；3.你使用的下一张牌不计入使用次数且无次数限制。",
+      "共砺:若武将友庞统在场且与你阵营一致，你执行“卧龙演策”可预测的牌数+1;\n若武将友徐庶在场且与你阵营一致，你“卧龙演策”预测的第一张牌的结果视为正确。"
+    ],
+    "enable": true
   },
   {
     "id": "势魏延",
@@ -56,7 +79,13 @@
       "饮战",
       "忠傲"
     ],
-    "portrait": "https://patchwiki.biligame.com/images/msgs/9/95/pktmnfywnwm0d1j38k4dahryj31zxuu.jpg"
+    "portrait": "https://patchwiki.biligame.com/images/msgs/9/95/pktmnfywnwm0d1j38k4dahryj31zxuu.jpg",
+    "skills_description": [
+      "壮誓:出牌阶段开始时，你可以执行其中的任意项：\n1.弃置任意张手牌，然后你于此阶段内使用的前等量张牌无距离限制且不可被响应；\n2.失去任意点体力，然后你于此阶段内使用的前等量张牌不计入次数。",
+      "饮战:当你使用【杀】对一名角色造成伤害时，若你的：体力值小于等于其，则此伤害+1；牌数小于等于其，则你于此【杀】结算结束后弃置其一张牌。",
+      "忠傲:游戏开始时，你获得“狂骨/势魏延”。\n成功：当你杀死一名角色后，你令“狂骨/势魏延”增加新的描述“背水：弃置一张牌，然后你此阶段内使用【杀】的次数+1”，然后若你于此阶段内：\n使用的牌数小于因“壮誓”弃置的牌数，你摸一张牌；\n使用的牌数小于因“壮誓”失去的体力数，你回复1点体力（若你未受伤则改为摸一张牌）。\n失败：当你进入濒死状态，或者当你于出牌阶段开始时未执行“壮誓”，则你失去“壮誓”并获得“困奋/势魏延”。"
+    ],
+    "enable": true
   },
   {
     "id": "神鲁肃",
@@ -68,7 +97,13 @@
       "定州",
       "智盟"
     ],
-    "portrait": "https://patchwiki.biligame.com/images/msgs/5/5d/6sgunbux1peb3l22mqfmjjg0iehel1b.png"
+    "portrait": "https://patchwiki.biligame.com/images/msgs/5/5d/6sgunbux1peb3l22mqfmjjg0iehel1b.png",
+    "skills_description": [
+      "榻谟:游戏开始时，你可以调整“”/“”每名角色的座次。",
+      "定州:出牌阶段限一次，你可以交给一名场上有牌的其他角色X张牌（X为其场上的牌的数量），然后你获得其场上的所有牌。",
+      "智盟:回合结束后，你可以选择一名其他角色，然后随机平分你与其的所有手牌（若这些牌的数量为奇数，则你获得的牌的数量较多）。"
+    ],
+    "enable": true
   },
   {
     "id": "谋曹操",
@@ -80,7 +115,13 @@
       "清正",
       "护驾"
     ],
-    "portrait": "https://patchwiki.biligame.com/images/msgs/7/7c/jv8515eiy996rvj5lizgx3mdbd5k4fg.jpg"
+    "portrait": "https://patchwiki.biligame.com/images/msgs/7/7c/jv8515eiy996rvj5lizgx3mdbd5k4fg.jpg",
+    "skills_description": [
+      "奸雄:①游戏开始时，你可以获得至多2个“治世”标记；",
+      "清正:出牌阶段开始时，你可以弃置手牌中3-X种花色的所有牌（X为“治世”标记数），并观看一名有手牌的其他角色的手牌，弃置其中一种花色的所有牌，若其被弃置的牌数小于你弃置的牌数，你对其造成1点伤害。然后若X小于2且你拥有技能“奸雄/谋曹操”，你可以获得1个“治世”标记。",
+      "护驾:每轮限一次，当你受到伤害时，你可以将此伤害转移给一名其他魏势力角色。"
+    ],
+    "enable": true
   },
   {
     "id": "张让",
@@ -90,7 +131,11 @@
     "skills": [
       "滔乱"
     ],
-    "portrait": "https://patchwiki.biligame.com/images/msgs/f/f3/ahdv2n590w6j6uf0yc3gsrfyczwcvox.jpg"
+    "portrait": "https://patchwiki.biligame.com/images/msgs/f/f3/ahdv2n590w6j6uf0yc3gsrfyczwcvox.jpg",
+    "skills_description": [
+      "滔乱:当你需要使用一张基本牌或普通锦囊牌时，若没有角色处于濒死状态，你可以将一张牌当任意一张基本牌或普通锦囊牌使用（每种牌名限一次），然后此牌结算结束后令一名其他角色选择一项：1.交给你一张与“滔乱”声明的牌类别不同的牌；2.令你失去1点体力且本回合“滔乱”失效。"
+    ],
+    "enable": true
   },
   {
     "id": "祢衡",
@@ -101,7 +146,12 @@
       "狂才",
       "舌剑"
     ],
-    "portrait": "https://patchwiki.biligame.com/images/msgs/b/bd/nke800b7ck66ycr9kyv7aq0qu1vy54i.jpg"
+    "portrait": "https://patchwiki.biligame.com/images/msgs/b/bd/nke800b7ck66ycr9kyv7aq0qu1vy54i.jpg",
+    "skills_description": [
+      "狂才:出牌阶段开始时，你可以令你此阶段内使用牌无距离和次数限制，且主动出牌时间和响应出牌时间变为5秒，若如此做，当你于此阶段内使用牌时，你摸一张牌并令主动出牌时间-1秒（每个出牌阶段以此法至多摸五张牌）。",
+      "舌剑:弃牌阶段结束时，若你于此阶段内弃置过至少两张牌且这些牌花色均不相同，你可以弃置一名其他角色的一张牌。"
+    ],
+    "enable": true
   },
   {
     "id": "马钧",
@@ -112,7 +162,12 @@
       "精械",
       "巧思"
     ],
-    "portrait": "https://patchwiki.biligame.com/images/msgs/1/13/ct69vwoqrqz98fu2ge9ng0ui3504wat.jpg"
+    "portrait": "https://patchwiki.biligame.com/images/msgs/1/13/ct69vwoqrqz98fu2ge9ng0ui3504wat.jpg",
+    "skills_description": [
+      "精械:①出牌阶段，你可以展示你手牌区或装备区里的一张防具牌或【诸葛连弩】，然后升级此牌；",
+      "巧思:出牌阶段限一次，你可以表演一次“水转百戏图”，获得对应的牌，然后你选择一项：1.弃置等量的牌；2.将等量的牌交给一名其他角色。"
+    ],
+    "enable": true
   },
   {
     "id": "神甘宁",
@@ -123,7 +178,12 @@
       "魄袭",
       "劫营"
     ],
-    "portrait": "https://patchwiki.biligame.com/images/msgs/9/93/2cgxytq6nj5o88c8qvoa1kkx2ihp1sj.jpg"
+    "portrait": "https://patchwiki.biligame.com/images/msgs/9/93/2cgxytq6nj5o88c8qvoa1kkx2ihp1sj.jpg",
+    "skills_description": [
+      "魄袭:出牌阶段限一次，你可以观看一名其他角色的手牌，且你可以弃置你与其手牌中共计四张不同花色的牌，然后若你以此法被弃置的牌数为：\n【0】你减少1点体力上限；\n【1】你结束出牌阶段且你本回合的手牌上限-1；\n【3】你回复1点体力；\n【4】你摸四张牌。",
+      "劫营:①回合开始时，若场上没有角色有“营”标记，你获得“营”标记；"
+    ],
+    "enable": true
   },
   {
     "id": "神陆逊",
@@ -135,7 +195,13 @@
       "摧克",
       "绽火"
     ],
-    "portrait": "https://patchwiki.biligame.com/images/msgs/0/0e/2b7tdgyhvgwujxd23e1qutl94pzufxh.jpg"
+    "portrait": "https://patchwiki.biligame.com/images/msgs/0/0e/2b7tdgyhvgwujxd23e1qutl94pzufxh.jpg",
+    "skills_description": [
+      "军略:当你造成或受到1点伤害后，你获得1枚“军略”标记。",
+      "摧克:出牌阶段开始时，若“军略”数量：\n【奇数】你可以对一名角色造成1点伤害；\n【偶数】你可以横置一名角色并弃置其区域里的一张牌；\n然后若“军略”数量大于7，你可以移去所有“军略”标记，对所有其他角色各造成1点伤害。",
+      "绽火:出牌阶段，你可以移去所有“军略”标记，令至多等量的已横置角色弃置所有装备区里的牌，然后对其中一名角色造成1点火焰伤害。"
+    ],
+    "enable": true
   },
   {
     "id": "徐荣",
@@ -146,7 +212,12 @@
       "凶镬",
       "杀绝"
     ],
-    "portrait": "https://patchwiki.biligame.com/images/msgs/5/5f/rpn9oc1ez90xefp3145pqki338r4q0u.jpg"
+    "portrait": "https://patchwiki.biligame.com/images/msgs/5/5f/rpn9oc1ez90xefp3145pqki338r4q0u.jpg",
+    "skills_description": [
+      "凶镬:①游戏开始时，你获得3个“暴戾”标记（你对有此标记的其他角色造成的伤害+1）；",
+      "杀绝:当其他角色进入濒死状态时，若其需要超过1个【桃】或【酒】才能救回，你获得1个“暴戾”标记，然后你获得令其进入濒死状态的牌。"
+    ],
+    "enable": true
   },
   {
     "id": "界钟会",
@@ -158,7 +229,13 @@
       "自立",
       "排异"
     ],
-    "portrait": "https://patchwiki.biligame.com/images/msgs/d/d1/0jaylgolfqrx1luvv8ktva3lygeq0qo.jpg"
+    "portrait": "https://patchwiki.biligame.com/images/msgs/d/d1/0jaylgolfqrx1luvv8ktva3lygeq0qo.jpg",
+    "skills_description": [
+      "权计:出牌阶段结束时，若你的手牌数大于体力值，或当你受到1点伤害后，你可以摸一张牌并将一张手牌置于你的武将牌上，称为“权”（你的手牌上限增加“权”的数量）。",
+      "自立:准备阶段，若“权”的数量不小于3，你选择一项：1.回复1点体力；2.摸两张牌。若如此做，你减1点体力上限，获得技能“排异/界钟会”。",
+      "排异:出牌阶段限一次，你可以移去一张“权”，令一名角色摸两张牌，然后若该角色的手牌数大于你，你对其造成1点伤害。"
+    ],
+    "enable": true
   },
   {
     "id": "杨彪",
@@ -170,7 +247,13 @@
       "让节",
       "义争"
     ],
-    "portrait": "https://patchwiki.biligame.com/images/msgs/8/80/s3mzrk4ue5sghpvegxg4y7agya58zcm.jpg"
+    "portrait": "https://patchwiki.biligame.com/images/msgs/8/80/s3mzrk4ue5sghpvegxg4y7agya58zcm.jpg",
+    "skills_description": [
+      "昭汉:你于本局游戏的前四个准备阶段增加1点体力上限并回复1点体力；之后的三个准备阶段，你减少1点体力上限。",
+      "让节:当你受到1点伤害后，你可以选择一项：1.移动场上的一张牌；2.从牌堆或弃牌堆中获得一张你指定类型的牌。若如此做，你摸一张牌。",
+      "义争:出牌阶段限一次，你可以与一名体力值不大于你的角色拼点，若你：赢，其跳过其下个摸牌阶段；没赢，你减1点体力上限。"
+    ],
+    "enable": true
   },
   {
     "id": "界徐盛",
@@ -180,7 +263,11 @@
     "skills": [
       "破军"
     ],
-    "portrait": "https://patchwiki.biligame.com/images/msgs/1/12/m8k60xfu2uhhwdo3rcw1zag4t8la5sr.jpg"
+    "portrait": "https://patchwiki.biligame.com/images/msgs/1/12/m8k60xfu2uhhwdo3rcw1zag4t8la5sr.jpg",
+    "skills_description": [
+      "破军:①当你使用【杀】指定一名角色为目标后，你可以将该角色的至多X张牌置于其武将牌上（X为该角色的体力值），然后当前回合结束时，其获得武将牌上的牌；"
+    ],
+    "enable": true
   },
   {
     "id": "文鸯",
@@ -193,7 +280,14 @@
       "椎锋",
       "冲坚"
     ],
-    "portrait": "https://patchwiki.biligame.com/images/msgs/e/e8/qw0tay85anr4jw9llkjhv25k84k8idn.jpg"
+    "portrait": "https://patchwiki.biligame.com/images/msgs/e/e8/qw0tay85anr4jw9llkjhv25k84k8idn.jpg",
+    "skills_description": [
+      "却敌:每回合限一次，当你使用【杀】或【决斗】指定一名角色为唯一目标后，你可以选择一项：1.获得该角色的一张手牌；2.弃置一张基本牌，令此牌的造成的伤害+1；背水：你减1点体力上限。",
+      "仇决:当你杀死其他角色后，你加1点体力上限并摸两张牌，然后你本回合发动“却敌”的次数上限+1。",
+      "椎锋:魏出牌阶段限两次，你可以失去1点体力，视为使用一张【决斗】，然后若你因此受到伤害，你防止此伤害且本阶段此技能失效。",
+      "冲坚:吴你可以将一张装备牌当【酒】或无距离限制且无视防具的任意一种【杀】使用，然后你以此法使用此【杀】造成伤害后，你获得受伤角色装备区里的X张牌（X为此次伤害的伤害值）。"
+    ],
+    "enable": true
   },
   {
     "id": "曹髦",
@@ -204,7 +298,12 @@
       "潜龙",
       "卫统"
     ],
-    "portrait": "https://patchwiki.biligame.com/images/msgs/e/e6/rtc56kqhijqtez5sd0jkyxle3yayvtf.png"
+    "portrait": "https://patchwiki.biligame.com/images/msgs/e/e6/rtc56kqhijqtez5sd0jkyxle3yayvtf.png",
+    "skills_description": [
+      "潜龙:①游戏开始时，你获得20点“道心|blue”值（你至多拥有99点“道心|blue”值）；",
+      "卫统:游戏开始时，若场上有其他魏势力角色且你拥有“潜龙”，则你因“潜龙”于游戏开始时获得的“道心|blue”值修改为60。|经典技能台词=手无实权难卫统，朦胧成睡，睡去还惊。aHR0cHM6Ly8xZHJ2Lm1zL3UvYy8wY2RiMjhhMmUzMzIxZDVlL0VlbVZRaWkyTGw1Tm1PbXJtekFaeGhnQnpfcE54VmJjcnFFcnZ1RU94NHpsRlE"
+    ],
+    "enable": true
   },
   {
     "id": "十常侍",
@@ -215,7 +314,12 @@
       "党锢",
       "殁亡"
     ],
-    "portrait": "https://patchwiki.biligame.com/images/msgs/d/d2/l14t4ux5pmuu7ziwqj8oweujrxkpfgi.jpg"
+    "portrait": "https://patchwiki.biligame.com/images/msgs/d/d2/l14t4ux5pmuu7ziwqj8oweujrxkpfgi.jpg",
+    "skills_description": [
+      "党锢:锁定技，游戏开始时，你获得十张不同的“常侍”牌，然后你进行一次结党。当你修整结束移回游戏后，你进行一次结党，然后你摸增改|一张牌。你获得你亮出“常侍”牌的技能。\n“常侍”牌对应列表：\n（1）滔乱/张让（十常侍）（2）鸱咽\n（3）自谋（4）庀材\n（5）谣诼（6）宵赂\n（7）窥机（8）叱吓\n（9）逆取（10）妙语",
+      "殁亡:①当你死亡后，若你拥有技能“党锢”且你仍有未出亮出的“常侍”牌，则改为休整一轮；"
+    ],
+    "enable": true
   },
   {
     "id": "谋黄盖",
@@ -226,7 +330,12 @@
       "苦肉",
       "诈降"
     ],
-    "portrait": "https://patchwiki.biligame.com/images/msgs/4/41/6l1bb1gkz9djyriz9i3fhidk6f7zp4x.jpg"
+    "portrait": "https://patchwiki.biligame.com/images/msgs/4/41/6l1bb1gkz9djyriz9i3fhidk6f7zp4x.jpg",
+    "skills_description": [
+      "苦肉:①出牌阶段开始时，你可以交给一名其他角色一张牌。若你给出的牌为【桃】或【酒】，则你失去2点体力，否则你失去1点体力。",
+      "诈降:①摸牌阶段，你多摸X张牌；"
+    ],
+    "enable": true
   },
   {
     "id": "神郭嘉",
@@ -238,7 +347,13 @@
       "辉逝",
       "天翊"
     ],
-    "portrait": "https://patchwiki.biligame.com/images/msgs/2/2b/5kcux1rjdq5qtr5r8n9ehkl9gaxn2zc.jpg"
+    "portrait": "https://patchwiki.biligame.com/images/msgs/2/2b/5kcux1rjdq5qtr5r8n9ehkl9gaxn2zc.jpg",
+    "skills_description": [
+      "慧识:出牌阶段限一次，若你的体力上限小于10，你可以进行一次判定：若判定结果与本阶段以此法进行判定的结果的花色均不同，且此时你的体力上限小于10，你可以加1点体力上限并重复此流程。然后你可以将所有生效的判定牌交给一名角色，若其手牌数为全场最多，你减1点体力上限。",
+      "辉逝:出牌阶段，你可以选择一名角色，若其有未触发的觉醒技且你的体力上限不小于存活角色数，则你令其视为满足其一个觉醒技的觉醒条件；否则其摸四张牌。若如此做，你减2点体力上限。",
+      "天翊:准备阶段，若所有存活角色在本局游戏中均受到过伤害，你加2点体力上限并回复1点体力，然后令一名角色获得技能“佐幸”。"
+    ],
+    "enable": true
   },
   {
     "id": "界虞翻",
@@ -249,7 +364,12 @@
       "纵玄",
       "直言"
     ],
-    "portrait": "https://patchwiki.biligame.com/images/msgs/1/15/04k6pji85rh63ir8rrbxglma753awy3.jpg"
+    "portrait": "https://patchwiki.biligame.com/images/msgs/1/15/04k6pji85rh63ir8rrbxglma753awy3.jpg",
+    "skills_description": [
+      "纵玄:①当你的牌因弃置而置入弃牌堆时，你可以将其中任意张牌置于牌堆顶；",
+      "直言:结束阶段，你可以令一名角色摸一张牌并展示之，若此牌为装备牌，其使用此牌并回复1点体力。"
+    ],
+    "enable": true
   },
   {
     "id": "势夏侯尚",
@@ -259,7 +379,11 @@
     "skills": [
       "探锋"
     ],
-    "portrait": "https://patchwiki.biligame.com/images/msgs/9/9e/2x55t52h7yg64kqj5hn01y6z0dci05e.png"
+    "portrait": "https://patchwiki.biligame.com/images/msgs/9/9e/2x55t52h7yg64kqj5hn01y6z0dci05e.png",
+    "skills_description": [
+      "探锋:准备阶段，你可以选择任意项：1.弃置一名角色至多两张牌，然后若其手牌数小于等于你，你跳过摸牌阶段；2.对一名角色造成1点火焰伤害，然后若其体力值小于等于你，你跳过出牌阶段。"
+    ],
+    "enable": true
   },
   {
     "id": "势陆郁生",
@@ -270,7 +394,12 @@
       "润微",
       "霜怀"
     ],
-    "portrait": "https://patchwiki.biligame.com/images/msgs/b/b1/7nzgn75xep5m31o8ehy5v5csuz0k7d3.jpg"
+    "portrait": "https://patchwiki.biligame.com/images/msgs/b/b1/7nzgn75xep5m31o8ehy5v5csuz0k7d3.jpg",
+    "skills_description": [
+      "润微:出牌阶段限一次，你可以展示牌堆顶至多五张牌，令一名角色获得其中一种颜色的所有牌。若如此做：1.每阶段限一次，你失去X张牌后（X为其因此获得的牌数），该技能可以再次发动且不能指定本回合获得过牌的角色为目标；2.本阶段结束时，你弃置以此法获得的手牌。",
+      "霜怀:每回合限一次，当与你距离1以内的其他角色受到伤害时，你可以选择一项：1.防止此伤害；2.令其从弃牌堆中获得一张【桃】。\n若该角色与你上一次发动时：相同，你与其各摸一张牌；不同，你失去1点体力。"
+    ],
+    "enable": true
   },
   {
     "id": "傅佥",
@@ -281,7 +410,12 @@
       "破降",
       "绝勇"
     ],
-    "portrait": "https://patchwiki.biligame.com/images/msgs/d/d4/dci8smjslevbbi0ulto8ee5lvq9bhc4.jpg"
+    "portrait": "https://patchwiki.biligame.com/images/msgs/d/d4/dci8smjslevbbi0ulto8ee5lvq9bhc4.jpg",
+    "skills_description": [
+      "破降:出牌阶段限一次，你可以交给一名其他角色一张牌并摸三张牌，然后你移去所有“绝”并失去1点体力（你以此法获得的牌本回合不计入你的手牌上限）。",
+      "绝勇:①当你成为一张不因“绝勇/傅佥”使用的非转换且非虚拟的牌（【桃】和【酒】除外）指定的目标时，若你是此牌的唯一目标且此时“绝”的数量小于你的体力值，你取消之，然后将此牌置于你的武将牌上，称为“绝”。"
+    ],
+    "enable": true
   },
   {
     "id": "势董昭",
@@ -292,7 +426,12 @@
       "妙略",
       "迎驾"
     ],
-    "portrait": "https://patchwiki.biligame.com/images/msgs/e/e0/3fso05yf3rhw7jaeo71v6b1bvs3sqco.jpg"
+    "portrait": "https://patchwiki.biligame.com/images/msgs/e/e0/3fso05yf3rhw7jaeo71v6b1bvs3sqco.jpg",
+    "skills_description": [
+      "妙略:游戏开始时，你获得两张“【瞒天过海】”。\n当你受到伤害后，你可以选择一项：1.摸两张牌；2.从牌堆或者弃牌堆中获得一张你指定牌名的“智囊”牌。",
+      "迎驾:一名角色的回合结束后，若你本回合使用了大于等于两张同名锦囊牌，你可以弃置一张手牌，令一名角色执行一个额外的回合。此额外回合开始时，其摸两张牌。"
+    ],
+    "enable": true
   },
   {
     "id": "谋诸葛亮",
@@ -303,7 +442,12 @@
       "火计",
       "看破"
     ],
-    "portrait": "https://patchwiki.biligame.com/images/msgs/8/88/1ctc7hyuts1ujur4qqqzwmgfnbv6qc9.png"
+    "portrait": "https://patchwiki.biligame.com/images/msgs/8/88/1ctc7hyuts1ujur4qqqzwmgfnbv6qc9.png",
+    "skills_description": [
+      "火计:出牌阶段限一次，你可以选择一名其他角色，然后你对所有与其势力相同且不为你的其他角色各造成1点火焰伤害。",
+      "看破:每轮开始时，你清除“看破”记录的牌名，然后你可以选择并记录任意个数的牌名（可以同时记录多个同一种牌名；不可选择与上次发动此技能记录过的牌名；每局游戏最多记录/个牌名）。每当有其他角色于本轮使用“看破”记录的牌名时，你可以移去一个对应牌名的记录，然后你摸一张牌并令此牌无效。"
+    ],
+    "enable": true
   },
   {
     "id": "秦宓",
@@ -315,7 +459,13 @@
       "谏征",
       "专对"
     ],
-    "portrait": "https://patchwiki.biligame.com/images/msgs/b/b5/0nsungczqrpbhdlvjzeclj280b8d2uk.jpg"
+    "portrait": "https://patchwiki.biligame.com/images/msgs/b/b5/0nsungczqrpbhdlvjzeclj280b8d2uk.jpg",
+    "skills_description": [
+      "天辩:①你可以用牌堆顶的牌进行拼点；",
+      "谏征:当其他角色使用【杀】指定目标时，若你在其攻击范围内且你不是目标，你可以将一张手牌置于牌堆顶，取消所有目标，然后若此【杀】不为黑色，你成为目标。",
+      "专对:当你使用【杀】指定其他角色为目标后/成为其他角色使用【杀】的目标后，你可以与其拼点，若你赢，其不能响应此【杀】/此【杀】对你无效。"
+    ],
+    "enable": true
   },
   {
     "id": "严白虎",
@@ -326,7 +476,12 @@
       "雉盗",
       "寄篱"
     ],
-    "portrait": "https://patchwiki.biligame.com/images/msgs/c/c2/itcua755fyyl52yrrsxn3gv3ojtqa3y.jpg"
+    "portrait": "https://patchwiki.biligame.com/images/msgs/c/c2/itcua755fyyl52yrrsxn3gv3ojtqa3y.jpg",
+    "skills_description": [
+      "雉盗:当你于出牌阶段内第一次对其他角色造成伤害后，你获得其每个区域内的各一张牌，然后本回合你不能对其他角色使用牌。",
+      "寄篱:当一名与你距离为1的角色成为一名其他角色使用红色基本牌或红色普通锦囊牌的目标时，若你不为此牌的目标，你成为此牌的目标。"
+    ],
+    "enable": true
   },
   {
     "id": "张济",
@@ -337,7 +492,12 @@
       "掠命",
       "屯军"
     ],
-    "portrait": "https://patchwiki.biligame.com/images/msgs/f/f6/f6tj2c96qo0kr1hpax7vr2ztmeo72ax.jpg"
+    "portrait": "https://patchwiki.biligame.com/images/msgs/f/f6/f6tj2c96qo0kr1hpax7vr2ztmeo72ax.jpg",
+    "skills_description": [
+      "掠命:出牌阶段限一次，你可以令一名装备区里的牌数小于你的其他角色选择一个点数，然后你进行一次判定，若其选择的点数与判定结果：相同，你对其造成2点伤害；不同，你随机获得其区域里的一张牌。",
+      "屯军:出牌阶段，你可以令一名角色随机使用牌堆中的X张类型不同且其未装备类别的装备牌（X为你发动过技能“掠命”的次数）。"
+    ],
+    "enable": true
   },
   {
     "id": "界祝融",
@@ -349,7 +509,13 @@
       "烈刃",
       "蛮裔"
     ],
-    "portrait": "https://patchwiki.biligame.com/images/msgs/6/6a/9xc63f63mca2xxi26955vzsq172xn0c.jpg"
+    "portrait": "https://patchwiki.biligame.com/images/msgs/6/6a/9xc63f63mca2xxi26955vzsq172xn0c.jpg",
+    "skills_description": [
+      "巨象:①【南蛮入侵】对你无效；",
+      "烈刃:当你使用【杀】指定一名角色为目标后，你可以与其拼点，若你：赢，你获得该角色的一张牌；没赢，你与其交换双方拼点的牌。",
+      "蛮裔:①【南蛮入侵】对你无效；\n②当你登场时，你可以视为使用一张【南蛮入侵】。"
+    ],
+    "enable": true
   },
   {
     "id": "孙寒华",
@@ -361,7 +527,13 @@
       "妙剑",
       "莲华"
     ],
-    "portrait": "https://patchwiki.biligame.com/images/msgs/b/b6/e9u6beaohmphef098wz3ey5q0ybwdh9.jpg"
+    "portrait": "https://patchwiki.biligame.com/images/msgs/b/b6/e9u6beaohmphef098wz3ey5q0ybwdh9.jpg",
+    "skills_description": [
+      "冲虚:出牌阶段限一次，你可以进行一次“集灵”（至多5分），然后你可以将“集灵”的分数用于升级“妙剑”（需消耗3分）、升级“莲华”（需消耗3分）或者摸一张牌（需消耗2分，可重复选择）。",
+      "妙剑:【1级】出牌阶段限一次，你可以将一张【杀】/锦囊牌当作【刺杀】/【无中生有】使用。",
+      "莲华:【1级】当你成为其他角色使用【杀】的目标时，你摸一张牌。"
+    ],
+    "enable": true
   },
   {
     "id": "马良",
@@ -374,7 +546,14 @@
       "自书",
       "应援"
     ],
-    "portrait": "https://patchwiki.biligame.com/images/msgs/8/8a/1pmauycb9hsyd6q15h3o0m8xadsadxf.jpg"
+    "portrait": "https://patchwiki.biligame.com/images/msgs/8/8a/1pmauycb9hsyd6q15h3o0m8xadsadxf.jpg",
+    "skills_description": [
+      "协穆:出牌阶段限一次，你可以弃置一张【杀】并选择一个势力，然后直到你的下个回合开始，当你成为该势力的其他角色使用黑色牌的目标后，你可以摸两张牌。",
+      "纳蛮:当其他角色打出的【杀】置入弃牌堆时，你可以获得之。",
+      "自书:①其他角色的结束阶段结束时，你将本回合获得的牌置入弃牌堆；",
+      "应援:当你于回合内使用牌结算结束置入弃牌堆时，你可以将之交给一名其他角色（每种牌名的牌每回合限一次）。重做"
+    ],
+    "enable": true
   },
   {
     "id": "曹昂",
@@ -384,7 +563,11 @@
     "skills": [
       "慷忾"
     ],
-    "portrait": "https://patchwiki.biligame.com/images/msgs/f/fd/s31lr88kr89iu5oeora8xg869edwzjn.jpg"
+    "portrait": "https://patchwiki.biligame.com/images/msgs/f/fd/s31lr88kr89iu5oeora8xg869edwzjn.jpg",
+    "skills_description": [
+      "慷忾:当一名角色成为【杀】的目标后，若你与其距离1以内，你可以摸一张牌，然后交给其一张牌并展示之。若此牌为装备牌，该角色可以使用此牌。"
+    ],
+    "enable": true
   },
   {
     "id": "界关羽",
@@ -395,7 +578,12 @@
       "武圣",
       "义绝"
     ],
-    "portrait": "https://patchwiki.biligame.com/images/msgs/a/aa/9mrvq482lzn81b4w1u4rfz8mdl8w88n.jpg"
+    "portrait": "https://patchwiki.biligame.com/images/msgs/a/aa/9mrvq482lzn81b4w1u4rfz8mdl8w88n.jpg",
+    "skills_description": [
+      "武圣:①你可以将一张红色牌当【杀】使用或打出；\n②你使用♦️【杀】无距离限制。",
+      "义绝:出牌阶段限一次，你可以弃置一张牌，令一名其他角色展示一张手牌，若此牌为：\n【红色】你获得此牌且你可以令其回复1点体力；\n【黑色】其所有非锁定技失效且不能使用或打出手牌、你使用♥️【杀】对其造成的伤害+1。"
+    ],
+    "enable": true
   },
   {
     "id": "界吕布",
@@ -406,7 +594,12 @@
       "无双",
       "利驭"
     ],
-    "portrait": "https://patchwiki.biligame.com/images/msgs/d/d2/i9j8or08pj8bz26w4lhgnceledwcks0.jpg"
+    "portrait": "https://patchwiki.biligame.com/images/msgs/d/d2/i9j8or08pj8bz26w4lhgnceledwcks0.jpg",
+    "skills_description": [
+      "无双:①当你使用【杀】指定一名角色为目标后，其需连续使用两张【闪】才能抵消；",
+      "利驭:当你使用【杀】对其他角色造成伤害后，你可以获得其区域内的一张牌，若你获得的牌不为装备牌，则其摸一张牌，否则视为你对该角色指定的另一名其他角色使用一张【决斗】。"
+    ],
+    "enable": true
   },
   {
     "id": "界孙权",
@@ -417,7 +610,12 @@
       "制衡",
       "救援"
     ],
-    "portrait": "https://patchwiki.biligame.com/images/msgs/b/b1/mx0ximvynj3hhf6mkv5kqaniy2i5o0b.jpg"
+    "portrait": "https://patchwiki.biligame.com/images/msgs/b/b1/mx0ximvynj3hhf6mkv5kqaniy2i5o0b.jpg",
+    "skills_description": [
+      "制衡:出牌阶段限一次，你可以弃置任意张牌，然后摸等量的牌（若你以此法弃置了所有的手牌，则多摸一张牌）。",
+      "救援:当其他吴势力角色对自己使用【桃】时，若其体力值大于你，该角色可以改为令你回复1点体力，然后其摸一张牌。"
+    ],
+    "enable": true
   },
   {
     "id": "界于禁",
@@ -427,7 +625,11 @@
     "skills": [
       "节钺"
     ],
-    "portrait": "https://patchwiki.biligame.com/images/msgs/d/d3/d4ldzsw79glkl9jkz5c8upqk0wlm65v.jpg"
+    "portrait": "https://patchwiki.biligame.com/images/msgs/d/d3/d4ldzsw79glkl9jkz5c8upqk0wlm65v.jpg",
+    "skills_description": [
+      "节钺:结束阶段，你可以交给一名其他角色一张牌，令其选择一项：1.选择一张手牌和一张装备区里的牌，然后弃置其余的牌；2.令你摸三张牌。"
+    ],
+    "enable": true
   },
   {
     "id": "戏志才",
@@ -439,7 +641,13 @@
       "先辅",
       "筹策"
     ],
-    "portrait": "https://patchwiki.biligame.com/images/msgs/7/77/5966d1d67jopju0jnum939u0sfit36x.jpg"
+    "portrait": "https://patchwiki.biligame.com/images/msgs/7/77/5966d1d67jopju0jnum939u0sfit36x.jpg",
+    "skills_description": [
+      "天妒:当你的判定牌生效后，你可以获得之。",
+      "先辅:游戏开始时，你选择一名其他角色。当该角色受到伤害后/回复体力后，你受到等量的伤害/回复等量的体力。",
+      "筹策:当你受到1点伤害后，你可以进行一次判定，若结果为：黑色，你弃置一名角色区域里的一张牌；红色，你令一名角色摸一张牌（若其为“先辅”角色，其改为摸两张牌）。"
+    ],
+    "enable": true
   },
   {
     "id": "蔡文姬",
@@ -450,7 +658,12 @@
       "悲歌",
       "断肠"
     ],
-    "portrait": "https://patchwiki.biligame.com/images/msgs/7/73/symi3c4gp8rg9lkgausm0wrp3b31wtb.jpg"
+    "portrait": "https://patchwiki.biligame.com/images/msgs/7/73/symi3c4gp8rg9lkgausm0wrp3b31wtb.jpg",
+    "skills_description": [
+      "悲歌:当一名角色受到【杀】造成的伤害后，你可以弃置一张牌，令其进行一次判定，若结果为：♥️，其回复1点体力；♦️，其摸两张牌；♣️，伤害来源弃置两张牌；♠️，伤害来源翻面。",
+      "断肠:当你死亡时，杀死你的角色失去所有武将技能。"
+    ],
+    "enable": true
   },
   {
     "id": "神太史慈",
@@ -462,7 +675,13 @@
       "笃烈",
       "破围"
     ],
-    "portrait": "https://patchwiki.biligame.com/images/msgs/9/92/kgistp98bhxaup4x7dembsi0bl0v8uz.jpg"
+    "portrait": "https://patchwiki.biligame.com/images/msgs/9/92/kgistp98bhxaup4x7dembsi0bl0v8uz.jpg",
+    "skills_description": [
+      "荡魔:你于出牌阶段内使用的第一张【杀】可以额外选择X名角色为目标（X为你的体力值-1）。",
+      "笃烈:当你成为体力值大于你的其他角色使用【杀】的目标时，你进行一次判定，若结果为♥️，取消之。",
+      "破围:①游戏开始时，所有其他角色获得“围”标记；"
+    ],
+    "enable": true
   },
   {
     "id": "神华佗",
@@ -473,7 +692,12 @@
       "五灵",
       "游医"
     ],
-    "portrait": "https://patchwiki.biligame.com/images/msgs/2/27/7c6x1te2mg9hbzusuxf8dwcn1mk8fgh.png"
+    "portrait": "https://patchwiki.biligame.com/images/msgs/2/27/7c6x1te2mg9hbzusuxf8dwcn1mk8fgh.png",
+    "skills_description": [
+      "五灵:出牌阶段限两次，你可以选择一名未拥有“五灵”标记的角色，按照你的顺序向其传授“五禽戏”。拥有“五灵”标记的角色拥有你选择的效果，并在准备阶段切换为下一种。",
+      "游医:①弃牌阶段结束时，你可以将此阶段弃置的所有牌置入“仁”区；"
+    ],
+    "enable": true
   },
   {
     "id": "神诸葛亮",
@@ -485,7 +709,13 @@
       "狂风",
       "大雾"
     ],
-    "portrait": "https://patchwiki.biligame.com/images/msgs/a/ac/t4ysy3zhqmapu9bmybtc3s8yjqsaqmo.jpg"
+    "portrait": "https://patchwiki.biligame.com/images/msgs/a/ac/t4ysy3zhqmapu9bmybtc3s8yjqsaqmo.jpg",
+    "skills_description": [
+      "七星:①游戏开始时，你将牌堆顶的七张牌扣置于你的武将牌上，称为“星”，然后你可以用任意张手牌替换等量的“星”；",
+      "狂风:结束阶段，你可以移去一张“星”并选择一名角色，然后直到你的下回合开始，当该角色受到火焰伤害时，此伤害+1。",
+      "大雾:结束阶段，你可以移去任意张“星”并选择等量名角色，然后直到你的下回合开始前，当这些角色受到非雷电伤害时，防止之。"
+    ],
+    "enable": true
   },
   {
     "id": "神曹操",
@@ -496,7 +726,12 @@
       "归心",
       "飞影"
     ],
-    "portrait": "https://patchwiki.biligame.com/images/msgs/d/de/570k6hqw9b6c41ua1r3m0652c8krt6z.jpg"
+    "portrait": "https://patchwiki.biligame.com/images/msgs/d/de/570k6hqw9b6c41ua1r3m0652c8krt6z.jpg",
+    "skills_description": [
+      "归心:当你受到1点伤害后，你可以获得每名其他角色区域里的一张牌，然后你翻面。",
+      "飞影:其他角色计算与你的距离+1。"
+    ],
+    "enable": true
   },
   {
     "id": "神赵云",
@@ -507,7 +742,12 @@
       "绝境",
       "龙魂"
     ],
-    "portrait": "https://patchwiki.biligame.com/images/msgs/4/41/7b5nb45x5lajnzsuxp42ykkmg1w47oy.jpg"
+    "portrait": "https://patchwiki.biligame.com/images/msgs/4/41/7b5nb45x5lajnzsuxp42ykkmg1w47oy.jpg",
+    "skills_description": [
+      "绝境:①你的手牌上限+2；",
+      "龙魂:你可以将一至两张花色相同的牌当对应牌使用或打出：♥️当【桃】；♦️当火【杀】；♣️当【闪】；♠️当【无懈可击】。若你以此法转化了两张：红色牌，此牌使用时回复值或伤害值+1；黑色牌，你弃置当前回合角色的一张牌。"
+    ],
+    "enable": true
   },
   {
     "id": "神吕布",
@@ -520,7 +760,14 @@
       "无前",
       "神愤"
     ],
-    "portrait": "https://patchwiki.biligame.com/images/msgs/7/7a/kr1dk7zu0s5evig9ctdg7gkmn5px9fm.jpg"
+    "portrait": "https://patchwiki.biligame.com/images/msgs/7/7a/kr1dk7zu0s5evig9ctdg7gkmn5px9fm.jpg",
+    "skills_description": [
+      "狂暴:①游戏开始时，你获得2枚“暴怒”标记；",
+      "无谋:当你使用普通锦囊牌时，你选择一项：1.移去1枚“暴怒”标记；2.失去1点体力。",
+      "无前:出牌阶段，你可以移去2枚“暴怒”标记并选择一名其他角色，然后本阶段：你视为拥有技能“无双/神吕布”且该角色的防具失效。",
+      "神愤:出牌阶段限一次，你可以移去6枚“暴怒”标记，对所有其他角色各造成1点伤害，然后这些角色依次弃置装备区里的所有牌并依次弃置四张手牌，若如此做，你翻面。"
+    ],
+    "enable": true
   },
   {
     "id": "神张辽",
@@ -531,6 +778,11 @@
       "夺锐",
       "止啼"
     ],
-    "portrait": "https://patchwiki.biligame.com/images/msgs/f/f6/g09alk99hpu3q5v7g1ejxxfdeagkcp6.jpg"
+    "portrait": "https://patchwiki.biligame.com/images/msgs/f/f6/g09alk99hpu3q5v7g1ejxxfdeagkcp6.jpg",
+    "skills_description": [
+      "夺锐:当你于出牌阶段内对一名其他角色造成伤害后，你可以废除你的一个装备栏，然后选择该角色的武将牌上的一个技能（限定技、觉醒技、使命技、主公技、部分规则冲突技能除外），令其于其下回合结束之前此技能无效，然后你于其下回合结束或其死亡前视为拥有此技能且不能再发动“夺锐”。",
+      "止啼:①你的攻击范围内已受伤的角色手牌上限-1；"
+    ],
+    "enable": true
   }
 ]
