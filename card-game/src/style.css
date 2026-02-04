@@ -533,45 +533,45 @@ button.selected {
 
 .center-board {
   position: relative;
-  width: min(520px, 80vw);
-  height: min(520px, 80vw);
-  border-radius: 50%;
-  border: 2px solid rgba(255, 255, 255, 0.15);
-  background: radial-gradient(circle at center, rgba(255, 255, 255, 0.08), rgba(0, 0, 0, 0.35));
+  width: min(720px, 100%);
+  min-height: 120px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(0, 0, 0, 0.22);
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 16px;
+  padding: 12px;
   box-sizing: border-box;
 }
 
 .center-core {
-  width: 70%;
-  max-width: 360px;
+  width: 100%;
+  max-width: none;
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  align-items: center;
-  text-align: center;
+  gap: 6px;
+  align-items: stretch;
+  text-align: left;
 }
 
 .deck-row {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  flex-wrap: nowrap;
+  gap: 6px;
+  flex-wrap: wrap;
 }
 
 .deck-actions {
   display: flex;
-  flex-direction: column;
-  gap: 0;
+  flex-direction: row;
+  gap: 6px;
 }
 
 .deck-actions button {
-  height: 48px;
-  padding: 0 8px;
+  height: auto;
+  padding: 6px 8px;
   font-size: 12px;
 }
 
@@ -580,14 +580,15 @@ button.selected {
 }
 
 .discard-zone {
-  width: 100%;
+  width: auto;
+  min-width: 160px;
 }
 
 .discard-list {
   list-style: none;
   margin: 0;
   padding: 0;
-  max-height: 140px;
+  max-height: 120px;
   overflow-y: auto;
   font-size: 12px;
   text-align: left;
@@ -621,17 +622,16 @@ button.selected {
 }
 
 .notes {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 6px;
-  height: 100%;
   align-self: stretch;
+  margin-top: 6px;
 }
 
 .note {
   width: 100%;
-  flex: 1;
-  min-height: 60px;
+  min-height: 56px;
   resize: none;
   font-size: 12px;
   padding: 6px;
@@ -641,11 +641,10 @@ button.selected {
   color: #f2f2f2;
 }
 
-.note-private {
+.note-block {
   display: flex;
   flex-direction: column;
   gap: 4px;
-  flex: 1;
 }
 
 .note-toggle {
@@ -654,12 +653,12 @@ button.selected {
 }
 
 .draw-btn {
-  height: 96px;
-  width: 36px;
-  writing-mode: vertical-rl;
-  text-orientation: upright;
-  letter-spacing: 2px;
-  padding: 0;
+  height: auto;
+  width: auto;
+  writing-mode: horizontal-tb;
+  text-orientation: mixed;
+  letter-spacing: 0;
+  padding: 6px 10px;
 }
 
 .center-controls button {
@@ -886,47 +885,75 @@ button.selected {
 }
 
 @media (max-width: 480px) {
+  body {
+    font-size: 11px;
+  }
+
   .game-root {
-    padding: 12px;
-    gap: 10px;
+    padding: 6px;
+    gap: 6px;
+    max-width: 360px;
+    margin: 0 auto;
   }
 
   .toolbar {
-    gap: 8px;
+    gap: 6px;
+  }
+
+  .connection {
+    gap: 6px;
+    padding: 6px 8px;
+    border-radius: 10px;
+  }
+
+  .connection label {
+    font-size: 11px;
+  }
+
+  .connection input {
+    padding: 4px 6px;
+    border-radius: 6px;
   }
 
   button {
-    padding: 8px 10px;
-    font-size: 12px;
+    padding: 5px 6px;
+    font-size: 10px;
   }
 
   .seat {
     min-width: 0;
-    padding: 6px 8px;
+    padding: 4px 6px;
+    border-radius: 10px;
   }
 
   .seat-body {
-    grid-template-columns: 70px 64px 96px 1fr 40px;
+    grid-template-columns: 56px 52px 72px 1fr 28px;
     gap: 2px;
   }
 
-  .equipment-slot {
-    font-size: 10px;
-    padding: 2px 2px;
-  }
-
-  .seat-header {
+  .seat-name {
     font-size: 12px;
   }
 
+  .equipment-slot {
+    font-size: 9px;
+    padding: 2px 2px;
+    min-height: 24px;
+  }
+
+  .seat-header {
+    font-size: 11px;
+  }
+
   .deck {
-    width: 70px;
-    height: 96px;
+    width: 56px;
+    height: 76px;
   }
 
   .table {
-    padding: 8px;
-    gap: 4px;
+    padding: 4px;
+    gap: 2px;
+    border-radius: 16px;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: auto auto auto;
     grid-template-areas:
@@ -935,43 +962,67 @@ button.selected {
       "bottom bottom";
   }
 
+  .center-board {
+    padding: 6px;
+    border-radius: 12px;
+  }
+
+  .deck-row {
+    gap: 4px;
+    justify-content: flex-start;
+  }
+
+  .discard-zone {
+    min-width: 120px;
+  }
+
+  .center-play {
+    width: 120px;
+  }
+
+  .card-display {
+    min-width: 120px;
+    font-size: 12px;
+    padding: 6px 8px;
+  }
+
   .hand-zone {
-    min-height: 48px;
-    max-height: 96px;
+    min-height: 40px;
+    max-height: 84px;
   }
 
   .play-zone-title {
-    font-size: 11px;
-  }
-
-  .play-cards {
-    min-height: 64px;
-  }
-
-  .play-cards .card-tile {
-    width: 52px;
-    height: 70px;
     font-size: 10px;
   }
 
+  .play-cards {
+    min-height: 56px;
+  }
+
+  .play-cards .card-tile {
+    width: 44px;
+    height: 60px;
+    font-size: 9px;
+  }
+
   .general {
-    grid-template-columns: 88px 1fr;
+    grid-template-columns: 72px 1fr;
     align-items: start;
   }
 
   .general-portrait {
-    height: 88px;
+    height: 72px;
   }
 
   .general-name {
-    font-size: 13px;
+    font-size: 12px;
   }
 
   .general-meta,
   .hand,
   .hand-header,
   .accordion-title {
-    font-size: 11px;
+    font-size: 10px;
   }
 
   .skills,
@@ -983,29 +1034,39 @@ button.selected {
   .skill-btn,
   .offer-btn,
   .status {
-    padding: 4px 6px;
-    font-size: 11px;
+    padding: 3px 5px;
+    font-size: 10px;
   }
 
   .card-tile,
   .card-slot {
-    width: 56px;
-    height: 76px;
-    font-size: 10px;
+    width: 44px;
+    height: 60px;
+    font-size: 9px;
   }
 
   .offer-card {
-    min-width: 72px;
-    padding: 6px;
+    min-width: 64px;
+    padding: 4px;
   }
 
   .offer-portrait {
-    width: 60px;
-    height: 80px;
+    width: 52px;
+    height: 68px;
   }
 
   .actions {
-    margin-top: 4px;
-    gap: 6px;
+    margin-top: 2px;
+    gap: 4px;
+  }
+
+  .notes {
+    gap: 4px;
+  }
+
+  .note {
+    min-height: 48px;
+    font-size: 10px;
+    padding: 4px;
   }
 }

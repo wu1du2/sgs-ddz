@@ -99,12 +99,14 @@ app.innerHTML = `
             <div class="judge-title">判定</div>
             <div class="zone-cards judge-cards" data-judge-cards="0"></div>
           </div>
-          <div class="notes" data-notes="0">
+        </div>
+        <div class="notes" data-notes="0">
+          <div class="note-block">
             <textarea class="note public" data-note-public="0" placeholder="公开备注"></textarea>
-            <div class="note-private">
-              <textarea class="note private" data-note-private="0" placeholder="私密备注"></textarea>
-              <button class="note-toggle" data-note-toggle="0">show</button>
-            </div>
+          </div>
+          <div class="note-block note-private">
+            <textarea class="note private" data-note-private="0" placeholder="私密备注"></textarea>
+            <button class="note-toggle" data-note-toggle="0">show</button>
           </div>
         </div>
         <div class="actions">
@@ -155,12 +157,14 @@ app.innerHTML = `
             <div class="judge-title">判定</div>
             <div class="zone-cards judge-cards" data-judge-cards="1"></div>
           </div>
-          <div class="notes" data-notes="1">
+        </div>
+        <div class="notes" data-notes="1">
+          <div class="note-block">
             <textarea class="note public" data-note-public="1" placeholder="公开备注"></textarea>
-            <div class="note-private">
-              <textarea class="note private" data-note-private="1" placeholder="私密备注"></textarea>
-              <button class="note-toggle" data-note-toggle="1">show</button>
-            </div>
+          </div>
+          <div class="note-block note-private">
+            <textarea class="note private" data-note-private="1" placeholder="私密备注"></textarea>
+            <button class="note-toggle" data-note-toggle="1">show</button>
           </div>
         </div>
         <div class="actions">
@@ -211,12 +215,14 @@ app.innerHTML = `
             <div class="judge-title">判定</div>
             <div class="zone-cards judge-cards" data-judge-cards="2"></div>
           </div>
-          <div class="notes" data-notes="2">
+        </div>
+        <div class="notes" data-notes="2">
+          <div class="note-block">
             <textarea class="note public" data-note-public="2" placeholder="公开备注"></textarea>
-            <div class="note-private">
-              <textarea class="note private" data-note-private="2" placeholder="私密备注"></textarea>
-              <button class="note-toggle" data-note-toggle="2">show</button>
-            </div>
+          </div>
+          <div class="note-block note-private">
+            <textarea class="note private" data-note-private="2" placeholder="私密备注"></textarea>
+            <button class="note-toggle" data-note-toggle="2">show</button>
           </div>
         </div>
         <div class="actions">
@@ -238,12 +244,12 @@ app.innerHTML = `
               <button id="draw-btn" class="primary draw-btn">摸牌</button>
               <div class="card-slot" data-zone="deck-top">放回顶</div>
               <div class="card-slot" data-zone="deck-bottom">放回底</div>
+              <details class="accordion discard-zone" data-zone="discard">
+                <summary class="accordion-title">弃牌区（<span id="discard-count">0</span>）</summary>
+                <ol id="discard-cards" class="discard-list"></ol>
+              </details>
             </div>
             <div class="count">牌堆：<span id="deck-count">0</span></div>
-            <details class="accordion discard-zone" data-zone="discard">
-              <summary class="accordion-title">弃牌区（<span id="discard-count">0</span>）</summary>
-              <ol id="discard-cards" class="discard-list"></ol>
-            </details>
           </div>
           <div class="play-zone center-play" data-play-zone="0">
             <div class="play-zone-title">

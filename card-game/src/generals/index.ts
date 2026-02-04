@@ -1,11 +1,11 @@
 import type { General } from '../general-types'
-import rawGenerals from './generals.generated.json'
+import rawGenerals from './generals.json'
 
 type GeneralInput = Omit<General, 'status'>
 
-const generated = rawGenerals as { results: GeneralInput[] }
+const generated = rawGenerals as GeneralInput[]
 
-export const mockGenerals: General[] = generated.results
+export const mockGenerals: General[] = generated
   .map((general) => ({
     ...general,
     enable: general.enable ?? true,
