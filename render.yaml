@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: card-game
+    env: node
+    rootDir: card-game
+    buildCommand: npm install; npm run build
+    startCommand: npm run server
