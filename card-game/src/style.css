@@ -51,6 +51,12 @@ body {
   border-radius: 12px;
 }
 
+.user-id {
+  font-size: 12px;
+  color: #cfe6d6;
+  word-break: break-all;
+}
+
 .connection label {
   display: flex;
   flex-direction: column;
@@ -77,6 +83,47 @@ body {
   align-items: center;
   gap: 8px;
   flex-wrap: wrap;
+}
+
+.seat-status {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 12px;
+  color: #cfe6d6;
+}
+
+.game-root[data-stage="preconnect"] .seat-picker,
+.game-root[data-stage="preconnect"] #new-game-btn,
+.game-root[data-stage="preconnect"] .table {
+  display: none;
+}
+
+.game-root[data-stage="seat"] #new-game-btn,
+.game-root[data-stage="seat"] .table {
+  display: none;
+}
+
+.game-root[data-stage="call"] #new-game-btn,
+.game-root[data-stage="choose"] #new-game-btn {
+  display: none;
+}
+
+.game-root[data-stage="call"] .equipment-zone,
+.game-root[data-stage="call"] .skill-status-zone,
+.game-root[data-stage="call"] .hand-area,
+.game-root[data-stage="call"] .judge-zone,
+.game-root[data-stage="call"] .notes,
+.game-root[data-stage="call"] .center-area,
+.game-root[data-stage="call"] .center-controls,
+.game-root[data-stage="choose"] .equipment-zone,
+.game-root[data-stage="choose"] .skill-status-zone,
+.game-root[data-stage="choose"] .hand-area,
+.game-root[data-stage="choose"] .judge-zone,
+.game-root[data-stage="choose"] .notes,
+.game-root[data-stage="choose"] .center-area,
+.game-root[data-stage="choose"] .center-controls {
+  display: none;
 }
 
 .seat-picker .label {
@@ -898,6 +945,17 @@ button.selected {
 
   .toolbar {
     gap: 6px;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .connection {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .seat-picker {
+    width: 100%;
   }
 
   .connection {

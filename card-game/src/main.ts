@@ -10,7 +10,7 @@ import {
 
 type SeatPosition = 'bottom' | 'left' | 'right'
 type Role = 'landlord' | 'farmer' | null
-type Phase = 'call_lord' | 'choose_generals' | 'init_hands' | 'in_game'
+type Phase = 'lobby' | 'call_lord' | 'choose_generals' | 'init_hands' | 'in_game'
 
 const app = document.querySelector<HTMLDivElement>('#app')
 if (!app) {
@@ -35,10 +35,8 @@ app.innerHTML = `
   <div class="game-root">
     <header class="toolbar">
       <div class="connection">
-        <label>
-          昵称
-          <input id="nickname-input" value="${identity.nickname}" />
-        </label>
+        <div class="user-id">用户 ID：<span id="user-id">${identity.userId}</span></div>
+        <input id="nickname-input" type="hidden" value="${identity.nickname}" />
         <label>
           房间
           <input id="room-input" placeholder="room-id" value="default" />
@@ -52,6 +50,7 @@ app.innerHTML = `
         <button data-seat="0">座位 1</button>
         <button data-seat="1">座位 2</button>
         <button data-seat="2">座位 3</button>
+        <div id="seat-status" class="seat-status"></div>
       </div>
     </header>
 
@@ -284,9 +283,12 @@ app.innerHTML = `
 let gameState: GameState = createGameState(INITIAL_DECK)
 shuffleDeck(gameState)
 
-let phase: Phase = 'call_lord'
+let phase: Phase = 'lobby'
 let landlordSeat: number | null = null
 let roles: Role[] = [null, null, null]
+let roomSeats: Array<string | null> = [null, null, null]
+let roomPlayers: Array<{ userId: string; nickname: string; seatIndex: number | null; online: boolean }> = []
+let isConnected = false
 
 let generalOffers: General[][] = [[], [], []]
 let playerGenerals: (General | null)[] = [null, null, null]
@@ -322,6 +324,8 @@ const applySnapshot = (snapshot: {
   phase = snapshot.phase
   landlordSeat = snapshot.landlordSeat
   roles = snapshot.roles
+  roomSeats = snapshot.seats
+  roomPlayers = snapshot.players
   generalOffers = snapshot.generalOffers
   playerGenerals = snapshot.playerGenerals
   activeSeat = snapshot.activeSeat
@@ -334,11 +338,13 @@ const applySnapshot = (snapshot: {
   currentSeat = seatIndex >= 0 ? seatIndex : null
 
   updateSeatPositions()
+  updateSeatStatus()
   updateRoles()
   playerGenerals.forEach((general, index) => updateGeneralUI(index, general))
   renderGeneralOffers()
   setPhase(phase)
   updateCallButtons()
+  updateUIStage()
   renderAll()
   updateNotesUI()
   applyLocalCardDisplay()
@@ -374,6 +380,64 @@ const updateSeatPositions = () => {
   })
 }
 
+const getPlayerNickname = (userId: string | null) => {
+  if (!userId) {
+    return null
+  }
+  return roomPlayers.find((player) => player.userId === userId)?.nickname ?? null
+}
+
+const updateSeatStatus = () => {
+  const seats = Array.from(document.querySelectorAll<HTMLDivElement>('.seat'))
+  seats.forEach((seat) => {
+    const seatIndex = Number(seat.dataset.seat)
+    const seatUserId = roomSeats[seatIndex]
+    const nickname = getPlayerNickname(seatUserId)
+    const name = seat.querySelector<HTMLDivElement>('.seat-name')
+    if (name) {
+      name.textContent = seatUserId ? `${nickname ?? '玩家'}（已占用）` : `座位 ${seatIndex + 1}（空闲）`
+    }
+  })
+
+  seatButtons.forEach((button) => {
+    const seatIndex = Number(button.dataset.seat)
+    const seatUserId = roomSeats[seatIndex]
+    button.style.display = seatUserId ? 'none' : ''
+    button.textContent = `座位 ${seatIndex + 1}`
+  })
+
+  seatStatus.innerHTML = ''
+  roomSeats.forEach((seatUserId, index) => {
+    if (!seatUserId) {
+      return
+    }
+    const nickname = getPlayerNickname(seatUserId)
+    const line = document.createElement('div')
+    line.textContent = `座位 ${index + 1}：${nickname ?? '玩家'}（已占用）`
+    seatStatus.appendChild(line)
+  })
+}
+
+const updateUIStage = () => {
+  const root = document.querySelector<HTMLDivElement>('.game-root')
+  if (!root) {
+    return
+  }
+  const seatsFilled = roomSeats.every((seat) => seat)
+  let stage = 'preconnect'
+  if (isConnected) {
+    stage = seatsFilled ? 'call' : 'seat'
+    if (seatsFilled) {
+      if (phase === 'choose_generals') {
+        stage = 'choose'
+      } else if (phase === 'in_game' || phase === 'init_hands') {
+        stage = 'in_game'
+      }
+    }
+  }
+  root.dataset.stage = stage
+}
+
 const cardDisplay = document.querySelector<HTMLDivElement>('#card-display')
 const deckCount = document.querySelector<HTMLDivElement>('#deck-count')
 const discardCount = document.querySelector<HTMLDivElement>('#discard-count')
@@ -385,6 +449,7 @@ const nicknameInput = document.querySelector<HTMLInputElement>('#nickname-input'
 const roomInput = document.querySelector<HTMLInputElement>('#room-input')
 const connectButton = document.querySelector<HTMLButtonElement>('#connect-btn')
 const connectionStatus = document.querySelector<HTMLSpanElement>('#connection-status')
+const seatStatus = document.querySelector<HTMLDivElement>('#seat-status')
 const deckTop = document.querySelector<HTMLDivElement>('#deck-top')
 const discardCards = document.querySelector<HTMLOListElement>('#discard-cards')
 const discardZone = document.querySelector<HTMLDivElement>('[data-zone="discard"]')
@@ -413,7 +478,7 @@ const publicNotes = Array.from(document.querySelectorAll<HTMLTextAreaElement>('[
 const privateNotes = Array.from(document.querySelectorAll<HTMLTextAreaElement>('[data-note-private]'))
 const noteToggles = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-note-toggle]'))
 
-if (!cardDisplay || !deckCount || !discardCount || !resetDeckButton || !shuffleDeckButton || !drawButton || !newGameButton || !nicknameInput || !roomInput || !connectButton || !connectionStatus || !deckTop || !discardCards || !discardZone || !deckTopSlot || !deckBottomSlot) {
+if (!cardDisplay || !deckCount || !discardCount || !resetDeckButton || !shuffleDeckButton || !drawButton || !newGameButton || !nicknameInput || !roomInput || !connectButton || !connectionStatus || !deckTop || !discardCards || !discardZone || !deckTopSlot || !deckBottomSlot || !seatStatus) {
   throw new Error('UI elements missing')
 }
 
@@ -639,6 +704,7 @@ const setPhase = (next: Phase) => {
     button.disabled = phase !== 'call_lord'
   })
   updateCallButtons()
+  updateUIStage()
 }
 
 const connectToRoom = () => {
@@ -658,12 +724,19 @@ const connectToRoom = () => {
   connectionStatus.textContent = '连接中...'
 
   ws.addEventListener('open', () => {
+    isConnected = true
     connectionStatus.textContent = `已连接 ${roomId}`
     sendMessage('connect', { userId: identity.userId, nickname, roomId })
+    updateUIStage()
   })
 
   ws.addEventListener('close', () => {
+    isConnected = false
     connectionStatus.textContent = '未连接'
+    roomSeats = [null, null, null]
+    roomPlayers = []
+    updateSeatStatus()
+    updateUIStage()
   })
 
   ws.addEventListener('message', (event) => {
@@ -691,7 +764,8 @@ const updateRoles = () => {
 const updateCallButtons = () => {
   callButtons.forEach((button) => {
     const seatIndex = Number(button.dataset.call)
-    const shouldShow = phase === 'call_lord' && landlordSeat === null && currentSeat === seatIndex
+    const shouldShow =
+      phase === 'call_lord' && landlordSeat === null && currentSeat === seatIndex && roomSeats.every((seat) => seat)
     button.style.display = shouldShow ? '' : 'none'
   })
 }
@@ -1001,8 +1075,10 @@ attachDropZone(deckTopSlot, 'deck-top')
 attachDropZone(deckBottomSlot, 'deck-bottom')
 
 updateSeatPositions()
+updateSeatStatus()
 renderAll()
-setPhase('call_lord')
+setPhase('lobby')
+updateUIStage()
 
 callButtons.forEach((button) => {
   button.addEventListener('click', () => {
