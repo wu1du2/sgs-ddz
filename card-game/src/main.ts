@@ -787,7 +787,7 @@ const updateGeneralUI = (seatIndex: number, general: General | null) => {
   if (hp) {
     const max = general ? general.hpMax : 0
     const current = general ? general.hp : 0
-    hp.textContent = `${current}\n/\n${max}`
+    hp.textContent = `${current} / ${max}`
   }
   const controls = hpControls.find((item) => Number(item.dataset.hpControls) === seatIndex)
   if (controls) {
