@@ -207,8 +207,10 @@ body {
   gap: 0;
   border-radius: 0;
   border: none;
-  width: 100%;
-  min-height: 100vh;
+  width: var(--table-width);
+  min-height: var(--table-height);
+  height: var(--table-height);
+  margin-left: calc((100vw - var(--table-width)) / 2);
   background: #0f1b14;
   position: relative;
 }
@@ -233,16 +235,24 @@ body {
 
 .game-root[data-stage="in_game"] .seat.left,
 .game-root[data-stage="in_game"] .seat.right {
-  height: 33.333vh;
+  height: calc(var(--table-height) / 3);
 }
 
 .game-root[data-stage="in_game"] .seat.bottom {
-  height: 33.333vh;
+  height: calc(var(--table-height) / 3);
 }
 
 .game-root[data-stage="in_game"] {
-  --card-height: 25vh;
+  --table-height: 90vh;
+  --table-width: 106.666vw;
+  --card-height: calc(var(--table-height) / 4);
   --card-aspect: 1.37;
+}
+
+@supports (height: 100dvh) {
+  .game-root[data-stage="in_game"] {
+    --table-height: 90dvh;
+  }
 }
 
 .game-root[data-stage="in_game"] .hp-controls .hp-btn {
