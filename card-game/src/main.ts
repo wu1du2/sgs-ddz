@@ -1,8 +1,10 @@
 import './style.css'
 import { INITIAL_DECK } from './initial-deck'
 import type { General } from './general-types.ts'
+import { mockGenerals } from './generals'
 import {
   createGameState,
+  drawFromDeck,
   shuffleDeck,
   type CardInstance,
   type GameState,
@@ -22,9 +24,7 @@ const loadIdentity = () => {
   if (raw) {
     return JSON.parse(raw) as { userId: string; nickname: string }
   }
-  const userId = crypto.randomUUID()
-  const nickname = `玩家${userId.slice(0, 4)}`
-  const identity = { userId, nickname }
+  const identity = { userId: '', nickname: '玩家' }
   localStorage.setItem('sgs_user', JSON.stringify(identity))
   return identity
 }
@@ -33,9 +33,13 @@ const identity = loadIdentity()
 
 app.innerHTML = `
   <div class="game-root">
+    <div class="screen-size" data-screen-size></div>
     <header class="toolbar">
       <div class="connection">
-        <div class="user-id">用户 ID：<span id="user-id">${identity.userId}</span></div>
+        <label>
+          用户 ID
+          <input id="user-id-input" value="" />
+        </label>
         <input id="nickname-input" type="hidden" value="${identity.nickname}" />
         <label>
           房间
@@ -48,53 +52,47 @@ app.innerHTML = `
       <div class="seat-picker">
         <span class="label">选择座位：</span>
         <button data-seat="0">座位 1</button>
-        <button data-seat="1">座位 2</button>
-        <button data-seat="2">座位 3</button>
         <div id="seat-status" class="seat-status"></div>
       </div>
     </header>
 
     <main class="table">
+      <button id="debug-deal-btn" class="primary debug-deal-btn">发牌(调试)</button>
       <div class="seat" data-seat="0">
         <div class="seat-header">
           <div class="seat-name">座位 1</div>
           <div class="role-tag" data-role="0"></div>
         </div>
         <div class="seat-body">
-          <div class="general" data-general="0">
-            <div class="general-portrait" data-portrait="0">未选择</div>
+          <div class="general" data-general="0" data-size-target="general">
+            <div class="general-portrait" data-portrait="0" data-size-target="portrait">未选择</div>
             <div class="general-name">未选将</div>
-            <div class="general-meta">
+          <div class="general-meta" data-size-target="hp-area">
               <span class="hp" data-hp="0">HP 0/0</span>
               <div class="hp-controls" data-hp-controls="0">
-                <button class="hp-btn" data-hp-action="hp-inc" data-seat="0">+血</button>
-                <button class="hp-btn" data-hp-action="hp-dec" data-seat="0">-血</button>
-                <button class="hp-btn" data-hp-action="max-inc" data-seat="0">+上限</button>
-                <button class="hp-btn" data-hp-action="max-dec" data-seat="0">-上限</button>
+                <button class="hp-btn" data-hp-action="hp-inc" data-seat="0">+</button>
+                <button class="hp-btn" data-hp-action="hp-dec" data-seat="0">-</button>
+                <button class="hp-btn" data-hp-action="max-inc" data-seat="0">➕</button>
+                <button class="hp-btn" data-hp-action="max-dec" data-seat="0">➖</button>
+              </div>
+            </div>
+            <div class="debug-stack" data-size-target="debug-stack">
+              <div class="debug-card-area" data-debug-area="0" data-size-target="debug-cards"></div>
+              <div class="side-panel" aria-hidden="true" data-size-target="skills">
+                <div class="slot-grid">
+                  <input class="slot-input" value="" />
+                  <input class="slot-input" value="" />
+                  <input class="slot-input" value="" />
+                  <input class="slot-input" value="" />
+                  <input class="slot-input" value="" />
+                  <input class="slot-input" value="" />
+                  <input class="slot-input" value="" />
+                  <input class="slot-input" value="" />
+                </div>
               </div>
             </div>
           </div>
-          <div class="equipment-zone" data-equipment-zone="0">
-            <div class="equipment-slot card-slot" data-equipment-slot="0" data-seat="0" data-slot-label="武器">武器</div>
-            <div class="equipment-slot card-slot" data-equipment-slot="1" data-seat="0" data-slot-label="防具">防具</div>
-            <div class="equipment-slot card-slot" data-equipment-slot="2" data-seat="0" data-slot-label="+马">+马</div>
-            <div class="equipment-slot card-slot" data-equipment-slot="3" data-seat="0" data-slot-label="-马">-马</div>
-          </div>
-          <div class="skill-status-zone">
-            <details class="accordion" open>
-              <summary class="accordion-title">技能</summary>
-              <div class="skills" data-skills="0"></div>
-            </details>
-            <div class="statuses" data-statuses="0"></div>
-          </div>
-          <div class="hand-area">
-            <div class="hand-summary" data-hand-summary="0"></div>
-            <details class="accordion" open>
-              <summary class="accordion-title">手牌：<span class="hand-count" data-hand="0">0</span></summary>
-              <div class="hand-zone" data-hand-zone="0"></div>
-            </details>
-          </div>
-          <div class="judge-zone" data-judge-zone="0">
+          <div class="judge-zone" data-judge-zone="0" data-size-target="judge">
             <div class="judge-title">判定</div>
             <div class="zone-cards judge-cards" data-judge-cards="0"></div>
           </div>
@@ -113,128 +111,13 @@ app.innerHTML = `
           <div class="general-offers" data-offers="0"></div>
         </div>
       </div>
-      <div class="seat" data-seat="1">
-        <div class="seat-header">
-          <div class="seat-name">座位 2</div>
-          <div class="role-tag" data-role="1"></div>
-        </div>
-        <div class="seat-body">
-          <div class="general" data-general="1">
-            <div class="general-portrait" data-portrait="1">未选择</div>
-            <div class="general-name">未选将</div>
-            <div class="general-meta">
-              <span class="hp" data-hp="1">HP 0/0</span>
-              <div class="hp-controls" data-hp-controls="1">
-                <button class="hp-btn" data-hp-action="hp-inc" data-seat="1">+血</button>
-                <button class="hp-btn" data-hp-action="hp-dec" data-seat="1">-血</button>
-                <button class="hp-btn" data-hp-action="max-inc" data-seat="1">+上限</button>
-                <button class="hp-btn" data-hp-action="max-dec" data-seat="1">-上限</button>
-              </div>
-            </div>
-          </div>
-          <div class="equipment-zone" data-equipment-zone="1">
-            <div class="equipment-slot card-slot" data-equipment-slot="0" data-seat="1" data-slot-label="武器">武器</div>
-            <div class="equipment-slot card-slot" data-equipment-slot="1" data-seat="1" data-slot-label="防具">防具</div>
-            <div class="equipment-slot card-slot" data-equipment-slot="2" data-seat="1" data-slot-label="+马">+马</div>
-            <div class="equipment-slot card-slot" data-equipment-slot="3" data-seat="1" data-slot-label="-马">-马</div>
-          </div>
-          <div class="skill-status-zone">
-            <details class="accordion" open>
-              <summary class="accordion-title">技能</summary>
-              <div class="skills" data-skills="1"></div>
-            </details>
-            <div class="statuses" data-statuses="1"></div>
-          </div>
-          <div class="hand-area">
-            <div class="hand-summary" data-hand-summary="1"></div>
-            <details class="accordion" open>
-              <summary class="accordion-title">手牌：<span class="hand-count" data-hand="1">0</span></summary>
-              <div class="hand-zone" data-hand-zone="1"></div>
-            </details>
-          </div>
-          <div class="judge-zone" data-judge-zone="1">
-            <div class="judge-title">判定</div>
-            <div class="zone-cards judge-cards" data-judge-cards="1"></div>
-          </div>
-        </div>
-        <div class="notes" data-notes="1">
-          <div class="note-block">
-            <textarea class="note public" data-note-public="1" placeholder="公开备注"></textarea>
-          </div>
-          <div class="note-block note-private">
-            <textarea class="note private" data-note-private="1" placeholder="私密备注"></textarea>
-            <button class="note-toggle" data-note-toggle="1">show</button>
-          </div>
-        </div>
-        <div class="actions">
-          <button class="call-btn" data-call="1">叫地主</button>
-          <div class="general-offers" data-offers="1"></div>
-        </div>
-      </div>
-      <div class="seat" data-seat="2">
-        <div class="seat-header">
-          <div class="seat-name">座位 3</div>
-          <div class="role-tag" data-role="2"></div>
-        </div>
-        <div class="seat-body">
-          <div class="general" data-general="2">
-            <div class="general-portrait" data-portrait="2">未选择</div>
-            <div class="general-name">未选将</div>
-            <div class="general-meta">
-              <span class="hp" data-hp="2">HP 0/0</span>
-              <div class="hp-controls" data-hp-controls="2">
-                <button class="hp-btn" data-hp-action="hp-inc" data-seat="2">+血</button>
-                <button class="hp-btn" data-hp-action="hp-dec" data-seat="2">-血</button>
-                <button class="hp-btn" data-hp-action="max-inc" data-seat="2">+上限</button>
-                <button class="hp-btn" data-hp-action="max-dec" data-seat="2">-上限</button>
-              </div>
-            </div>
-          </div>
-          <div class="equipment-zone" data-equipment-zone="2">
-            <div class="equipment-slot card-slot" data-equipment-slot="0" data-seat="2" data-slot-label="武器">武器</div>
-            <div class="equipment-slot card-slot" data-equipment-slot="1" data-seat="2" data-slot-label="防具">防具</div>
-            <div class="equipment-slot card-slot" data-equipment-slot="2" data-seat="2" data-slot-label="+马">+马</div>
-            <div class="equipment-slot card-slot" data-equipment-slot="3" data-seat="2" data-slot-label="-马">-马</div>
-          </div>
-          <div class="skill-status-zone">
-            <details class="accordion" open>
-              <summary class="accordion-title">技能</summary>
-              <div class="skills" data-skills="2"></div>
-            </details>
-            <div class="statuses" data-statuses="2"></div>
-          </div>
-          <div class="hand-area">
-            <div class="hand-summary" data-hand-summary="2"></div>
-            <details class="accordion" open>
-              <summary class="accordion-title">手牌：<span class="hand-count" data-hand="2">0</span></summary>
-              <div class="hand-zone" data-hand-zone="2"></div>
-            </details>
-          </div>
-          <div class="judge-zone" data-judge-zone="2">
-            <div class="judge-title">判定</div>
-            <div class="zone-cards judge-cards" data-judge-cards="2"></div>
-          </div>
-        </div>
-        <div class="notes" data-notes="2">
-          <div class="note-block">
-            <textarea class="note public" data-note-public="2" placeholder="公开备注"></textarea>
-          </div>
-          <div class="note-block note-private">
-            <textarea class="note private" data-note-private="2" placeholder="私密备注"></textarea>
-            <button class="note-toggle" data-note-toggle="2">show</button>
-          </div>
-        </div>
-        <div class="actions">
-          <button class="call-btn" data-call="2">叫地主</button>
-          <div class="general-offers" data-offers="2"></div>
-        </div>
-      </div>
 
-      <div class="center-area">
-        <div class="center-board">
-          <div class="center-core">
+
+      <div class="center-area" data-size-target="center-area">
+        <div class="center-board" data-size-target="center-board">
+          <div class="center-core" data-size-target="center-core">
             <div class="zone-title">公共区域</div>
-            <div class="deck-row">
+            <div class="deck-row" data-size-target="deck-row">
               <div class="deck-actions">
                 <button id="reset-deck-btn" class="secondary">重置牌堆</button>
                 <button id="shuffle-deck-btn" class="secondary">洗牌</button>
@@ -250,30 +133,18 @@ app.innerHTML = `
             </div>
             <div class="count">牌堆：<span id="deck-count">0</span></div>
           </div>
-          <div class="play-zone center-play" data-play-zone="0">
-            <div class="play-zone-title">
-              <span>出牌区</span>
-              <button class="play-clear" data-play-clear="0">垃圾桶</button>
-            </div>
+          <div class="play-zone center-play" data-play-zone="0" data-size-target="play-0">
             <div class="zone-cards play-cards" data-play-cards="0"></div>
           </div>
-          <div class="play-zone center-play" data-play-zone="1">
-            <div class="play-zone-title">
-              <span>出牌区</span>
-              <button class="play-clear" data-play-clear="1">垃圾桶</button>
-            </div>
+          <div class="play-zone center-play" data-play-zone="1" data-size-target="play-1">
             <div class="zone-cards play-cards" data-play-cards="1"></div>
           </div>
-          <div class="play-zone center-play" data-play-zone="2">
-            <div class="play-zone-title">
-              <span>出牌区</span>
-              <button class="play-clear" data-play-clear="2">垃圾桶</button>
-            </div>
+          <div class="play-zone center-play" data-play-zone="2" data-size-target="play-2">
             <div class="zone-cards play-cards" data-play-cards="2"></div>
           </div>
         </div>
-        <div class="center-controls">
-          <div id="card-display" class="card-display">等待操作</div>
+        <div class="center-controls" data-size-target="center-controls">
+          <div id="card-display" class="card-display" data-size-target="card-display">等待操作</div>
         </div>
       </div>
     </main>
@@ -350,6 +221,44 @@ const applySnapshot = (snapshot: {
   applyLocalCardDisplay()
 }
 
+const sizeTargets = Array.from(document.querySelectorAll<HTMLElement>('[data-size-target]'))
+const screenSize = document.querySelector<HTMLDivElement>('[data-screen-size]')
+
+const ensureSizeLabel = (element: HTMLElement) => {
+  let label = element.querySelector<HTMLDivElement>(':scope > .size-label')
+  if (!label) {
+    label = document.createElement('div')
+    label.className = 'size-label'
+    element.appendChild(label)
+  }
+  return label
+}
+
+const updateScreenLabel = () => {
+  if (!screenSize) return
+  screenSize.textContent = `页面 ${Math.round(window.innerWidth)}×${Math.round(window.innerHeight)}`
+}
+
+const updateSizeLabel = (element: HTMLElement) => {
+  const rect = element.getBoundingClientRect()
+  const label = ensureSizeLabel(element)
+  label.textContent = `${Math.round(rect.width)}×${Math.round(rect.height)}`
+}
+
+const updateAllSizeLabels = () => {
+  sizeTargets.forEach((element) => updateSizeLabel(element))
+  updateScreenLabel()
+}
+
+const sizeObserver = new ResizeObserver((entries) => {
+  entries.forEach((entry) => updateSizeLabel(entry.target as HTMLElement))
+  updateScreenLabel()
+})
+
+sizeTargets.forEach((element) => sizeObserver.observe(element))
+window.addEventListener('resize', updateAllSizeLabels)
+updateAllSizeLabels()
+
 let currentSeat: number | null = null
 const seatPositions: SeatPosition[] = ['bottom', 'left', 'right']
 
@@ -380,22 +289,25 @@ const updateSeatPositions = () => {
   })
 }
 
-const getPlayerNickname = (userId: string | null) => {
+const getPlayerUserId = (userId: string | null) => {
   if (!userId) {
     return null
   }
-  return roomPlayers.find((player) => player.userId === userId)?.nickname ?? null
+  return roomPlayers.find((player) => player.userId === userId)?.userId ?? userId
 }
 
 const updateSeatStatus = () => {
+  if (!seatStatus) {
+    return
+  }
   const seats = Array.from(document.querySelectorAll<HTMLDivElement>('.seat'))
   seats.forEach((seat) => {
     const seatIndex = Number(seat.dataset.seat)
     const seatUserId = roomSeats[seatIndex]
-    const nickname = getPlayerNickname(seatUserId)
+    const displayId = getPlayerUserId(seatUserId)
     const name = seat.querySelector<HTMLDivElement>('.seat-name')
     if (name) {
-      name.textContent = seatUserId ? `${nickname ?? '玩家'}（已占用）` : `座位 ${seatIndex + 1}（空闲）`
+      name.textContent = seatUserId ? `${displayId ?? '玩家'}（已占用）` : `座位 ${seatIndex + 1}（空闲）`
     }
   })
 
@@ -411,9 +323,9 @@ const updateSeatStatus = () => {
     if (!seatUserId) {
       return
     }
-    const nickname = getPlayerNickname(seatUserId)
+    const displayId = getPlayerUserId(seatUserId)
     const line = document.createElement('div')
-    line.textContent = `座位 ${index + 1}：${nickname ?? '玩家'}（已占用）`
+    line.textContent = `座位 ${index + 1}：${displayId ?? '玩家'}（已占用）`
     seatStatus.appendChild(line)
   })
 }
@@ -438,6 +350,38 @@ const updateUIStage = () => {
   root.dataset.stage = stage
 }
 
+const applyDebugSelectedGenerals = () => {
+  const params = new URLSearchParams(window.location.search)
+  if (params.get('debug') !== 'selected-generals') {
+    return
+  }
+  const selected = mockGenerals.slice(0, 3)
+  playerGenerals = [selected[0] ?? null, selected[1] ?? null, selected[2] ?? null]
+  generalOffers = [[], [], []]
+  roles = ['landlord', 'farmer', 'farmer']
+  roomSeats = ['debug-1', 'debug-2', 'debug-3']
+  roomPlayers = [
+    { userId: 'debug-1', nickname: 'debug-1', seatIndex: 0, online: true },
+    { userId: 'debug-2', nickname: 'debug-2', seatIndex: 1, online: true },
+    { userId: 'debug-3', nickname: 'debug-3', seatIndex: 2, online: true },
+  ]
+  for (const index of [1, 2]) {
+    drawFromDeck(gameState, index, 4)
+    const hand = gameState.hands[index] ?? []
+    debugCardsBySeat[index] = hand.slice(-4)
+  }
+  isConnected = true
+  currentSeat = 0
+  updateSeatPositions()
+  updateSeatStatus()
+  playerGenerals.forEach((general, index) => updateGeneralUI(index, general))
+  renderGeneralOffers()
+  setPhase('in_game')
+  renderAll()
+  updateNotesUI()
+  applyLocalCardDisplay()
+}
+
 const cardDisplay = document.querySelector<HTMLDivElement>('#card-display')
 const deckCount = document.querySelector<HTMLDivElement>('#deck-count')
 const discardCount = document.querySelector<HTMLDivElement>('#discard-count')
@@ -445,7 +389,9 @@ const resetDeckButton = document.querySelector<HTMLButtonElement>('#reset-deck-b
 const shuffleDeckButton = document.querySelector<HTMLButtonElement>('#shuffle-deck-btn')
 const drawButton = document.querySelector<HTMLButtonElement>('#draw-btn')
 const newGameButton = document.querySelector<HTMLButtonElement>('#new-game-btn')
+const debugDealButton = document.querySelector<HTMLButtonElement>('#debug-deal-btn')
 const nicknameInput = document.querySelector<HTMLInputElement>('#nickname-input')
+const userIdInput = document.querySelector<HTMLInputElement>('#user-id-input')
 const roomInput = document.querySelector<HTMLInputElement>('#room-input')
 const connectButton = document.querySelector<HTMLButtonElement>('#connect-btn')
 const connectionStatus = document.querySelector<HTMLSpanElement>('#connection-status')
@@ -456,39 +402,91 @@ const discardZone = document.querySelector<HTMLDivElement>('[data-zone="discard"
 const deckTopSlot = document.querySelector<HTMLDivElement>('[data-zone="deck-top"]')
 const deckBottomSlot = document.querySelector<HTMLDivElement>('[data-zone="deck-bottom"]')
 const handZones = Array.from(document.querySelectorAll<HTMLDivElement>('.hand-zone'))
-const handSummaries = Array.from(document.querySelectorAll<HTMLDivElement>('[data-hand-summary]'))
 const playZones = Array.from(document.querySelectorAll<HTMLDivElement>('[data-play-zone]'))
-const equipmentZones = Array.from(document.querySelectorAll<HTMLDivElement>('[data-equipment-zone]'))
-const equipmentSlots = Array.from(document.querySelectorAll<HTMLDivElement>('[data-equipment-slot]'))
 const judgeZones = Array.from(document.querySelectorAll<HTMLDivElement>('[data-judge-zone]'))
 const judgeCards = Array.from(document.querySelectorAll<HTMLDivElement>('[data-judge-cards]'))
 const playCards = Array.from(document.querySelectorAll<HTMLDivElement>('[data-play-cards]'))
-const playClearButtons = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-play-clear]'))
-const handCounts = Array.from(document.querySelectorAll<HTMLSpanElement>('.hand-count'))
 const roleTags = Array.from(document.querySelectorAll<HTMLDivElement>('.role-tag'))
 const callButtons = Array.from(document.querySelectorAll<HTMLButtonElement>('.call-btn'))
 const generalOfferAreas = Array.from(document.querySelectorAll<HTMLDivElement>('.general-offers'))
 const generalAreas = Array.from(document.querySelectorAll<HTMLDivElement>('.general'))
-const skillAreas = Array.from(document.querySelectorAll<HTMLDivElement>('.skills'))
-const statusAreas = Array.from(document.querySelectorAll<HTMLDivElement>('.statuses'))
 const hpButtons = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-hp-action]'))
 const hpAreas = Array.from(document.querySelectorAll<HTMLSpanElement>('[data-hp]'))
 const hpControls = Array.from(document.querySelectorAll<HTMLDivElement>('[data-hp-controls]'))
+const debugCardAreas = Array.from(document.querySelectorAll<HTMLDivElement>('[data-debug-area]'))
 const publicNotes = Array.from(document.querySelectorAll<HTMLTextAreaElement>('[data-note-public]'))
 const privateNotes = Array.from(document.querySelectorAll<HTMLTextAreaElement>('[data-note-private]'))
 const noteToggles = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-note-toggle]'))
 
-if (!cardDisplay || !deckCount || !discardCount || !resetDeckButton || !shuffleDeckButton || !drawButton || !newGameButton || !nicknameInput || !roomInput || !connectButton || !connectionStatus || !deckTop || !discardCards || !discardZone || !deckTopSlot || !deckBottomSlot || !seatStatus) {
+const debugCardsBySeat: CardInstance[][] = [[], [], []]
+const debugCardSeeds: CardInstance[] = INITIAL_DECK.slice(0, 20).map((card, index) => ({
+  id: `debug-seed-${index + 1}`,
+  card,
+  faceUp: true,
+  visible: true,
+}))
+
+const createDebugCardElement = (card: CardInstance, index: number) => {
+  const element = document.createElement('div')
+  element.className = `debug-card ${card.card.suit}`
+  const rankText = rankLabel(card.card.rank)
+    .split('')
+    .join('\n')
+  element.innerHTML = `
+    <div class="debug-card-name">${card.card.name}</div>
+    <div class="debug-card-suit">${suitSymbol(card.card.suit)}\n${rankText}</div>
+  `
+  element.style.setProperty('--stack-index', `${index}`)
+  element.addEventListener('click', () => {
+    element.classList.toggle('selected')
+  })
+  return element
+}
+
+const renderDebugArea = (seatIndex: number) => {
+  const area = debugCardAreas.find((item) => Number(item.dataset.debugArea) === seatIndex)
+  if (!area) {
+    return
+  }
+  area.innerHTML = ''
+  const cards = debugCardsBySeat[seatIndex] ?? []
+  const style = window.getComputedStyle(area)
+  const cardWidth = Number.parseFloat(style.getPropertyValue('--debug-card-width')) || 70
+  const paddingLeft = Number.parseFloat(style.paddingLeft) || 0
+  const paddingRight = Number.parseFloat(style.paddingRight) || 0
+  const availableWidth = Math.max(0, area.clientWidth - paddingLeft - paddingRight)
+  const gap = Number.parseFloat(style.columnGap || style.gap) || 0
+  const totalWidth = Math.max(0, cards.length * cardWidth + Math.max(0, cards.length - 1) * gap)
+  const stacked = cards.length > 6 || totalWidth > availableWidth
+  area.classList.toggle('stacked', stacked)
+  if (stacked) {
+    const baseGap = cards.length > 0 ? (cardWidth * (cards.length - 1)) / cards.length : 0
+    const maxGap = cards.length > 1 ? (availableWidth - cardWidth) / (cards.length - 1) : 0
+    const overlapGap = Math.max(0, Math.min(baseGap, maxGap))
+    area.style.setProperty('--stack-gap', `${overlapGap}px`)
+  } else {
+    area.style.removeProperty('--stack-gap')
+  }
+  cards.forEach((card, index) => {
+    const element = createDebugCardElement(card, index)
+    area.appendChild(element)
+  })
+}
+
+const renderDebugAreas = () => {
+  debugCardAreas.forEach((area) => {
+    const seatIndex = Number(area.dataset.debugArea)
+    renderDebugArea(seatIndex)
+  })
+}
+
+if (!cardDisplay || !deckCount || !discardCount || !resetDeckButton || !shuffleDeckButton || !drawButton || !newGameButton || !debugDealButton || !nicknameInput || !userIdInput || !roomInput || !connectButton || !connectionStatus || !deckTop || !discardCards || !discardZone || !deckTopSlot || !deckBottomSlot || !seatStatus) {
   throw new Error('UI elements missing')
 }
 
 const updateCounts = () => {
   deckCount.textContent = `${gameState.deck.length}`
   discardCount.textContent = `${gameState.discard.length}`
-  handCounts.forEach((element) => {
-    const index = Number(element.dataset.hand)
-    element.textContent = `${gameState.hands[index]?.length ?? 0}`
-  })
 }
 
 const suitSymbol = (suit: CardInstance['card']['suit']) => {
@@ -502,6 +500,14 @@ const suitSymbol = (suit: CardInstance['card']['suit']) => {
     default:
       return '♦'
   }
+}
+
+const rankLabel = (rank: number) => {
+  if (rank === 1) return 'A'
+  if (rank === 11) return 'J'
+  if (rank === 12) return 'Q'
+  if (rank === 13) return 'K'
+  return String(rank)
 }
 
 type DragPayload = {
@@ -523,7 +529,7 @@ const createCardElement = (options: {
   if (options.faceUp && options.card) {
     const { card } = options.card
     element.innerHTML = `
-      <div class="card-corner">${suitSymbol(card.suit)} ${card.rank}</div>
+      <div class="card-corner">${suitSymbol(card.suit)} ${rankLabel(card.rank)}</div>
       <div class="card-name">${card.name}</div>
     `
   } else {
@@ -542,9 +548,10 @@ const renderHands = () => {
     const hand = gameState.hands[index] ?? []
     if (currentSeat !== null && currentSeat === index) {
       hand.forEach((card) => {
+        const canSee = card.faceUp || card.visible
         const cardElement = createCardElement({
           card,
-          faceUp: true,
+          faceUp: canSee,
           payload: { source: 'hand', owner: index, cardId: card.id },
         })
         zone.appendChild(cardElement)
@@ -562,12 +569,6 @@ const renderHands = () => {
     }
   })
 
-  handSummaries.forEach((summary) => {
-    const index = Number(summary.dataset.handSummary)
-    const handCount = gameState.hands[index]?.length ?? 0
-    const playCount = gameState.playAreas[index]?.length ?? 0
-    summary.textContent = `手牌 ${handCount} | 出牌 ${playCount}`
-  })
 }
 
 const renderPlayAreas = () => {
@@ -582,34 +583,6 @@ const renderPlayAreas = () => {
         payload: { source: 'play-area', owner: index, cardId: card.id },
       })
       area.appendChild(element)
-    })
-  })
-}
-
-const renderEquipmentAreas = () => {
-  const groupedSlots = new Map<number, HTMLDivElement[]>()
-  equipmentSlots.forEach((slot) => {
-    const seat = Number(slot.dataset.seat)
-    if (!groupedSlots.has(seat)) {
-      groupedSlots.set(seat, [])
-    }
-    groupedSlots.get(seat)?.push(slot)
-  })
-  groupedSlots.forEach((slots, seatIndex) => {
-    slots.forEach((slot) => {
-      const label = slot.dataset.slotLabel ?? ''
-      slot.innerHTML = label
-    })
-    const cards = gameState.equipmentAreas[seatIndex] ?? []
-    cards.slice(0, slots.length).forEach((card, slotIndex) => {
-      const slot = slots[slotIndex]
-      slot.innerHTML = ''
-      const element = createCardElement({
-        card,
-        faceUp: true,
-        payload: { source: 'equipment', owner: seatIndex, cardId: card.id },
-      })
-      slot.appendChild(element)
     })
   })
 }
@@ -642,7 +615,7 @@ const renderDiscard = () => {
   }
   cards.forEach((card, index) => {
     const item = document.createElement('li')
-    item.textContent = `${index + 1}. ${card.card.name} ${suitSymbol(card.card.suit)} ${card.card.rank}`
+    item.textContent = `${index + 1}. ${card.card.name} ${suitSymbol(card.card.suit)} ${rankLabel(card.card.rank)}`
     discardCards.appendChild(item)
   })
 }
@@ -657,10 +630,10 @@ const renderAll = () => {
   updateCounts()
   renderHands()
   renderPlayAreas()
-  renderEquipmentAreas()
   renderJudgeAreas()
   renderDiscard()
   renderDeckTop()
+  renderDebugAreas()
 }
 
 type DropZone = 'hand' | 'discard' | 'reveal' | 'deck-top' | 'deck-bottom' | 'play-area' | 'equipment' | 'judge'
@@ -710,6 +683,12 @@ const setPhase = (next: Phase) => {
 const connectToRoom = () => {
   const nickname = nicknameInput.value.trim() || identity.nickname
   identity.nickname = nickname
+  const userId = userIdInput.value.trim()
+  if (!userId) {
+    connectionStatus.textContent = '请填写用户 ID'
+    return
+  }
+  identity.userId = userId
   localStorage.setItem('sgs_user', JSON.stringify(identity))
   const roomId = roomInput.value.trim() || 'default'
 
@@ -806,63 +785,13 @@ const updateGeneralUI = (seatIndex: number, general: General | null) => {
   if (hp) {
     const max = general ? general.hpMax : 0
     const current = general ? general.hp : 0
-    hp.textContent = `HP ${current}/${max}`
+    hp.textContent = `${current}\n/\n${max}`
   }
   const controls = hpControls.find((item) => Number(item.dataset.hpControls) === seatIndex)
   if (controls) {
     controls.querySelectorAll<HTMLButtonElement>('.hp-btn').forEach((btn) => {
       btn.disabled = !general
     })
-  }
-  const skills = skillAreas[seatIndex]
-  if (skills) {
-    skills.innerHTML = ''
-    if (general && !shouldHide) {
-      const viewBtn = document.createElement('button')
-      viewBtn.className = 'skill-btn secondary'
-      viewBtn.textContent = '[查看]'
-      viewBtn.addEventListener('click', () => {
-        const lines = (general.skills_description ?? []).filter(Boolean)
-        if (lines.length === 0) {
-          cardDisplay.textContent = `${general.name}：暂无技能描述`
-          return
-        }
-        cardDisplay.textContent = lines.join('\n\n')
-      })
-      skills.appendChild(viewBtn)
-
-      general.skills.forEach((skill: string) => {
-        const btn = document.createElement('button')
-        btn.className = 'skill-btn'
-        btn.textContent = skill
-        btn.addEventListener('click', () => {
-          cardDisplay.textContent = `${general.name} 发动技能：${skill}`
-        })
-        skills.appendChild(btn)
-      })
-    }
-  }
-  const statuses = statusAreas[seatIndex]
-  if (statuses) {
-    statuses.innerHTML = ''
-    if (general && !shouldHide) {
-      const statusList = [
-        { key: '翻面', value: general.status.turnedOver },
-        { key: '连环', value: general.status.chained },
-        { key: '死亡', value: general.status.dead },
-      ]
-      statusList.forEach((item) => {
-        const btn = document.createElement('button')
-        btn.className = item.value ? 'status active' : 'status'
-        btn.textContent = item.key
-        btn.addEventListener('click', () => {
-          general.status[item.key === '翻面' ? 'turnedOver' : item.key === '连环' ? 'chained' : 'dead'] =
-            !general.status[item.key === '翻面' ? 'turnedOver' : item.key === '连环' ? 'chained' : 'dead']
-          updateGeneralUI(seatIndex, general)
-        })
-        statuses.appendChild(btn)
-      })
-    }
   }
 }
 
@@ -970,19 +899,6 @@ drawButton.addEventListener('click', () => {
   sendMessage('action:move', { source: 'deck-top', targetZone: 'hand', targetSeat: currentSeat })
 })
 
-playClearButtons.forEach((button) => {
-  button.addEventListener('click', () => {
-    if (!ensureConnected()) {
-      return
-    }
-    const seatIndex = Number(button.dataset.playClear)
-    if (currentSeat === null || currentSeat !== seatIndex) {
-      return
-    }
-    sendMessage('play:clear')
-  })
-})
-
 publicNotes.forEach((note) => {
   note.addEventListener('input', () => {
     if (!ensureConnected()) {
@@ -1058,14 +974,6 @@ playZones.forEach((zone) => {
   const playerIndex = Number(zone.dataset.playZone)
   attachDropZone(zone, 'play-area', playerIndex)
 })
-equipmentZones.forEach((zone) => {
-  const playerIndex = Number(zone.dataset.equipmentZone)
-  attachDropZone(zone, 'equipment', playerIndex)
-})
-equipmentSlots.forEach((slot) => {
-  const playerIndex = Number(slot.dataset.seat)
-  attachDropZone(slot, 'equipment', playerIndex)
-})
 judgeZones.forEach((zone) => {
   const playerIndex = Number(zone.dataset.judgeZone)
   attachDropZone(zone, 'judge', playerIndex)
@@ -1079,6 +987,7 @@ updateSeatStatus()
 renderAll()
 setPhase('lobby')
 updateUIStage()
+applyDebugSelectedGenerals()
 
 callButtons.forEach((button) => {
   button.addEventListener('click', () => {
@@ -1111,6 +1020,17 @@ newGameButton.addEventListener('click', () => {
     return
   }
   sendMessage('room:reset')
+})
+
+debugDealButton.addEventListener('click', () => {
+  const seatIndex = currentSeat ?? 0
+  const target = debugCardsBySeat[seatIndex]
+  const seed = debugCardSeeds[target.length % debugCardSeeds.length]
+  target.push({
+    ...seed,
+    id: `${seed.id}-debug-${Date.now()}-${Math.random()}`,
+  })
+  renderDebugArea(seatIndex)
 })
 
 connectButton.addEventListener('click', connectToRoom)

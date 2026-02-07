@@ -4,6 +4,7 @@ export type CardInstance = {
   id: string
   card: Card
   faceUp: boolean
+  visible: boolean
 }
 
 export type GameState = {
@@ -21,6 +22,7 @@ const createCardInstances = (cards: ReadonlyArray<Card>): CardInstance[] =>
     id: `card-${index + 1}`,
     card,
     faceUp: false,
+    visible: false,
   }))
 
 export const createGameState = (cards: ReadonlyArray<Card>, playerCount = 3): GameState => ({
@@ -58,6 +60,9 @@ export const drawFromDeck = (state: GameState, playerIndex: number, count = 1): 
     throw new Error('Not enough cards in deck')
   }
   const drawn = state.deck.splice(0, count)
+  drawn.forEach((card) => {
+    card.visible = true
+  })
   state.hands[playerIndex].push(...drawn)
   return drawn
 }
@@ -82,36 +87,43 @@ export const takeRandomFromHand = (state: GameState, playerIndex: number): CardI
 
 export const moveToDiscard = (state: GameState, card: CardInstance): void => {
   card.faceUp = true
+  card.visible = true
   state.discard.unshift(card)
 }
 
 export const moveToReveal = (state: GameState, card: CardInstance): void => {
   card.faceUp = true
+  card.visible = true
   state.reveal.unshift(card)
 }
 
 export const moveToPlayArea = (state: GameState, card: CardInstance, playerIndex: number): void => {
   card.faceUp = true
+  card.visible = true
   state.playAreas[playerIndex].unshift(card)
 }
 
 export const moveToEquipmentArea = (state: GameState, card: CardInstance, playerIndex: number): void => {
   card.faceUp = true
+  card.visible = true
   state.equipmentAreas[playerIndex].unshift(card)
 }
 
 export const moveToJudgeArea = (state: GameState, card: CardInstance, playerIndex: number): void => {
   card.faceUp = true
+  card.visible = true
   state.judgeAreas[playerIndex].unshift(card)
 }
 
 export const moveToDeckTop = (state: GameState, card: CardInstance): void => {
   card.faceUp = false
+  card.visible = false
   state.deck.unshift(card)
 }
 
 export const moveToDeckBottom = (state: GameState, card: CardInstance): void => {
   card.faceUp = false
+  card.visible = false
   state.deck.push(card)
 }
 

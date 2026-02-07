@@ -126,6 +126,378 @@ body {
   display: none;
 }
 
+.game-root[data-stage="in_game"] .judge-zone,
+.game-root[data-stage="in_game"] .notes,
+.game-root[data-stage="in_game"] .actions,
+.game-root[data-stage="in_game"] .center-area,
+.game-root[data-stage="in_game"] .center-controls,
+.game-root[data-stage="in_game"] .general-name,
+.game-root[data-stage="in_game"] .role-tag,
+.game-root[data-stage="in_game"] .seat-header {
+  display: none;
+}
+
+.game-root[data-stage="in_game"] .hand-area {
+  display: none;
+}
+
+.game-root[data-stage="in_game"] .toolbar {
+  display: none;
+}
+
+.game-root[data-stage="in_game"] {
+  padding: 0;
+  gap: 0;
+}
+
+.game-root[data-stage="in_game"] .table button {
+  display: none;
+}
+
+.debug-deal-btn {
+  display: none;
+}
+
+.screen-size {
+  position: fixed;
+  left: 50%;
+  top: 6px;
+  transform: translateX(-50%);
+  z-index: 20;
+  font-size: 11px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.9);
+  background: rgba(15, 27, 20, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 8px;
+  padding: 2px 6px;
+  pointer-events: none;
+  letter-spacing: 0.2px;
+}
+
+[data-size-target] {
+  position: relative;
+}
+
+.size-label {
+  position: absolute;
+  left: 4px;
+  top: 4px;
+  z-index: 10;
+  font-size: 10px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.95);
+  background: rgba(15, 27, 20, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  padding: 2px 4px;
+  pointer-events: none;
+  line-height: 1;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+}
+
+.game-root[data-stage="in_game"] .table {
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-areas:
+    "left right"
+    ". ."
+    "bottom bottom";
+  padding: 0;
+  gap: 0;
+  border-radius: 0;
+  border: none;
+  width: 100%;
+  min-height: 100vh;
+  background: #0f1b14;
+  position: relative;
+}
+
+.game-root[data-stage="in_game"] .table .debug-deal-btn {
+  display: inline-flex;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+}
+
+.game-root[data-stage="in_game"] .seat {
+  padding: 0;
+  border: none;
+  background: transparent;
+  height: 100%;
+  align-self: stretch;
+  justify-self: stretch;
+}
+
+.game-root[data-stage="in_game"] .seat.left,
+.game-root[data-stage="in_game"] .seat.right {
+  height: 33.333vh;
+}
+
+.game-root[data-stage="in_game"] .seat.bottom {
+  height: 33.333vh;
+}
+
+.game-root[data-stage="in_game"] {
+  --card-height: 25vh;
+  --card-aspect: 1.37;
+}
+
+.game-root[data-stage="in_game"] .hp-controls .hp-btn {
+  display: inline-flex;
+}
+
+.game-root[data-stage="in_game"] .seat-body {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 6px;
+  height: 100%;
+  width: 100%;
+}
+
+.game-root[data-stage="in_game"] .general {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 6px;
+  width: 100%;
+  height: 100%;
+}
+
+.game-root[data-stage="in_game"] .general-portrait {
+  height: var(--card-height);
+  aspect-ratio: 3 / 4;
+  width: auto;
+  flex: 0 0 auto;
+  align-self: center;
+  border-radius: 0;
+  background-position: left center;
+  background-size: cover;
+}
+
+.game-root[data-stage="in_game"] .hp {
+  display: inline-flex;
+  font-size: 10px;
+  font-weight: 900;
+  color: #ffcf5a;
+  letter-spacing: 0.25px;
+  white-space: pre-line;
+  line-height: 1.05;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+.game-root[data-stage="in_game"] .hp-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: auto;
+}
+
+.game-root[data-stage="in_game"] .general-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 6px;
+}
+
+.game-root[data-stage="in_game"] .seat.bottom .general-meta {
+  align-self: stretch;
+}
+
+.game-root[data-stage="in_game"] .seat.bottom .debug-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-self: stretch;
+  flex: 1 1 auto;
+  min-width: 180px;
+  position: relative;
+  height: var(--card-height);
+  overflow: visible;
+}
+
+.game-root[data-stage="in_game"] .seat.bottom .side-panel {
+  height: calc(var(--card-height) * 0.35);
+  width: 100%;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%;
+  margin-top: 6px;
+  aspect-ratio: auto;
+  border-radius: 8px;
+  border: 2px solid #ff3b30;
+  background: transparent;
+  display: grid;
+  gap: 4px;
+  padding: 4px;
+}
+
+.game-root[data-stage="in_game"] .seat.bottom .slot-grid {
+  display: grid;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+  grid-template-rows: 1fr;
+  gap: 4px;
+}
+
+/* In game: opponent seats (left/right) use a 2x2 layout.
+   Left half: portrait + HP/buttons. Right half: debug cards (top) + skill/equip (bottom). */
+.game-root[data-stage="in_game"] .seat.left .general,
+.game-root[data-stage="in_game"] .seat.right .general {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: stretch;
+  justify-items: stretch;
+  gap: 6px;
+}
+
+.game-root[data-stage="in_game"] .seat.left .general-portrait,
+.game-root[data-stage="in_game"] .seat.right .general-portrait {
+  grid-column: 1;
+  grid-row: 1;
+  height: 100%;
+  width: 100%;
+  aspect-ratio: auto;
+}
+
+.game-root[data-stage="in_game"] .seat.left .general-meta,
+.game-root[data-stage="in_game"] .seat.right .general-meta {
+  grid-column: 1;
+  grid-row: 2;
+  align-self: stretch;
+  justify-content: space-between;
+}
+
+.game-root[data-stage="in_game"] .seat.left .debug-card-area,
+.game-root[data-stage="in_game"] .seat.right .debug-card-area {
+  grid-column: 2;
+  grid-row: 1;
+  height: 100%;
+  width: 100%;
+  min-width: 0;
+  min-height: 0;
+  align-self: stretch;
+}
+
+.game-root[data-stage="in_game"] .seat.left .side-panel,
+.game-root[data-stage="in_game"] .seat.right .side-panel {
+  grid-column: 2;
+  grid-row: 2;
+  height: 100%;
+  width: 100%;
+  min-width: 0;
+  min-height: 0;
+  align-self: stretch;
+  aspect-ratio: auto;
+}
+
+.game-root[data-stage="in_game"] .side-panel {
+  height: 75%;
+  aspect-ratio: 3 / 4;
+  width: auto;
+  border-radius: 8px;
+  border: 2px solid #ff3b30;
+  background: transparent;
+  flex: 0 0 auto;
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.game-root[data-stage="in_game"] .seat.left .side-panel,
+.game-root[data-stage="in_game"] .seat.right .side-panel {
+  height: 100%;
+  flex: 1 1 auto;
+}
+
+.game-root[data-stage="in_game"] .side-panel-slot {
+  flex: 1;
+  border-top: 1px solid rgba(255, 59, 48, 0.8);
+  padding: 4px;
+  display: flex;
+}
+
+.game-root[data-stage="in_game"] .side-panel-slot:first-child {
+  border-top: none;
+}
+
+.game-root[data-stage="in_game"] .slot-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 3px;
+  width: 100%;
+  height: 100%;
+}
+
+.game-root[data-stage="in_game"] .slot-input {
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 59, 48, 0.6);
+  background: rgba(0, 0, 0, 0.25);
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 10px;
+  font-weight: 600;
+  text-align: center;
+  padding: 0;
+}
+
+.game-root[data-stage="in_game"] .slot-input:focus {
+  outline: 2px solid rgba(255, 59, 48, 0.85);
+  outline-offset: 0;
+}
+
+
+.game-root[data-stage="in_game"] .equipment-zone {
+  grid-area: equip;
+  align-self: start;
+}
+
+.game-root[data-stage="in_game"] .skill-status-zone {
+  grid-area: skill;
+  align-self: end;
+}
+
+.game-root[data-stage="in_game"] .hp-btn {
+  font-size: 12px;
+  font-weight: 800;
+  padding: 2px 0;
+  height: 16px;
+  width: 16px;
+  border-radius: 6px;
+  line-height: 1;
+}
+
+.game-root[data-stage="in_game"] .hp-btn[data-hp-action="max-inc"],
+.game-root[data-stage="in_game"] .hp-btn[data-hp-action="max-dec"] {
+  background: transparent;
+  color: rgba(255, 255, 255, 0.92);
+  border: 2px solid rgba(255, 255, 255, 0.7);
+  box-shadow: none;
+}
+
+.game-root[data-stage="in_game"] .hp-btn[data-hp-action="hp-inc"],
+.game-root[data-stage="in_game"] .hp-btn[data-hp-action="hp-dec"] {
+  background: rgba(255, 255, 255, 0.92);
+  color: #0f1b14;
+  border: 2px solid rgba(255, 255, 255, 0.92);
+  box-shadow: none;
+}
+
+.game-root[data-stage="in_game"] .seat:not(.active) .hp,
+.game-root[data-stage="in_game"] .seat:not(.active) .hp-controls {
+  display: inherit;
+}
+
 .seat-picker .label {
   color: #c5d7cb;
 }
@@ -889,6 +1261,12 @@ button.selected {
   border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
+.hand-area.opponent-hand .card-tile.back {
+  background: linear-gradient(135deg, #7b1e24, #b33a3a);
+  color: #ffe9e9;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
 .card-tile.disabled {
   opacity: 0.5;
   cursor: not-allowed;
@@ -1127,4 +1505,166 @@ button.selected {
     font-size: 10px;
     padding: 4px;
   }
+}
+.game-root[data-stage="in_game"] .debug-card-area {
+  --debug-card-width: calc(var(--card-height) / var(--card-aspect));
+  height: var(--card-height);
+  min-width: 180px;
+  flex: 1 1 auto;
+  border-radius: 10px;
+  border: 2px dashed rgba(255, 255, 255, 0.3);
+  background: rgba(0, 0, 0, 0.2);
+  padding: 6px;
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 6px;
+  align-content: flex-start;
+  position: relative;
+  overflow: visible;
+}
+
+.game-root[data-stage="in_game"] .seat.left .debug-card-area,
+.game-root[data-stage="in_game"] .seat.right .debug-card-area {
+  height: var(--card-height);
+  flex: 0 0 auto;
+}
+
+.game-root[data-stage="in_game"] .debug-card-area.stacked {
+  display: block;
+}
+
+.game-root[data-stage="in_game"] .debug-card {
+  width: var(--debug-card-width);
+  height: var(--card-height);
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.25);
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.05));
+  color: #fff;
+  font-size: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 6px;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  position: relative;
+  --stack-x: 0px;
+  --lift-y: 0px;
+  transform: translate(var(--stack-x), var(--lift-y));
+}
+
+.game-root[data-stage="in_game"] .card-tile,
+.game-root[data-stage="in_game"] .card-slot {
+  height: var(--card-height);
+  width: calc(var(--card-height) / var(--card-aspect));
+}
+
+@media (max-width: 430px) {
+  .game-root[data-stage="in_game"] {
+    --card-height: 56px;
+  }
+
+  .card-tile,
+  .card-slot {
+    width: 40px;
+    height: 56px;
+    font-size: 9px;
+  }
+
+  .hand-zone {
+    min-height: 36px;
+    max-height: 72px;
+  }
+
+  .play-cards .card-tile {
+    width: 40px;
+    height: 56px;
+    font-size: 9px;
+  }
+
+  .game-root[data-stage="in_game"] .debug-card-area {
+    --debug-card-width: 56px;
+    min-width: 150px;
+    padding: 4px;
+    gap: 4px;
+  }
+
+  .game-root[data-stage="in_game"] .debug-card {
+    padding: 4px;
+    font-size: 9px;
+  }
+
+  .game-root[data-stage="in_game"] .debug-card-name {
+    top: 20px;
+    font-size: 8px;
+  }
+
+  .game-root[data-stage="in_game"] .debug-card-suit {
+    font-size: 9px;
+  }
+}
+
+.game-root[data-stage="in_game"] .debug-card.selected {
+  --lift-y: -50%;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.35);
+  z-index: 3;
+}
+
+.game-root[data-stage="in_game"] .debug-card-area.stacked .debug-card {
+  position: absolute;
+  left: 8px;
+  top: 8px;
+  --stack-x: calc(var(--stack-index) * var(--stack-gap, 8px));
+}
+
+.game-root[data-stage="in_game"] .debug-card-name {
+  font-weight: 700;
+  position: absolute;
+  left: 25%;
+  top: 24px;
+  bottom: 6px;
+  transform: translateX(-50%);
+  writing-mode: vertical-lr;
+  text-orientation: upright;
+  letter-spacing: 1px;
+  font-size: 9px;
+  line-height: 1.1;
+}
+
+.game-root[data-stage="in_game"] .debug-card.spade,
+.game-root[data-stage="in_game"] .debug-card.club {
+  color: #f6f7fb;
+  background: linear-gradient(160deg, #0f172a, #111827);
+}
+
+.game-root[data-stage="in_game"] .debug-card.club {
+  color: #f2fff6;
+  background: linear-gradient(160deg, #0f3b1c, #12301f);
+}
+
+.game-root[data-stage="in_game"] .debug-card.heart,
+.game-root[data-stage="in_game"] .debug-card.diamond {
+  color: #fff6f6;
+  background: linear-gradient(160deg, #7a0f2a, #4c0b1b);
+}
+
+.game-root[data-stage="in_game"] .debug-card.diamond {
+  color: #fff7ef;
+  background: linear-gradient(160deg, #7a3a0f, #4a2508);
+}
+
+.game-root[data-stage="in_game"] .debug-card-suit {
+  font-size: 10px;
+  font-weight: 700;
+  opacity: 0.95;
+  position: absolute;
+  left: 25%;
+  top: 6px;
+  bottom: 6px;
+  transform: translateX(-50%);
+  white-space: pre-line;
+  line-height: 1.1;
+  letter-spacing: 0;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.45);
 }
