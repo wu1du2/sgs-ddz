@@ -65,17 +65,19 @@ app.innerHTML = `
         </div>
         <div class="seat-body">
           <div class="general" data-general="0" data-size-target="general">
-            <div class="general-portrait" data-portrait="0" data-size-target="portrait">未选择</div>
-            <div class="general-name">未选将</div>
-          <div class="general-meta" data-size-target="hp-area">
-              <span class="hp" data-hp="0">HP 0/0</span>
-              <div class="hp-controls" data-hp-controls="0">
-                <button class="hp-btn" data-hp-action="hp-inc" data-seat="0">+</button>
-                <button class="hp-btn" data-hp-action="hp-dec" data-seat="0">-</button>
-                <button class="hp-btn" data-hp-action="max-inc" data-seat="0">➕</button>
-                <button class="hp-btn" data-hp-action="max-dec" data-seat="0">➖</button>
+            <div class="portrait-stack" data-size-target="portrait-stack">
+              <div class="general-portrait" data-portrait="0" data-size-target="portrait">未选择</div>
+              <div class="general-meta" data-size-target="hp-area">
+                <span class="hp" data-hp="0">HP 0/0</span>
+                <div class="hp-controls" data-hp-controls="0">
+                  <button class="hp-btn" data-hp-action="hp-inc" data-seat="0">+</button>
+                  <button class="hp-btn" data-hp-action="hp-dec" data-seat="0">-</button>
+                  <button class="hp-btn" data-hp-action="max-inc" data-seat="0">➕</button>
+                  <button class="hp-btn" data-hp-action="max-dec" data-seat="0">➖</button>
+                </div>
               </div>
             </div>
+            <div class="general-name">未选将</div>
             <div class="debug-stack" data-size-target="debug-stack">
               <div class="debug-card-area" data-debug-area="0" data-size-target="debug-cards"></div>
               <div class="side-panel" aria-hidden="true" data-size-target="skills">
